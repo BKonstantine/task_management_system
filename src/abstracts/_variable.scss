@@ -1,16 +1,22 @@
 $bgc-primary-default: #1f75cb;
 $bgc-primary-hover: #1068bf;
 $bgc-primary-active: #0b5cad;
+$bgc-primary-disabled: #dcdcde;
 
 $bgc-secondary-default: #ffffff;
 $bgc-secondary-hover: #ececef;
 $bgc-secondary-active: #dcdcde;
+$bgc-secondary-disabled: #dcdcde;
 
 $border-color-default: rgba(0, 0, 0, 0.15);
 $border-color-hover: rgba(18, 19, 22, 0.5);
 $border-color-active: #1c1c1c;
+$border-color-error: #ee4222;
+$border-color-disabled: rgba(0, 0, 0, 0.15);
 $border-color-bronze: #9e6955;
 
 $font-color-primary: #1c1c1c;
 $font-color-secondary: #ffffff;
 $font-color-disabled: #8e8e8e;
+$font-color-error: #ee4222;
+$font-color-placeholder: #d9d9d9;
