@@ -1,10 +1,5 @@
 <template>
-  <button
-    :class="buttonClasses"
-    :type="type"
-    :disabled="disabled"
-    class="button"
-  >
+  <button :class="classObject" :type="type" :disabled="disabled" class="button">
     {{ text }}
   </button>
 </template>
@@ -61,6 +56,10 @@ export default {
   background-color: $bgc-primary-default;
   @include font-setting(400, 14px, 19px, $font-color-secondary);
 
+  &_size_small {
+    width: 42px;
+  }
+
   &:hover {
     background-color: $bgc-primary-hover;
   }
@@ -94,10 +93,6 @@ export default {
       background-color: $bgc-secondary-default;
       color: $font-color-disabled;
     }
-  }
-
-  &_size_small {
-    width: 42px;
   }
 }
 </style>
