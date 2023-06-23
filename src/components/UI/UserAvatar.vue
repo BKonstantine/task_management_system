@@ -40,7 +40,7 @@ export default {
       object-fit: cover;
     }
     &_text {
-      @include flex-settin(_, center, center);
+      @include flex-setting(_, center, center);
       @include font-setting(600, 10px, 100%, $font-color-disabled);
       background-color: $bgc-secondary-active;
     }

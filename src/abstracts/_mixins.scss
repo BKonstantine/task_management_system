@@ -12,7 +12,7 @@
   background-size: contain;
 }
 
-@mixin flex-settin($direction: initial, $align: initial, $justify: initial, $gap: initial) {
+@mixin flex-setting($direction: initial, $align: initial, $justify: initial, $gap: initial) {
   display: flex;
   flex-direction: $direction;
   align-items: $align;

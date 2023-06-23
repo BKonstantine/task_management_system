@@ -1,5 +1,7 @@
 <template>
-  <button class=""><UserAvatar /><SvgIcon id="#dots" /></button>
+  <button class="button">
+    <UserAvatar alt="Бузунов Костя" /><SvgIcon id="#dots" />
+  </button>
 </template>
 
 <script>
@@ -16,5 +18,6 @@ export default {
 
 <style lang="scss" scoped>
 .button {
+  @include flex-setting(_, center, _, 8px);
 }
 </style>

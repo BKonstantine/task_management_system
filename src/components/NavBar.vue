@@ -40,13 +40,13 @@ export default {
 }
 
 .nav {
-  @include flex-settin(_, center, _, 24px);
+  @include flex-setting(_, center, _, 24px);
 
   &__list {
     margin: 0;
     margin-left: auto;
     padding: 0;
-    @include flex-settin(_, center, _, 24px);
+    @include flex-setting(_, center, _, 24px);
   }
 
   &__item {

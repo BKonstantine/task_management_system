@@ -32,7 +32,7 @@ export default {
   padding: 0 16px;
   min-height: 42px;
   text-decoration: none;
-  @include flex-settin(_, center);
+  @include flex-setting(_, center);
   width: min-content;
   border: 1px solid $bgc-secondary-default;
   border-radius: 4px;

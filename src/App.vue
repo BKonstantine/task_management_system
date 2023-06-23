@@ -1,15 +1,18 @@
 <template>
   <div id="app" class="app">
     <NavBar />
+    <ButtonProfile />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import ButtonProfile from "./components/UI/ButtonProfile.vue";
 export default {
   name: "App",
   components: {
     NavBar,
+    ButtonProfile,
   },
 };
 </script>

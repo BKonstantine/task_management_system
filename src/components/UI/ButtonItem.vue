@@ -53,7 +53,7 @@ export default {
   font-family: inherit;
   padding: 0 16px;
   min-height: 42px;
-  @include flex-settin(_, center);
+  @include flex-setting(_, center);
   width: min-content;
   border: none;
   border-radius: 4px;
