@@ -1,5 +1,10 @@
 <template>
-  <button :class="classObject" :type="type" :disabled="disabled" class="button">
+  <button
+    :class="classObject"
+    :type="type"
+    :disabled="disabled"
+    class="button-item"
+  >
     {{ text }}
   </button>
 </template>
@@ -43,12 +48,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.button {
+<style lang="scss" scoped>
+.button-item {
   font-family: inherit;
   padding: 0 16px;
-  @include flex-settin(_, center);
   min-height: 42px;
+  @include flex-settin(_, center);
+  width: min-content;
   border: none;
   border-radius: 4px;
   background-color: $bgc-primary-default;
