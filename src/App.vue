@@ -1,18 +1,15 @@
 <template>
   <div id="app" class="app">
-    <ButtonItem text="text" />
-    <NavLink to="/to" text="link" />
+    <NavBar />
   </div>
 </template>
 
 <script>
-import ButtonItem from "@/components/UI/ButtonItem.vue";
-import NavLink from "@/components/UI/NavLink.vue";
+import NavBar from "@/components/NavBar.vue";
 export default {
   name: "App",
   components: {
-    ButtonItem,
-    NavLink,
+    NavBar,
   },
 };
 </script>
