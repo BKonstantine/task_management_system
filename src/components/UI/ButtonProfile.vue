@@ -1,8 +1,8 @@
 <template>
-  <button class="button pointer">
+  <button class="button-profile pointer">
     <UserAvatar alt="Бузунов Костя" /><SvgIcon
       id="#drop_down_1"
-      class="button__icon"
+      class="button-profile__icon"
     />
   </button>
 </template>
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.button {
+.button-profile {
   padding: 0 16px;
   @include flex-setting(_, center, _, 8px);
   min-height: 42px;
@@ -38,8 +38,6 @@ export default {
   }
 
   &__icon {
-    width: 24px;
-    height: 24px;
     color: $bgc-secondary-default;
   }
 

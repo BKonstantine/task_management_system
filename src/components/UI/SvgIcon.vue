@@ -1,5 +1,5 @@
 <template>
-  <svg>
+  <svg class="icon">
     <use :xlink:href="id" />
   </svg>
 </template>
@@ -16,4 +16,9 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.icon {
+  width: 24px;
+  height: 24px;
+}
+</style>

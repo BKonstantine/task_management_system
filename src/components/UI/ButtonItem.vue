@@ -1,9 +1,9 @@
 <template>
   <button
-    :class="classObject"
+    :class="buttonClasses"
     :type="type"
     :disabled="disabled"
-    class="button-item"
+    class="button"
   >
     {{ text }}
   </button>
@@ -43,13 +43,14 @@ export default {
     },
     secondaryStyle: {
       type: Boolean,
+      default: true,
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.button-item {
+.button {
   font-family: inherit;
   padding: 0 16px;
   min-height: 42px;
