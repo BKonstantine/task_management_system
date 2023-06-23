@@ -1,6 +1,9 @@
 <template>
-  <button class="button">
-    <UserAvatar alt="Бузунов Костя" /><SvgIcon id="#dots" />
+  <button class="button pointer">
+    <UserAvatar alt="Бузунов Костя" /><SvgIcon
+      id="#drop_down_1"
+      class="button__icon"
+    />
   </button>
 </template>
 
@@ -18,6 +21,30 @@ export default {
 
 <style lang="scss" scoped>
 .button {
+  padding: 0 16px;
   @include flex-setting(_, center, _, 8px);
+  min-height: 42px;
+  background-color: $bgc-primary-default;
+  border: 1px solid $bgc-primary-default;
+  border-radius: 4px;
+
+  &:hover {
+    border: 1px solid $bgc-secondary-default;
+  }
+
+  &:active {
+    background-color: $bgc-secondary-default;
+    border: 1px solid $bgc-secondary-default;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    color: $bgc-secondary-default;
+  }
+
+  &:active &__icon {
+    color: $bgc-secondary-active;
+  }
 }
 </style>

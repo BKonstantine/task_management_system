@@ -5,17 +5,20 @@
         <li class="nav__item" :key="index" v-for="(link, index) in links">
           <NavLink :to="link.to" :text="link.text" />
         </li>
+        <ButtonProfile />
       </ul>
     </nav>
   </header>
 </template>
 
 <script>
+import ButtonProfile from "./UI/ButtonProfile.vue";
 import NavLink from "@/components/UI/NavLink.vue";
 export default {
   name: "NavBar",
   components: {
     NavLink,
+    ButtonProfile,
   },
   data() {
     return {
