@@ -5,7 +5,7 @@
     :disabled="disabled"
     class="button"
   >
-    <slot :class="iconClasses"></slot>
+    <div :class="iconClasses"><slot></slot></div>
   </button>
 </template>
 
@@ -20,8 +20,8 @@ export default {
         button_style_secondary: this.secondaryStyle,
       },
       iconClasses: {
-        button__icon: false,
-        button__icon_style_secondary: false,
+        primary: !this.secondaryStyle,
+        secondary: this.secondaryStyle,
       },
     };
   },
@@ -67,21 +67,39 @@ export default {
     background-color: $bgc-primary-disabled;
   }
 
-  &:disabled &__icon {
+  &:disabled .primary {
     color: $font-color-disabled;
   }
 
   &_style_secondary {
     border: 1px solid $border-color-default;
     background-color: $bgc-secondary-default;
-  }
 
-  &__icon {
-    color: $font-color-secondary;
+    &:hover {
+      border: 1px solid $border-color-hover;
+      background-color: $bgc-secondary-hover;
+    }
 
-    &_style_secondary {
-      color: $font-color-primary;
+    &:active {
+      border: 1px solid $border-color-active;
+      background-color: $bgc-secondary-active;
+    }
+
+    &:disabled {
+      border: 1px solid $border-color-disabled;
+      background-color: $bgc-secondary-default;
+    }
+
+    &:disabled .secondary {
+      color: $font-color-disabled;
     }
   }
+}
+.primary {
+  color: $font-color-secondary;
+}
+
+.secondary {
+  color: $font-color-primary;
 }
 </style>
