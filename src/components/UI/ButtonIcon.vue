@@ -12,6 +12,20 @@
 <script>
 export default {
   name: "ButtonIcon",
+  data() {
+    return {
+      buttonClasses: {
+        pointer: !this.disabled,
+        default: this.disabled,
+        button_style_secondary: this.secondaryStyle,
+      },
+      iconClasses: {
+        button__icon: false,
+        button__icon_style_secondary: false,
+      },
+    };
+  },
+
   props: {
     type: {
       validator: function (value) {
@@ -25,22 +39,6 @@ export default {
     },
     secondaryStyle: {
       type: Boolean,
-      default: true,
-    },
-  },
-  computed: {
-    buttonClasses: function () {
-      return {
-        pointer: !this.disabled,
-        default: this.disabled,
-        button_style_secondary: this.secondaryStyle,
-      };
-    },
-    iconClasses: function () {
-      return {
-        /* icon: true, */
-        icon_style_secondary: this.secondaryStyle,
-      };
     },
   },
 };
@@ -69,7 +67,7 @@ export default {
     background-color: $bgc-primary-disabled;
   }
 
-  &:disabled .icon {
+  &:disabled &__icon {
     color: $font-color-disabled;
   }
 
@@ -77,13 +75,13 @@ export default {
     border: 1px solid $border-color-default;
     background-color: $bgc-secondary-default;
   }
-}
 
-.icon {
-  color: $font-color-secondary;
+  &__icon {
+    color: $font-color-secondary;
 
-  &_style_secondary {
-    color: $font-color-primary;
+    &_style_secondary {
+      color: $font-color-primary;
+    }
   }
 }
 </style>
