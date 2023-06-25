@@ -18,15 +18,11 @@
         </span>
       </div>
     </div>
-    <div v-if="showSetting" class="project-item__setting">
-      <ButtonIcon @click="toggleDropDown" :secondary-style="true">
+    <div v-show="setting" class="project-item__setting">
+      <ButtonIcon :onClick="toggleDropDown" :secondary-style="true">
         <SvgIcon id="#dots" />
       </ButtonIcon>
-      <DropDown
-        v-if="showDropDown"
-        :items="dropDownList"
-        :checkLastItem="true"
-      />
+      <DropDown v-show="dropDown" :items="dropDownList" :checkLastItem="true" />
     </div>
   </div>
 </template>
@@ -45,22 +41,19 @@ export default {
   data() {
     return {
       dropDownList: ["Редактировать", "Удалить"],
-      showSetting: false,
-      showDropDown: false,
+      setting: false,
+      dropDown: false,
     };
   },
   methods: {
     showSettings() {
-      this.showSetting = true;
+      this.setting = true;
     },
     hideSettings() {
-      this.showSetting = false;
+      this.setting = false;
     },
     toggleDropDown() {
-      console.log("Click");
-      if (this.showSetting) {
-        this.showDropDown = !this.showDropDown;
-      }
+      this.dropDown = !this.dropDown;
     },
   },
   props: {

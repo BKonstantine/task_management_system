@@ -1,5 +1,6 @@
 <template>
   <button
+    @click="onClick"
     :class="buttonClasses"
     :type="type"
     :disabled="disabled"
@@ -41,6 +42,9 @@ export default {
     },
     secondaryStyle: {
       type: Boolean,
+    },
+    onClick: {
+      type: Function,
     },
   },
 };
