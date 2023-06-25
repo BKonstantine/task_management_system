@@ -3,6 +3,7 @@
     class="project-item pointer"
     @mouseenter="showSettings"
     @mouseleave="hideSettings"
+    @click="hideAll"
   >
     <div class="project-item__container">
       <p class="project-item__title">{{ projectData.title }}</p>
@@ -18,7 +19,7 @@
         </span>
       </div>
     </div>
-    <div v-show="setting" class="project-item__setting">
+    <div v-show="setting || dropDown" class="project-item__setting">
       <ButtonIcon :onClick="toggleDropDown" :secondary-style="true">
         <SvgIcon id="#dots" />
       </ButtonIcon>
@@ -54,6 +55,13 @@ export default {
     },
     toggleDropDown() {
       this.dropDown = !this.dropDown;
+    },
+    hideAll(event) {
+      const isButton = event.target.closest(".button");
+      if (!isButton) {
+        this.setting = false;
+        this.dropDown = false;
+      }
     },
   },
   props: {
