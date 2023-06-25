@@ -1,26 +1,84 @@
 <template>
-  <div class="project-item">
+  <div
+    class="project-item pointer"
+    @mouseenter="showSettings"
+    @mouseleave="hideSettings"
+  >
     <div class="project-item__container">
-      <p class="project-item__title">Название</p>
+      <p class="project-item__title">{{ projectData.title }}</p>
       <div class="project-item__footer">
         <span class="project-item__info project-item__info_color_primary">
-          #1
+          {{ projectData.number }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          Иванов И.И. создал 1 час назад
+          {{ projectData.created }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          Баранов В.В. изменил 1 минуту назад
+          {{ projectData.changed }}
         </span>
       </div>
     </div>
-    <div class="project-item__setting"></div>
+    <div v-if="showSetting" class="project-item__setting">
+      <ButtonIcon @click="toggleDropDown" :secondary-style="true">
+        <SvgIcon id="#dots" />
+      </ButtonIcon>
+      <DropDown
+        v-if="showDropDown"
+        :items="dropDownList"
+        :checkLastItem="true"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import ButtonIcon from "./ButtonIcon.vue";
+import SvgIcon from "./SvgIcon.vue";
+import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "ProjectItem",
+  components: {
+    ButtonIcon,
+    SvgIcon,
+    DropDown,
+  },
+  data() {
+    return {
+      dropDownList: ["Редактировать", "Удалить"],
+      showSetting: false,
+      showDropDown: false,
+    };
+  },
+  methods: {
+    showSettings() {
+      this.showSetting = true;
+    },
+    hideSettings() {
+      this.showSetting = false;
+    },
+    toggleDropDown() {
+      console.log("Click");
+      if (this.showSetting) {
+        this.showDropDown = !this.showDropDown;
+      }
+    },
+  },
+  props: {
+    projectData: {
+      title: {
+        type: String,
+      },
+      number: {
+        type: String,
+      },
+      created: {
+        type: String,
+      },
+      changed: {
+        type: String,
+      },
+    },
+  },
 };
 </script>
 
@@ -32,11 +90,10 @@ export default {
   box-sizing: border-box;
   display: flex;
   border-bottom: 1px solid $border-color-active;
-  cursor: pointer;
 
   &__container {
     width: 100%;
-    @include flex-settin(column, _, space-between);
+    @include flex-setting(column, _, space-between);
   }
 
   &__title {
@@ -53,7 +110,7 @@ export default {
   }
 
   &__footer {
-    @include flex-settin(_, _, _, 16px);
+    @include flex-setting(_, _, _, 16px);
   }
 
   &__info {
@@ -69,7 +126,13 @@ export default {
   }
 
   &__setting {
+    margin-left: 16px;
     position: relative;
+    @include flex-setting(column, _, center, 2px);
   }
+
+  /* &__button {
+    margin-left: 16px;
+  } */
 }
 </style>
