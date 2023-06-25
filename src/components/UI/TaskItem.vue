@@ -3,20 +3,22 @@
     <div class="task-item__container">
       <div class="task-item__header">
         <p class="task-item__title">
-          Text is too long. Очень длинное название проекта, создано специального
-          для того чтоб не вместилось в одну строку, что позволит проверить не
-          ломается ли верстка.
+          {{ taskData.title }}
         </p>
         <UserAvatar alt="Бузунов Константин Андреевич" />
       </div>
       <div class="task-item__footer">
-        <span class="task-item__info task-item__info_color_primary"> #1 </span>
-        <span class="task-item__info task-item__info_color_disabled">
-          Иванов И.И. создал 1 час назад
+        <span class="task-item__info task-item__info_color_primary">
+          {{ taskData.number }}
         </span>
-        <span class="task-item__info task-item_type_status"> Черновик </span>
         <span class="task-item__info task-item__info_color_disabled">
-          Баранов В.В. изменил 1 минуту назад
+          {{ taskData.created }}
+        </span>
+        <span class="task-item__info task-item_type_status">
+          {{ taskData.status }}
+        </span>
+        <span class="task-item__info task-item__info_color_disabled">
+          {{ taskData.changed }}
         </span>
       </div>
     </div>
@@ -60,12 +62,28 @@ export default {
       this.setting = !this.setting;
       this.dropDown = !this.dropDown;
     },
-    hideAll(event) {
-      const isButton = event.target.closest(".button");
-      if (!isButton) {
-        this.setting = false;
-        this.dropDown = false;
-      }
+    hideDropDown() {
+      this.setting = false;
+      this.dropDown = false;
+    },
+  },
+  props: {
+    taskData: {
+      title: {
+        type: String,
+      },
+      number: {
+        type: String,
+      },
+      status: {
+        type: String,
+      },
+      created: {
+        type: String,
+      },
+      changed: {
+        type: String,
+      },
     },
   },
 };
@@ -83,11 +101,11 @@ export default {
 
   &__container {
     width: 100%;
-    @include flex-settin(column, _, space-between);
+    @include flex-setting(column, _, space-between);
   }
 
   &__header {
-    @include flex-settin(_, center, space-between);
+    @include flex-setting(_, center, space-between);
   }
 
   &__title {
@@ -105,7 +123,7 @@ export default {
   }
 
   &__footer {
-    @include flex-settin(_, _, _, 16px);
+    @include flex-setting(_, _, _, 16px);
   }
 
   &__info {
