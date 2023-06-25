@@ -38,7 +38,6 @@ export default {
     },
     secondaryStyle: {
       type: Boolean,
-      default: true,
     },
   },
 };
