@@ -1,6 +1,6 @@
 <template>
   <button class="button-profile pointer">
-    <UserAvatar alt="Бузунов Костя" /><SvgIcon
+    <UserAvatar alt="Бузунов Константин Андреевич" /><SvgIcon
       id="#drop_down_1"
       class="button-profile__icon"
     />
