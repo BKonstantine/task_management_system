@@ -1,11 +1,12 @@
 <template>
   <ul class="drop-down">
     <DropDownItem
-      :text="item"
       :key="index"
       v-for="(item, index) in items"
       :last="lastItem(index)"
-    />
+    >
+      {{ item }}
+    </DropDownItem>
   </ul>
 </template>
 

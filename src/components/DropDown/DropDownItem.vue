@@ -1,5 +1,5 @@
 <template>
-  <li :class="['item', { item_position_last: last }]">{{ text }}</li>
+  <li :class="['item', { item_position_last: last }]"><slot /></li>
 </template>
 
 <script>
