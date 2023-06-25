@@ -1,10 +1,13 @@
 <template>
   <PageContainer>
-    <ProjectItem
-      :projectData="item"
-      :key="index"
-      v-for="(item, index) in projectData"
-    />
+    <ul class="project-list">
+      <ProjectItem
+        :projectData="item"
+        :key="index"
+        v-for="(item, index) in projectData"
+      />
+    </ul>
+
     <!-- <ProjectStopper /> -->
   </PageContainer>
 </template>
@@ -42,4 +45,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.project-list {
+  height: 100%;
+  @include flex-setting(column, _, _, 10px);
+}
+</style>
