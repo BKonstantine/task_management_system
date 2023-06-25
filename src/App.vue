@@ -1,20 +1,15 @@
 <template>
   <div id="app" class="app">
-    <NavBar />
-    <ButtonIcon><SvgIcon id="#dots" /></ButtonIcon>
+    <RouterView />
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import ButtonIcon from "./components/UI/ButtonIcon.vue";
-import SvgIcon from "./components/UI/SvgIcon.vue";
+import { RouterView } from "vue-router";
 export default {
   name: "App",
   components: {
-    NavBar,
-    ButtonIcon,
-    SvgIcon,
+    RouterView,
   },
 };
 </script>

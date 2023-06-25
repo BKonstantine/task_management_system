@@ -8,12 +8,8 @@
 </template>
 
 <script>
-import { RouterLink } from "vue-router";
 export default {
   name: "NavLink",
-  components: {
-    RouterLink,
-  },
   props: {
     to: {
       type: String,
