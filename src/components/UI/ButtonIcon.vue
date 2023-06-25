@@ -19,6 +19,8 @@ export default {
         pointer: !this.disabled,
         default: this.disabled,
         button_style_secondary: this.secondaryStyle,
+        button_style_secondary_active: this.secondaryStyle && this.active,
+        button_active: !this.secondaryStyle && this.active,
       };
     },
     iconClasses: function () {
@@ -42,6 +44,11 @@ export default {
     },
     secondaryStyle: {
       type: Boolean,
+      default: false,
+    },
+    active: {
+      type: Boolean,
+      default: false,
     },
     onClick: {
       type: Function,
@@ -69,6 +76,10 @@ export default {
     background-color: $bgc-primary-active;
   }
 
+  &_active {
+    background-color: $bgc-primary-active;
+  }
+
   &:disabled {
     background-color: $bgc-primary-disabled;
   }
@@ -87,6 +98,11 @@ export default {
     }
 
     &:active {
+      border: 1px solid $border-color-active;
+      background-color: $bgc-secondary-active;
+    }
+
+    &_active {
       border: 1px solid $border-color-active;
       background-color: $bgc-secondary-active;
     }

@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="project-item pointer"
-    @mouseenter="showSettings"
-    @mouseleave="hideSettings"
-    @click="hideAll"
-  >
+  <div class="project-item pointer" @click="hideAll">
     <div class="project-item__container">
       <p class="project-item__title">{{ projectData.title }}</p>
       <div class="project-item__footer">
@@ -19,8 +14,17 @@
         </span>
       </div>
     </div>
-    <div v-show="setting || dropDown" class="project-item__setting">
-      <ButtonIcon :onClick="toggleDropDown" :secondary-style="true">
+    <div
+      :class="[
+        'project-item__setting',
+        { 'project-item__setting_active': setting },
+      ]"
+    >
+      <ButtonIcon
+        :onClick="toggleDropDown"
+        :secondary-style="true"
+        :active="dropDown"
+      >
         <SvgIcon id="#dots" />
       </ButtonIcon>
       <DropDown v-show="dropDown" :items="dropDownList" :checkLastItem="true" />
@@ -47,13 +51,8 @@ export default {
     };
   },
   methods: {
-    showSettings() {
-      this.setting = true;
-    },
-    hideSettings() {
-      this.setting = false;
-    },
     toggleDropDown() {
+      this.setting = !this.setting;
       this.dropDown = !this.dropDown;
     },
     hideAll(event) {
@@ -128,12 +127,17 @@ export default {
 
   &__setting {
     margin-left: 16px;
-    position: relative;
     @include flex-setting(column, _, center, 2px);
+    display: none;
+    position: relative;
+
+    &_active {
+      display: flex;
+    }
   }
 
-  /* &__button {
-    margin-left: 16px;
-  } */
+  &:hover &__setting {
+    display: flex;
+  }
 }
 </style>
