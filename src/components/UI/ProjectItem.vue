@@ -1,5 +1,5 @@
 <template>
-  <li class="project-item pointer" @click="hideAll">
+  <li class="project-item pointer">
     <div class="project-item__container">
       <p class="project-item__title">{{ projectData.title }}</p>
       <div class="project-item__footer">
@@ -55,12 +55,9 @@ export default {
       this.setting = !this.setting;
       this.dropDown = !this.dropDown;
     },
-    hideAll(event) {
-      const isButton = event.target.closest(".button");
-      if (!isButton) {
-        this.setting = false;
-        this.dropDown = false;
-      }
+    hideDropDown() {
+      this.setting = false;
+      this.dropDown = false;
     },
   },
   props: {
