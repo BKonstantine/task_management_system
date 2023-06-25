@@ -50,6 +50,7 @@ export default {
     DropDown,
     UserAvatar,
   },
+
   data() {
     return {
       dropDownList: ["Редактировать", "Удалить"],
@@ -57,6 +58,7 @@ export default {
       dropDown: false,
     };
   },
+
   methods: {
     toggleDropDown() {
       this.setting = !this.setting;
@@ -66,7 +68,21 @@ export default {
       this.setting = false;
       this.dropDown = false;
     },
+    hideAll(event) {
+      const isButton = event.target.closest("button");
+      if (!isButton) {
+        this.hideDropDown();
+      }
+    },
   },
+  mounted() {
+    document.addEventListener("click", this.hideAll);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener("click", this.hideAll);
+  },
+
   props: {
     taskData: {
       title: {

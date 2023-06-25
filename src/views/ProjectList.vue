@@ -4,7 +4,6 @@
       <ProjectItem
         :projectData="item"
         :key="index"
-        ref="ProjectItem"
         v-for="(item, index) in projectData"
       />
     </ul>
@@ -23,24 +22,6 @@ export default {
     PageContainer,
     ProjectItem,
     /* ProjectStopper, */
-  },
-  methods: {
-    hideAll(event) {
-      const isButton = event.target.closest("button");
-      const list = this.$refs.ProjectItem;
-      if (!isButton) {
-        list.forEach((item) => {
-          item.hideDropDown();
-        });
-      }
-    },
-  },
-  mounted() {
-    document.addEventListener("click", this.hideAll);
-  },
-
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideAll);
   },
 
   data() {

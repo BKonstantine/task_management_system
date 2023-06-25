@@ -59,6 +59,19 @@ export default {
       this.setting = false;
       this.dropDown = false;
     },
+    hideAll(event) {
+      const isButton = event.target.closest("button");
+      if (!isButton) {
+        this.hideDropDown();
+      }
+    },
+  },
+  mounted() {
+    document.addEventListener("click", this.hideAll);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener("click", this.hideAll);
   },
   props: {
     projectData: {

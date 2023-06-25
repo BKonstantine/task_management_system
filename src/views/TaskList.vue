@@ -4,7 +4,6 @@
       <TaskItem
         :taskData="item"
         :key="index"
-        ref="TaskItem"
         v-for="(item, index) in taskData"
       />
     </ul>
@@ -18,29 +17,13 @@ import TaskStopper from "@/components/Stopper/TaskStopper.vue";
 import TaskItem from "@/components/UI/TaskItem.vue";
 export default {
   name: "TaskList",
+
   components: {
     PageContainer,
     TaskStopper,
     TaskItem,
   },
-  methods: {
-    hideAll(event) {
-      const isButton = event.target.closest("button");
-      const list = this.$refs.TaskItem;
-      if (!isButton) {
-        list.forEach((item) => {
-          item.hideDropDown();
-        });
-      }
-    },
-  },
-  mounted() {
-    document.addEventListener("click", this.hideAll);
-  },
 
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideAll);
-  },
   data() {
     return {
       taskData: [
