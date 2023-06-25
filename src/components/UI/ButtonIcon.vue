@@ -12,18 +12,20 @@
 <script>
 export default {
   name: "ButtonIcon",
-  data() {
-    return {
-      buttonClasses: {
+  computed: {
+    buttonClasses: function () {
+      return {
         pointer: !this.disabled,
         default: this.disabled,
         button_style_secondary: this.secondaryStyle,
-      },
-      iconClasses: {
+      };
+    },
+    iconClasses: function () {
+      return {
         primary: !this.secondaryStyle,
         secondary: this.secondaryStyle,
-      },
-    };
+      };
+    },
   },
 
   props: {

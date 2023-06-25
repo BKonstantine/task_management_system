@@ -7,15 +7,15 @@
 <script>
 export default {
   name: "ButtonItem",
-  data() {
-    return {
-      classObject: {
+  computed: {
+    classObject: function () {
+      return {
         pointer: !this.disabled,
         default: this.disabled,
         button_size_small: this.small,
         button_style_secondary: this.secondaryStyle,
-      },
-    };
+      };
+    },
   },
 
   props: {
