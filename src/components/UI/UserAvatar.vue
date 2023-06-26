@@ -15,9 +15,6 @@ export default {
       type: String,
       required: true,
     },
-    text: {
-      type: String,
-    },
     large: {
       type: Boolean,
       default: false,
