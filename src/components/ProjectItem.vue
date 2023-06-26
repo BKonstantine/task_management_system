@@ -1,29 +1,24 @@
 <template>
-  <li class="task-item pointer">
-    <div class="task-item__container">
-      <div class="task-item__header">
-        <p class="task-item__title">
-          {{ taskData.title }}
-        </p>
-        <UserAvatar alt="Бузунов Константин Андреевич" />
-      </div>
-      <div class="task-item__footer">
-        <span class="task-item__info task-item__info_color_primary">
-          {{ taskData.number }}
+  <li class="project-item pointer">
+    <div class="project-item__container">
+      <p class="project-item__title">{{ projectData.title }}</p>
+      <div class="project-item__footer">
+        <span class="project-item__info project-item__info_color_primary">
+          {{ projectData.number }}
         </span>
-        <span class="task-item__info task-item__info_color_disabled">
-          {{ taskData.created }}
+        <span class="project-item__info project-item__info_color_disabled">
+          {{ projectData.created }}
         </span>
-        <span class="task-item__info task-item_type_status">
-          {{ taskData.status }}
-        </span>
-        <span class="task-item__info task-item__info_color_disabled">
-          {{ taskData.changed }}
+        <span class="project-item__info project-item__info_color_disabled">
+          {{ projectData.changed }}
         </span>
       </div>
     </div>
     <div
-      :class="['task-item__setting', { 'task-item__setting_active': setting }]"
+      :class="[
+        'project-item__setting',
+        { 'project-item__setting_active': setting },
+      ]"
     >
       <ButtonIcon
         @click="toggleDropDown"
@@ -33,7 +28,7 @@
         <SvgIcon id="#dots" />
       </ButtonIcon>
       <DropDown
-        class="task-item__drop-down"
+        class="project-item__drop-down"
         v-show="dropDown"
         :items="dropDownList"
         :checkLastItem="true"
@@ -43,36 +38,32 @@
 </template>
 
 <script>
-import ButtonIcon from "./ButtonIcon.vue";
-import SvgIcon from "./SvgIcon.vue";
+import ButtonIcon from "@/components/UI/ButtonIcon.vue";
+import SvgIcon from "@/components/UI/SvgIcon.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
-import UserAvatar from "./UserAvatar.vue";
 export default {
-  name: "TaskItem",
+  name: "ProjectItem",
   components: {
     ButtonIcon,
     SvgIcon,
     DropDown,
-    UserAvatar,
   },
-
   data() {
     return {
       dropDownList: [
-        { text: "Редактировать", click: this.goToTask },
-        { text: "Удалить", click: this.deleteTask },
+        { text: "Редактировать", click: this.goToProject },
+        { text: "Удалить", click: this.deleteProject },
       ],
       setting: false,
       dropDown: false,
     };
   },
-
   methods: {
-    goToTask() {
-      console.log("Task");
+    goToProject() {
+      console.log("Project");
     },
-    deleteTask() {
-      console.log("Delete task");
+    deleteProject() {
+      console.log("Delete project");
     },
     toggleDropDown() {
       this.setting = !this.setting;
@@ -96,16 +87,12 @@ export default {
   beforeDestroy() {
     document.removeEventListener("click", this.hideAll);
   },
-
   props: {
-    taskData: {
+    projectData: {
       title: {
         type: String,
       },
       number: {
-        type: String,
-      },
-      status: {
         type: String,
       },
       created: {
@@ -120,11 +107,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.task-item {
+.project-item {
   list-style: none;
   padding: 0 16px 8px 16px;
   height: 100%;
-  max-height: 69px;
+  max-height: 65px;
   box-sizing: border-box;
   display: flex;
   border-bottom: 1px solid $border-color-active;
@@ -134,13 +121,8 @@ export default {
     @include flex-setting(column, _, space-between);
   }
 
-  &__header {
-    @include flex-setting(_, center, space-between);
-  }
-
   &__title {
     margin: 0;
-    max-height: 38px;
     font-weight: 400;
     font-size: 14px;
     line-height: 19px;
@@ -158,13 +140,6 @@ export default {
 
   &__info {
     @include font-setting(400, 14px, 19px);
-  }
-
-  &_type_status {
-    padding: 0 8px;
-    background: $border-color-bronze;
-    color: $font-color-secondary;
-    border-radius: 4px;
   }
 
   &__info_color_disabled {

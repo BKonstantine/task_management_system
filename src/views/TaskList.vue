@@ -14,7 +14,7 @@
 <script>
 import PageContainer from "@/components/UI/PageContainer.vue";
 import TaskStopper from "@/components/Stopper/TaskStopper.vue";
-import TaskItem from "@/components/UI/TaskItem.vue";
+import TaskItem from "@/components/TaskItem.vue";
 export default {
   name: "TaskList",
 
