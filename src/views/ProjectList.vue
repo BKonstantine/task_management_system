@@ -8,20 +8,20 @@
       />
     </ul>
 
-    <!-- <ProjectStopper /> -->
+    <ProjectStopper />
   </PageContainer>
 </template>
 
 <script>
 import PageContainer from "@/components/UI/PageContainer.vue";
 import ProjectItem from "@/components/UI/ProjectItem.vue";
-/* import ProjectStopper from "@/components/Stopper/ProjectStopper.vue"; */
+import ProjectStopper from "@/components/Stopper/ProjectStopper.vue";
 export default {
   name: "ProjectList",
   components: {
     PageContainer,
     ProjectItem,
-    /* ProjectStopper, */
+    ProjectStopper,
   },
 
   data() {

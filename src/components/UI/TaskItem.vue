@@ -32,7 +32,12 @@
       >
         <SvgIcon id="#dots" />
       </ButtonIcon>
-      <DropDown v-show="dropDown" :items="dropDownList" :checkLastItem="true" />
+      <DropDown
+        class="task-item__drop-down"
+        v-show="dropDown"
+        :items="dropDownList"
+        :checkLastItem="true"
+      />
     </div>
   </li>
 </template>
@@ -174,6 +179,13 @@ export default {
 
   &:hover &__setting {
     display: flex;
+  }
+
+  &__drop-down {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    z-index: 1;
   }
 }
 </style>

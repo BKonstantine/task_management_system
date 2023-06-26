@@ -40,9 +40,5 @@ export default {
   padding: 8px 0;
   background-color: $bgc-secondary-default;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  position: absolute;
-  top: 52px;
-  right: 0;
-  z-index: 1;
 }
 </style>
