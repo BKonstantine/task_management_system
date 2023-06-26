@@ -1,21 +1,19 @@
 <template>
   <StopperContainer>
-    <p class="text">Не создано ни одной задачи</p>
+    <BaseText>Не создано ни одной задачи</BaseText>
   </StopperContainer>
 </template>
 
 <script>
 import StopperContainer from "./StopperContainer.vue";
+import BaseText from "@/components/UI/BaseText.vue";
 export default {
   name: "TaskStopper",
   components: {
     StopperContainer,
+    BaseText,
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.text {
-  @include font-setting(400, 14px, 19px);
-}
-</style>
+<style lang="scss" scoped></style>

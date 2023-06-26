@@ -1,21 +1,19 @@
 <template>
   <StopperContainer>
-    <p class="text">Нет ни одного пользователя</p>
+    <BaseText>Нет ни одного пользователя</BaseText>
   </StopperContainer>
 </template>
 
 <script>
 import StopperContainer from "./StopperContainer.vue";
+import BaseText from "@/components/UI/BaseText.vue";
 export default {
   name: "UserStopper",
   components: {
     StopperContainer,
+    BaseText,
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.text {
-  @include font-setting(400, 14px, 19px);
-}
-</style>
+<style lang="scss" scoped></style>
