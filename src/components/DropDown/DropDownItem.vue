@@ -14,9 +14,6 @@ export default {
     last: {
       type: Boolean,
     },
-    click: {
-      type: Function,
-    },
   },
 };
 </script>
