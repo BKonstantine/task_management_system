@@ -6,7 +6,10 @@
           <NavLink :to="link.to" :text="link.text" />
         </li>
         <div class="header__profile">
-          <ButtonProfile :onClick="toggleDropDown" :active="dropDown" />
+          <ButtonProfile
+            :onClick="toggleDropDown"
+            :active="dropDown || matchRoute"
+          />
           <DropDown
             class="header__drop-down"
             v-show="dropDown"
@@ -45,7 +48,9 @@ export default {
   },
   methods: {
     goToProfile() {
-      this.$router.push("/profile");
+      if (this.$route.path !== "/profile") {
+        this.$router.push("/profile");
+      }
     },
     goToExit() {
       console.log("Выйти из профиля");
@@ -61,6 +66,11 @@ export default {
       if (!isButton) {
         this.hideDropDown();
       }
+    },
+  },
+  computed: {
+    matchRoute: function () {
+      return this.$route.path === "/profile";
     },
   },
   mounted() {
