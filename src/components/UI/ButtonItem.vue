@@ -1,10 +1,10 @@
 <template>
   <button
     :class="classObject"
-    :type="type"
     :disabled="disabled"
     v-on="$listeners"
     class="button"
+    type="button"
   >
     {{ text }}
   </button>
@@ -27,12 +27,6 @@ export default {
     text: {
       type: String,
       required: true,
-    },
-    type: {
-      validator: function (value) {
-        return ["button", "submit", "reset"].includes(value);
-      },
-      default: "button",
     },
     disabled: {
       type: Boolean,
