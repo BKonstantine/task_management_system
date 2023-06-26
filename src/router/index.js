@@ -5,6 +5,7 @@ import ProjectList from "@/views/ProjectList.vue";
 import TaskList from "@/views/TaskList.vue";
 import UserList from "@/views/UserList.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
+import NotFoundPage from "@/views/NotFoundPage.vue";
 
 Vue.use(VueRouter);
 
@@ -31,6 +32,10 @@ const routes = [
         component: ProfilePage,
       },
     ],
+  },
+  {
+    path: "*",
+    component: NotFoundPage,
   },
 ];
 
