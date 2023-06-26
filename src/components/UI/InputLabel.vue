@@ -1,18 +1,12 @@
 <template>
-  <label class="label" :for="htmlFor">
+  <label class="label">
     <slot />
     <span class="require">*</span>
   </label>
 </template>
 
 <script>
-export default {
-  props: {
-    htmlFor: {
-      type: String,
-    },
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

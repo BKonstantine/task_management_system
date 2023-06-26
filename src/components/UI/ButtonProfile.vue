@@ -1,5 +1,5 @@
 <template>
-  <button v-on="$listeners" :class="buttonClasses">
+  <button v-on="$listeners" :class="buttonClasses" type="button">
     <UserAvatar alt="Бузунов Константин Андреевич" /><SvgIcon
       id="#drop_down_1"
       class="button-profile__icon"
@@ -10,9 +10,6 @@
 <script>
 export default {
   props: {
-    onClick: {
-      type: Function,
-    },
     active: {
       type: Boolean,
       default: false,

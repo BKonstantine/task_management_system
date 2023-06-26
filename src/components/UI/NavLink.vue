@@ -1,10 +1,7 @@
 <template>
-  <RouterLink
-    active-class="nav-link_active"
-    :to="to"
-    class="nav-link pointer"
-    >{{ text }}</RouterLink
-  >
+  <RouterLink active-class="nav-link_active" :to="to" class="nav-link pointer">
+    {{ text }}
+  </RouterLink>
 </template>
 
 <script>
