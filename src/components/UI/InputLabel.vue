@@ -7,7 +7,6 @@
 
 <script>
 export default {
-  name: "InputLabel",
   props: {
     htmlFor: {
       type: String,

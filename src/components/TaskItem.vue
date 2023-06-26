@@ -43,17 +43,11 @@
 </template>
 
 <script>
-import ButtonIcon from "@/components/UI/ButtonIcon.vue";
-import SvgIcon from "@/components/UI/SvgIcon.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
-import UserAvatar from "@/components/UI/UserAvatar.vue";
 export default {
   name: "TaskItem",
   components: {
-    ButtonIcon,
-    SvgIcon,
     DropDown,
-    UserAvatar,
   },
 
   data() {

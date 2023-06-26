@@ -6,7 +6,6 @@
 <script>
 import { replaceText } from "@/helpers/replace-text";
 export default {
-  name: "UserAvatar",
   props: {
     src: {
       type: String,

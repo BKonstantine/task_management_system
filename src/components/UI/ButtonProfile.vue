@@ -8,14 +8,7 @@
 </template>
 
 <script>
-import SvgIcon from "./SvgIcon.vue";
-import UserAvatar from "./UserAvatar.vue";
 export default {
-  name: "ButtonProfile",
-  components: {
-    SvgIcon,
-    UserAvatar,
-  },
   props: {
     onClick: {
       type: Function,

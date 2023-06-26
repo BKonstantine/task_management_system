@@ -6,12 +6,10 @@
 
 <script>
 import StopperContainer from "./StopperContainer.vue";
-import BaseText from "@/components/UI/BaseText.vue";
 export default {
   name: "TaskStopper",
   components: {
     StopperContainer,
-    BaseText,
   },
 };
 </script>

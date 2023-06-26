@@ -12,7 +12,6 @@
 
 <script>
 export default {
-  name: "ButtonIcon",
   computed: {
     buttonClasses: function () {
       return {

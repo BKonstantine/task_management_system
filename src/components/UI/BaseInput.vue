@@ -4,7 +4,6 @@
 
 <script>
 export default {
-  name: "BaseInput",
   props: {
     type: {
       validator: function (value) {

@@ -3,9 +3,7 @@
 </template>
 
 <script>
-export default {
-  name: "BaseText",
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

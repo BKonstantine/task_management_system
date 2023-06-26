@@ -38,14 +38,10 @@
 </template>
 
 <script>
-import ButtonIcon from "@/components/UI/ButtonIcon.vue";
-import SvgIcon from "@/components/UI/SvgIcon.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "ProjectItem",
   components: {
-    ButtonIcon,
-    SvgIcon,
     DropDown,
   },
   data() {

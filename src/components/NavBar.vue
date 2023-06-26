@@ -22,14 +22,10 @@
 </template>
 
 <script>
-import ButtonProfile from "./UI/ButtonProfile.vue";
-import NavLink from "@/components/UI/NavLink.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "NavBar",
   components: {
-    NavLink,
-    ButtonProfile,
     DropDown,
   },
   data() {
