@@ -42,27 +42,25 @@ export default {
   },
   methods: {
     toggleDropDown() {
-      console.log(this.dropDown);
       this.dropDown = !this.dropDown;
     },
     hideDropDown() {
       this.dropDown = false;
     },
     hideAll(event) {
-      const isButton = event.target.closest("button");
+      const isButton = event.target.closest(".button-profile");
       if (!isButton) {
-        console.log(!isButton);
         this.hideDropDown();
       }
     },
   },
-  /*  mounted() {
+  mounted() {
     document.addEventListener("click", this.hideAll);
   },
 
   beforeDestroy() {
     document.removeEventListener("click", this.hideAll);
-  }, */
+  },
 };
 </script>
 

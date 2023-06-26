@@ -1,5 +1,5 @@
 <template>
-  <ul class="drop-down">
+  <ul class="drop-down pointer">
     <DropDownItem
       :key="index"
       v-for="(item, index) in items"

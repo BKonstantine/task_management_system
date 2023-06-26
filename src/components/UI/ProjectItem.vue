@@ -65,7 +65,7 @@ export default {
       this.dropDown = false;
     },
     hideAll(event) {
-      const isButton = event.target.closest("button");
+      const isButton = event.target.closest(".button");
       if (!isButton) {
         this.hideDropDown();
       }
