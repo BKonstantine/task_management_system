@@ -4,6 +4,7 @@ import MainPage from "@/views/MainPage.vue";
 import ProjectList from "@/views/ProjectList.vue";
 import TaskList from "@/views/TaskList.vue";
 import UserList from "@/views/UserList.vue";
+import ProfilePage from "@/views/ProfilePage.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,10 @@ const routes = [
       {
         path: "users",
         component: UserList,
+      },
+      {
+        path: "profile",
+        component: ProfilePage,
       },
     ],
   },
