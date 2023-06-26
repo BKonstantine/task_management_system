@@ -46,7 +46,7 @@
 import ButtonIcon from "./ButtonIcon.vue";
 import SvgIcon from "./SvgIcon.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
-import UserAvatar from "./Avatars/SmallAvatar.vue";
+import UserAvatar from "./UserAvatar.vue";
 export default {
   name: "TaskItem",
   components: {

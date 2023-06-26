@@ -9,7 +9,7 @@
 
 <script>
 import SvgIcon from "./SvgIcon.vue";
-import UserAvatar from "./Avatars/SmallAvatar.vue";
+import UserAvatar from "./UserAvatar.vue";
 export default {
   name: "ButtonProfile",
   components: {
