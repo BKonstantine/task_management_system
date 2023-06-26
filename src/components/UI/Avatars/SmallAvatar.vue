@@ -4,8 +4,9 @@
 </template>
 
 <script>
+import { replaceText } from "@/helpers/replace-text";
 export default {
-  name: "UserAvatar",
+  name: "SmallAvatar",
   props: {
     src: {
       type: String,
@@ -20,11 +21,7 @@ export default {
   },
   computed: {
     initials: function () {
-      return this.alt
-        .split(" ")
-        .slice(0, 2)
-        .map((word) => word.charAt(0).toUpperCase())
-        .join("");
+      return replaceText(this.alt);
     },
   },
 };
@@ -32,6 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 .avatar {
+  flex: none;
   width: 24px;
   height: 24px;
   border-radius: 50%;
