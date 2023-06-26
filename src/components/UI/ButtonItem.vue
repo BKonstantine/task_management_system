@@ -1,5 +1,11 @@
 <template>
-  <button :class="classObject" :type="type" :disabled="disabled" class="button">
+  <button
+    :class="classObject"
+    :type="type"
+    :disabled="disabled"
+    v-on="$listeners"
+    class="button"
+  >
     {{ text }}
   </button>
 </template>

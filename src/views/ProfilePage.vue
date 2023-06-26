@@ -10,7 +10,7 @@
           <StatusText>Активен</StatusText>
           <div class="profile__setting">
             <ButtonIcon
-              :onClick="toggleDropDown"
+              @click="toggleDropDown"
               :secondary-style="true"
               :active="dropDown"
             >

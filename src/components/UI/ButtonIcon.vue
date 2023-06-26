@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="onClick"
+    v-on="$listeners"
     :class="buttonClasses"
     :type="type"
     :disabled="disabled"
@@ -49,9 +49,6 @@ export default {
     active: {
       type: Boolean,
       default: false,
-    },
-    onClick: {
-      type: Function,
     },
   },
 };

@@ -7,7 +7,7 @@
         </li>
         <div class="header__profile">
           <ButtonProfile
-            :onClick="toggleDropDown"
+            @click="toggleDropDown"
             :active="dropDown || matchRoute"
           />
           <DropDown

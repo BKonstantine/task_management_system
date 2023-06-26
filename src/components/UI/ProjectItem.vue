@@ -21,7 +21,7 @@
       ]"
     >
       <ButtonIcon
-        :onClick="toggleDropDown"
+        @click="toggleDropDown"
         :secondary-style="true"
         :active="dropDown"
       >

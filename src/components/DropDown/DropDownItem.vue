@@ -1,5 +1,5 @@
 <template>
-  <li @click="click" :class="['item', { item_position_last: last }]">
+  <li v-on="$listeners" :class="['item', { item_position_last: last }]">
     <slot />
   </li>
 </template>

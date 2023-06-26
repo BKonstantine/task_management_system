@@ -1,5 +1,5 @@
 <template>
-  <button @click="onClick" :class="buttonClasses">
+  <button v-on="$listeners" :class="buttonClasses">
     <UserAvatar alt="Бузунов Константин Андреевич" /><SvgIcon
       id="#drop_down_1"
       class="button-profile__icon"

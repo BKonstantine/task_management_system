@@ -26,7 +26,7 @@
       :class="['task-item__setting', { 'task-item__setting_active': setting }]"
     >
       <ButtonIcon
-        :onClick="toggleDropDown"
+        @click="toggleDropDown"
         :secondary-style="true"
         :active="dropDown"
       >
