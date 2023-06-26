@@ -1,5 +1,5 @@
 <template>
-  <button class="button-profile pointer">
+  <button @click="onClick" :class="buttonClasses">
     <UserAvatar alt="Бузунов Константин Андреевич" /><SvgIcon
       id="#drop_down_1"
       class="button-profile__icon"
@@ -15,6 +15,24 @@ export default {
   components: {
     SvgIcon,
     UserAvatar,
+  },
+  props: {
+    onClick: {
+      type: Function,
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    buttonClasses: function () {
+      return {
+        "button-profile": true,
+        pointer: true,
+        "button-profile_active": this.active,
+      };
+    },
   },
 };
 </script>
@@ -35,6 +53,15 @@ export default {
   &:active {
     background-color: $bgc-secondary-default;
     border: 1px solid $bgc-secondary-default;
+  }
+
+  &_active {
+    background-color: $bgc-secondary-default;
+    border: 1px solid $bgc-secondary-default;
+  }
+
+  &_active &__icon {
+    color: $bgc-secondary-active;
   }
 
   &__icon {

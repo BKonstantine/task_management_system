@@ -5,7 +5,14 @@
         <li class="nav__item" :key="index" v-for="(link, index) in links">
           <NavLink :to="link.to" :text="link.text" />
         </li>
-        <ButtonProfile />
+        <div class="header__profile">
+          <ButtonProfile :onClick="toggleDropDown" :active="dropDown" />
+          <DropDown
+            class="header__drop-down"
+            v-show="dropDown"
+            :items="dropDownList"
+          />
+        </div>
       </ul>
     </nav>
   </header>
@@ -14,11 +21,13 @@
 <script>
 import ButtonProfile from "./UI/ButtonProfile.vue";
 import NavLink from "@/components/UI/NavLink.vue";
+import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "NavBar",
   components: {
     NavLink,
     ButtonProfile,
+    DropDown,
   },
   data() {
     return {
@@ -27,8 +36,33 @@ export default {
         { to: "/tasks", text: "Задачи" },
         { to: "/users", text: "Пользователи" },
       ],
+      dropDownList: ["Профиль", "Выход"],
+      dropDown: false,
     };
   },
+  methods: {
+    toggleDropDown() {
+      console.log(this.dropDown);
+      this.dropDown = !this.dropDown;
+    },
+    hideDropDown() {
+      this.dropDown = false;
+    },
+    hideAll(event) {
+      const isButton = event.target.closest("button");
+      if (!isButton) {
+        console.log(!isButton);
+        this.hideDropDown();
+      }
+    },
+  },
+  /*  mounted() {
+    document.addEventListener("click", this.hideAll);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener("click", this.hideAll);
+  }, */
 };
 </script>
 
@@ -39,6 +73,13 @@ export default {
 
   &__profile {
     position: relative;
+  }
+
+  &__drop-down {
+    position: absolute;
+    top: 44px;
+    right: 0;
+    z-index: 1;
   }
 }
 
