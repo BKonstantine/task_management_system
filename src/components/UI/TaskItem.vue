@@ -58,13 +58,22 @@ export default {
 
   data() {
     return {
-      dropDownList: ["Редактировать", "Удалить"],
+      dropDownList: [
+        { text: "Редактировать", click: this.goToTask },
+        { text: "Удалить", click: this.deleteTask },
+      ],
       setting: false,
       dropDown: false,
     };
   },
 
   methods: {
+    goToTask() {
+      console.log("Task");
+    },
+    deleteTask() {
+      console.log("Delete task");
+    },
     toggleDropDown() {
       this.setting = !this.setting;
       this.dropDown = !this.dropDown;

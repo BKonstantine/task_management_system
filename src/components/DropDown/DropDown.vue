@@ -4,8 +4,9 @@
       :key="index"
       v-for="(item, index) in items"
       :last="lastItem(index)"
+      :click="item.click"
     >
-      {{ item }}
+      {{ item.text }}
     </DropDownItem>
   </ul>
 </template>

@@ -36,11 +36,20 @@ export default {
         { to: "/tasks", text: "Задачи" },
         { to: "/users", text: "Пользователи" },
       ],
-      dropDownList: ["Профиль", "Выход"],
+      dropDownList: [
+        { text: "Профиль", click: this.goToProfile },
+        { text: "Выход", click: this.goToExit },
+      ],
       dropDown: false,
     };
   },
   methods: {
+    goToProfile() {
+      this.$router.push("/profile");
+    },
+    goToExit() {
+      console.log("Выйти из профиля");
+    },
     toggleDropDown() {
       this.dropDown = !this.dropDown;
     },

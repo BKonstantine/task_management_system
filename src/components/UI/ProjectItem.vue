@@ -50,12 +50,21 @@ export default {
   },
   data() {
     return {
-      dropDownList: ["Редактировать", "Удалить"],
+      dropDownList: [
+        { text: "Редактировать", click: this.goToProject },
+        { text: "Удалить", click: this.deleteProject },
+      ],
       setting: false,
       dropDown: false,
     };
   },
   methods: {
+    goToProject() {
+      console.log("Project");
+    },
+    deleteProject() {
+      console.log("Delete project");
+    },
     toggleDropDown() {
       this.setting = !this.setting;
       this.dropDown = !this.dropDown;

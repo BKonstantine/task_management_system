@@ -1,5 +1,7 @@
 <template>
-  <li :class="['item', { item_position_last: last }]"><slot /></li>
+  <li @click="click" :class="['item', { item_position_last: last }]">
+    <slot />
+  </li>
 </template>
 
 <script>
@@ -11,6 +13,9 @@ export default {
     },
     last: {
       type: Boolean,
+    },
+    click: {
+      type: Function,
     },
   },
 };
