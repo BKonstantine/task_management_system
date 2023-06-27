@@ -57,8 +57,8 @@ export default {
   },
   computed: {
     ...mapState({
-      user: (state) => state.userModule.currentUser,
-      loader: (state) => state.userModule.currentUserSuccess,
+      user: (state) => state.currentUserModule.currentUser,
+      loader: (state) => state.currentUserModule.currentUserSuccess,
     }),
     userStatus: function () {
       return checkUserStatus(this.user.status);
