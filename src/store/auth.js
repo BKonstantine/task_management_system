@@ -31,7 +31,7 @@ export default {
           saveToken(data.token);
           commit("setAuth", true);
           commit("setAuthRequest", false);
-          commit("setAuthSuccess", false);
+          commit("setAuthSuccess", true);
         })
         .catch(() => {
           commit("setAuthError", false);
