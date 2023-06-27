@@ -1,12 +1,12 @@
 <template>
   <PageContainer>
-    <div class="profile">
+    <div v-if="loader" class="profile">
       <div class="profile__avatar">
-        <UserAvatar alt="Бузунов Константин Андреевич" :large="true" />
+        <UserAvatar :alt="user.name" :src="user.picture" :large="true" />
       </div>
       <div class="profile__info">
         <div class="profile__header">
-          <p class="profile__title">Бузунов Константин Андреевич</p>
+          <p class="profile__title">{{ user.name }}</p>
           <StatusText :color="userStatus.color">
             {{ userStatus.text }}
           </StatusText>
@@ -28,18 +28,7 @@
         <div class="profile__main">
           <span class="about">О себе:</span>
           <BaseText>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
-            harum cum cumque pariatur quidem obcaecati iure delectus excepturi,
-            soluta dolor quo rerum, libero quasi nam nesciunt. Eveniet iure
-            maxime officiis. Magni, natus fugiat cum ipsa doloremque eaque
-            minima voluptatem culpa veniam beatae voluptas minus adipisci quidem
-            quas ratione non possimus tenetur facere delectus inventore
-            corrupti, quasi, explicabo reiciendis aperiam? Optio debitis
-            asperiores assumenda quisquam nemo error perferendis nam dolorem
-            voluptatibus, recusandae rem eveniet quia facere mollitia sed
-            explicabo, ducimus quae, vitae non dolores dolor numquam ea
-            deserunt? Cumque est accusantium molestias quasi nam quisquam
-            quidem, voluptatibus facilis tenetur aut nulla.
+            {{ user.description }}
           </BaseText>
         </div>
       </div>
@@ -94,10 +83,9 @@ export default {
     },
     hideAll(event) {
       const isButton = event.target.closest(".button");
-      // eslint-disable-next-line no-undef
-      console.log(this.user);
-      //console.log(this.userStatus);
-      //console.log(this.$store.state.userModule.currentUser);
+
+      console.log(this.user.status);
+
       if (!isButton) {
         this.hideDropDown();
       }
