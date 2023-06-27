@@ -1,5 +1,6 @@
 import axios from "axios";
 import Vue from "vue";
+import { getToken } from "@/helpers/access-token";
 
 const URL = "http://45.12.239.156:8081/api";
 
@@ -11,6 +12,7 @@ const requireService = require.context("./service", false, /.service.js$/),
       "Content-Type": "application/json",
       "Cache-Control": "no-cache",
       Pragma: "no-cache",
+      Authorization: getToken(),
     },
   });
 

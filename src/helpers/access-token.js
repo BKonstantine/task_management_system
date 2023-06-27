@@ -1,9 +1,7 @@
-import Vue from "vue";
-
-Vue.prototype.$saveToken = (token) => {
+export function saveToken(token) {
   localStorage.setItem("accessToken", token);
-};
+}
 
-Vue.prototype.$getToken = () => {
+export function getToken() {
   return `Bearer ${localStorage.getItem("accessToken")}`;
-};
+}
