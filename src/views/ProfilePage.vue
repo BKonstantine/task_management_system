@@ -67,7 +67,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState({
+      user: (state) => state.userModule.currentUser,
+      loader: (state) => state.userModule.currentUserSuccess,
+    }),
     userStatus: function () {
       return checkUserStatus("ACTIVE");
     },
@@ -91,7 +94,10 @@ export default {
     },
     hideAll(event) {
       const isButton = event.target.closest(".button");
-      console.log();
+      // eslint-disable-next-line no-undef
+      console.log(this.user);
+      //console.log(this.userStatus);
+      //console.log(this.$store.state.userModule.currentUser);
       if (!isButton) {
         this.hideDropDown();
       }
