@@ -27,8 +27,8 @@
         </div>
         <div class="profile__main">
           <span class="about">О себе:</span>
-          <BaseText
-            >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
+          <BaseText>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime,
             harum cum cumque pariatur quidem obcaecati iure delectus excepturi,
             soluta dolor quo rerum, libero quasi nam nesciunt. Eveniet iure
             maxime officiis. Magni, natus fugiat cum ipsa doloremque eaque
@@ -39,8 +39,8 @@
             voluptatibus, recusandae rem eveniet quia facere mollitia sed
             explicabo, ducimus quae, vitae non dolores dolor numquam ea
             deserunt? Cumque est accusantium molestias quasi nam quisquam
-            quidem, voluptatibus facilis tenetur aut nulla.</BaseText
-          >
+            quidem, voluptatibus facilis tenetur aut nulla.
+          </BaseText>
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@
 
 <script>
 import DropDown from "@/components/DropDown/DropDown.vue";
+import { mapState, mapActions } from "vuex";
 import { checkUserStatus } from "@/helpers/check-user-status";
 export default {
   name: "ProfilePage",
@@ -66,11 +67,13 @@ export default {
     };
   },
   computed: {
+    ...mapState(["currentUser"]),
     userStatus: function () {
       return checkUserStatus("ACTIVE");
     },
   },
   methods: {
+    ...mapActions(["fetchCurrentUser"]),
     changeProfileData() {
       console.log("changeProfileData");
     },
@@ -88,15 +91,18 @@ export default {
     },
     hideAll(event) {
       const isButton = event.target.closest(".button");
+      console.log();
       if (!isButton) {
         this.hideDropDown();
       }
     },
   },
+  beforeMount() {
+    this.fetchCurrentUser();
+  },
   mounted() {
     document.addEventListener("click", this.hideAll);
   },
-
   beforeDestroy() {
     document.removeEventListener("click", this.hideAll);
   },
