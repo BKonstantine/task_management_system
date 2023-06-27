@@ -7,21 +7,21 @@
         v-for="(item, index) in projectData"
       />
     </ul>
-
-    <ProjectStopper />
+    <StopperContainer>
+      <BaseText>Не создан ни один проект</BaseText>
+      <ButtonItem text="Добавить" />
+    </StopperContainer>
   </PageContainer>
 </template>
 
 <script>
 import PageContainer from "@/components/UI/PageContainer.vue";
 import ProjectItem from "@/components/ProjectItem.vue";
-import ProjectStopper from "@/components/Stopper/ProjectStopper.vue";
 export default {
   name: "ProjectList",
   components: {
     PageContainer,
     ProjectItem,
-    ProjectStopper,
   },
 
   data() {
