@@ -49,7 +49,7 @@
 
 <script>
 import DropDown from "@/components/DropDown/DropDown.vue";
-import { checkUserStatus } from "@/helpers/user-status";
+import { checkUserStatus } from "@/helpers/check-user-status";
 export default {
   name: "ProfilePage",
   components: {

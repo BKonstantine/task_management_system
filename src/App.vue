@@ -11,6 +11,15 @@ export default {
   components: {
     RouterView,
   },
+  mounted() {
+    this.$api.Auth.login()
+      .then(({ data }) => {
+        this.$saveToken(data.token);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  },
 };
 </script>
 
