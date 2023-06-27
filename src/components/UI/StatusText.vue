@@ -1,11 +1,18 @@
 <template>
-  <span class="status">
+  <span class="status" :style="{ backgroundColor: color }">
     <slot />
   </span>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    color: {
+      type: String,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -14,6 +21,5 @@ export default {};
   padding: 0 8px;
   border-radius: 4px;
   @include font-setting(400, 14px, 19px, $bgc-secondary-default);
-  background-color: $bgc-primary-default;
 }
 </style>

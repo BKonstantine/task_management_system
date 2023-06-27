@@ -7,7 +7,9 @@
       <div class="profile__info">
         <div class="profile__header">
           <p class="profile__title">Бузунов Константин Андреевич</p>
-          <StatusText>Активен</StatusText>
+          <StatusText :color="userStatus.color">
+            {{ userStatus.text }}
+          </StatusText>
           <div class="profile__setting">
             <ButtonIcon
               @click="toggleDropDown"
@@ -46,23 +48,12 @@
 </template>
 
 <script>
-import PageContainer from "@/components/UI/PageContainer.vue";
-import StatusText from "@/components/UI/StatusText.vue";
-import UserAvatar from "@/components/UI/UserAvatar.vue";
-import ButtonIcon from "@/components/UI/ButtonIcon.vue";
-import SvgIcon from "@/components/UI/SvgIcon.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
-import BaseText from "@/components/UI/BaseText.vue";
+import { checkUserStatus } from "@/helpers/user-status";
 export default {
   name: "ProfilePage",
   components: {
-    PageContainer,
-    UserAvatar,
-    StatusText,
-    ButtonIcon,
-    SvgIcon,
     DropDown,
-    BaseText,
   },
   data() {
     return {
@@ -73,6 +64,11 @@ export default {
       ],
       dropDown: false,
     };
+  },
+  computed: {
+    userStatus: function () {
+      return checkUserStatus("ACTIVE");
+    },
   },
   methods: {
     changeProfileData() {
