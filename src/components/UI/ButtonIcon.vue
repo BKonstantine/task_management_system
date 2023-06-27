@@ -1,10 +1,10 @@
 <template>
   <button
-    v-on="$listeners"
     :class="buttonClasses"
-    :type="type"
     :disabled="disabled"
+    v-on="$listeners"
     class="button"
+    type="button"
   >
     <div :class="iconClasses"><slot></slot></div>
   </button>
@@ -31,12 +31,6 @@ export default {
   },
 
   props: {
-    type: {
-      validator: function (value) {
-        return ["button", "submit", "reset"].includes(value);
-      },
-      default: "button",
-    },
     disabled: {
       type: Boolean,
       default: false,
