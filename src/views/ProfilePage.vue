@@ -61,7 +61,7 @@ export default {
       loader: (state) => state.userModule.currentUserSuccess,
     }),
     userStatus: function () {
-      return checkUserStatus("ACTIVE");
+      return checkUserStatus(this.user.status);
     },
   },
   methods: {
@@ -83,9 +83,6 @@ export default {
     },
     hideAll(event) {
       const isButton = event.target.closest(".button");
-
-      console.log(this.user.status);
-
       if (!isButton) {
         this.hideDropDown();
       }
