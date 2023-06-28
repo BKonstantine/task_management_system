@@ -44,11 +44,9 @@ export default {
   },
   methods: {
     prevPage() {
-      //console.log("prev-page");
       this.$emit("prev-page", 1);
     },
     nextPage() {
-      //console.log("next-page");
       this.$emit("next-page", 1);
     },
     currPage(data) {
@@ -65,7 +63,6 @@ export default {
 
 <style lang="scss" scoped>
 .pagination {
-  border: 1px solid black;
   padding: 20px 44px;
   width: 100%;
   height: 82px;

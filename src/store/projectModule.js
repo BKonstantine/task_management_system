@@ -3,6 +3,7 @@ import { getProjects } from "@/api/projects";
 export default {
   state: {
     projectsList: [],
+    totalPage: null,
     projectsDataRequest: false,
     projectsDataSuccess: false,
     projectsDataError: false,
@@ -10,6 +11,9 @@ export default {
   mutations: {
     setProjectsList(state, payload) {
       state.projectsList = payload;
+    },
+    setTotalPage(state, payload) {
+      state.totalPage = payload;
     },
     setProjectsDataRequest(state, payload) {
       state.projectsDataRequest = payload;
@@ -32,6 +36,7 @@ export default {
       getProjects(projectData)
         .then((data) => {
           commit("setProjectsList", data.projects);
+          commit("setTotalPage", data.total);
           commit("setProjectsDataRequest", false);
           commit("setProjectsDataSuccess", true);
         })

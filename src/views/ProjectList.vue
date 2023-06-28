@@ -9,6 +9,7 @@
       />
     </ul>
     <PaginationItem
+      v-if="totalPage > 1"
       :totalPage="totalPage"
       :currentPage="currentPage"
       @prev-page="prevPage"
@@ -34,7 +35,6 @@ export default {
   },
   data() {
     return {
-      totalPage: 10,
       currentPage: 1,
     };
   },
@@ -42,18 +42,22 @@ export default {
     ...mapActions(["fetchProjects"]),
     prevPage(data) {
       this.currentPage -= data;
+      this.fetchProjects({ page: this.currentPage });
     },
     nextPage(data) {
       this.currentPage += data;
+      this.fetchProjects({ page: this.currentPage });
     },
     currPage(data) {
       this.currentPage = data;
+      this.fetchProjects({ page: this.currentPage });
     },
   },
   computed: {
     ...mapGetters(["getProjectsLength"]),
     ...mapState({
       projectsList: (state) => state.projectModule.projectsList,
+      totalPage: (state) => state.projectModule.totalPage,
       request: (state) => state.projectModule.projectsDataRequest,
     }),
     projectsLength: function () {
@@ -61,7 +65,7 @@ export default {
     },
   },
   beforeMount() {
-    this.fetchProjects();
+    this.fetchProjects({ page: 1 });
   },
 };
 </script>
