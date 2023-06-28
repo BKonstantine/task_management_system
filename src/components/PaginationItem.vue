@@ -63,7 +63,7 @@ export default {
 
 <style lang="scss" scoped>
 .pagination {
-  padding: 20px 44px;
+  padding: 20px;
   width: 100%;
   height: 82px;
   position: absolute;

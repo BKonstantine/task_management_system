@@ -3,6 +3,7 @@ import { getTasks } from "@/api/tasks";
 export default {
   state: {
     tasksList: [],
+    totalPage: null,
     tasksDataRequest: false,
     tasksDataSuccess: false,
     tasksDataError: false,
@@ -10,6 +11,9 @@ export default {
   mutations: {
     setTasksList(state, payload) {
       state.tasksList = payload;
+    },
+    setTotalPage(state, payload) {
+      state.totalPage = payload;
     },
     setTasksDataRequest(state, payload) {
       state.tasksDataRequest = payload;
@@ -32,6 +36,7 @@ export default {
       getTasks(taskData)
         .then((data) => {
           commit("setTasksList", data.tasks);
+          commit("setTotalPage", data.total);
           commit("setTasksDataRequest", false);
           commit("setTasksDataSuccess", true);
         })

@@ -72,7 +72,6 @@ export default {
 
 <style lang="scss" scoped>
 .project-list {
-  height: 100%;
   @include flex-setting(column, _, _, 10px);
 }
 </style>
