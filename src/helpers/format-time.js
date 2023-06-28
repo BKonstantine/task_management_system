@@ -2,6 +2,7 @@ export function formatTime(dateString) {
   if (!dateString) {
     return "";
   }
+
   const date = new Date(dateString);
   const now = new Date();
 
@@ -24,20 +25,22 @@ export function formatTime(dateString) {
         "Вчера в " +
         date.toLocaleTimeString("ru", { hour: "numeric", minute: "numeric" });
     }
+  } else if (hours >= 3) {
+    result =
+      "Сегодня в " +
+      date.toLocaleTimeString("ru", { hour: "numeric", minute: "numeric" });
+  } else if (hours >= 1) {
+    result =
+      Math.ceil(hours) +
+      " час" +
+      getEnding(Math.ceil(hours), ["", "а", "ов"]) +
+      " назад";
   } else {
-    if (hours >= 1) {
-      result =
-        Math.ceil(hours) +
-        " час" +
-        getEnding(Math.ceil(hours), ["", "а", "ов"]) +
-        " назад";
-    } else {
-      result =
-        Math.ceil(minutes) +
-        " минут" +
-        getEnding(Math.ceil(minutes), ["а", "ы", ""]) +
-        " назад";
-    }
+    result =
+      Math.ceil(minutes) +
+      " минут" +
+      getEnding(Math.ceil(minutes), ["а", "ы", ""]) +
+      " назад";
   }
 
   return result;
