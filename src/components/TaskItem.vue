@@ -1,5 +1,5 @@
 <template>
-  <li class="task-item pointer">
+  <li v-if="userData" class="task-item pointer">
     <div class="task-item__container">
       <div class="task-item__header">
         <p class="task-item__title">
