@@ -9,7 +9,7 @@ export default {
   },
   mutations: {
     setUsersList(state, payload) {
-      state.usersList = [...state.usersList, ...payload];
+      state.usersList = payload;
     },
     setUsersListRequest(state, payload) {
       state.usersListRequest = payload;
