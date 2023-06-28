@@ -10,7 +10,7 @@
           {{ createUser }} создал(а) {{ createData }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          {{ editUser }} {{ editData }}
+          {{ editUser }} изменил(а) {{ editData }}
         </span>
       </div>
     </div>
