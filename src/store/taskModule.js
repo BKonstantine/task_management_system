@@ -3,37 +3,37 @@ import { getTasks } from "@/api/tasks";
 export default {
   state: {
     tasksList: [],
-    tasksListRequest: false,
-    tasksListSuccess: false,
-    tasksListError: false,
+    tasksDataRequest: false,
+    tasksDataSuccess: false,
+    tasksDataError: false,
   },
   mutations: {
     setTasksList(state, payload) {
       state.tasksList = payload;
     },
-    setTasksListRequest(state, payload) {
-      state.tasksListRequest = payload;
+    setTasksDataRequest(state, payload) {
+      state.tasksDataRequest = payload;
     },
-    setTasksListSuccess(state, payload) {
-      state.tasksListSuccess = payload;
+    setTasksDataSuccess(state, payload) {
+      state.tasksDataSuccess = payload;
     },
-    setTasksListError(state, payload) {
-      state.tasksListError = payload;
+    setTasksDataError(state, payload) {
+      state.tasksDataError = payload;
     },
   },
   getters: {},
   actions: {
     fetchTasks({ commit }, taskData) {
-      commit("setTasksListRequest", true);
+      commit("setTasksDataRequest", true);
       getTasks(taskData)
         .then((data) => {
           commit("setTasksList", data);
-          commit("setTasksListRequest", false);
-          commit("setTasksListSuccess", true);
+          commit("setTasksDataRequest", false);
+          commit("setTasksDataSuccess", true);
         })
         .catch(() => {
-          commit("setTasksListSuccess", false);
-          commit("setTasksListError", true);
+          commit("setTasksDataSuccess", false);
+          commit("setTasksDataError", true);
         });
     },
   },
