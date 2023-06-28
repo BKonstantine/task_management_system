@@ -14,35 +14,11 @@
 </template>
 
 <script>
-import PageContainer from "@/components/UI/PageContainer.vue";
 import TaskItem from "@/components/TaskItem.vue";
 export default {
   name: "TaskList",
-
   components: {
-    PageContainer,
     TaskItem,
-  },
-
-  data() {
-    return {
-      taskData: [
-        {
-          title: "Название",
-          number: "#1",
-          status: "Черновик",
-          created: "Иванов И.И. создал 1 час назад",
-          changed: "Баранов В.В. изменил 1 минуту назад",
-        },
-        {
-          title: "Название",
-          number: "#1",
-          status: "Черновик",
-          created: "Иванов И.И. создал 1 час назад",
-          changed: "Баранов В.В. изменил 1 минуту назад",
-        },
-      ],
-    };
   },
 };
 </script>

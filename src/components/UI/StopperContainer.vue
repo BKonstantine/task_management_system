@@ -7,9 +7,7 @@
 </template>
 
 <script>
-export default {
-  name: "StopperContainer",
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

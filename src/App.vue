@@ -6,12 +6,8 @@
 
 <script>
 import { mapActions } from "vuex";
-import { RouterView } from "vue-router";
 export default {
   name: "App",
-  components: {
-    RouterView,
-  },
   methods: {
     ...mapActions(["fetchLogin"]),
   },

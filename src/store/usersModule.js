@@ -27,7 +27,7 @@ export default {
       commit("setUsersListRequest", true);
       getUsers(userData)
         .then((data) => {
-          commit("setUsersList", data.users);
+          commit("setUsersList", data);
           commit("setUsersListRequest", false);
           commit("setUsersListSuccess", true);
         })

@@ -27,7 +27,7 @@ export default {
       commit("setTasksListRequest", true);
       getTasks(taskData)
         .then((data) => {
-          commit("setTasksList", data.tasks);
+          commit("setTasksList", data);
           commit("setTasksListRequest", false);
           commit("setTasksListSuccess", true);
         })

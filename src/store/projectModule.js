@@ -27,7 +27,7 @@ export default {
       commit("setProjectsListRequest", true);
       getProjects(projectData)
         .then((data) => {
-          commit("setProjectsList", data.projects);
+          commit("setProjectsList", data);
           commit("setProjectsListRequest", false);
           commit("setProjectsListSuccess", true);
         })
