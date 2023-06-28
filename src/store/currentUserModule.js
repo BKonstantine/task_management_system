@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/api/user";
+import { getCurrentUser } from "@/api/current-user";
 
 export default {
   state: {
