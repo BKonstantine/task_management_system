@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <ul v-if="loadSuccess" class="project-list">
+    <ul v-if="projectsLength > 0" class="project-list">
       <ProjectItem
         :projectData="project"
         :key="index"
@@ -8,7 +8,7 @@
         v-for="(project, index) in projectsList"
       />
     </ul>
-    <StopperContainer v-if="false">
+    <StopperContainer v-if="projectsLength === 0">
       <BaseText>Не создан ни один проект</BaseText>
       <ButtonItem text="Добавить" />
     </StopperContainer>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import ProjectItem from "@/components/ProjectItem.vue";
 export default {
   name: "ProjectList",
@@ -27,13 +27,17 @@ export default {
     ...mapActions(["fetchProjects"]),
   },
   computed: {
+    ...mapGetters(["getProjectsLength"]),
     ...mapState({
       projectsList: (state) => state.projectModule.projectsList,
-      loadSuccess: (state) => state.projectModule.projectsDataSuccess,
+      request: (state) => state.projectModule.projectsDataRequest,
     }),
+    projectsLength: function () {
+      return this.getProjectsLength;
+    },
   },
   beforeMount() {
-    this.fetchProjects();
+    this.fetchProjects({ page: 6 });
   },
 };
 </script>

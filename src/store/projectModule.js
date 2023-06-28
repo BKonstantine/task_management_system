@@ -21,7 +21,11 @@ export default {
       state.projectsDataError = payload;
     },
   },
-  getters: {},
+  getters: {
+    getProjectsLength(state) {
+      return state.projectsList.length;
+    },
+  },
   actions: {
     fetchProjects({ commit }, projectData) {
       commit("setProjectsDataRequest", true);
