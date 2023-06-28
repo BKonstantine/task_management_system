@@ -10,10 +10,7 @@
         :secondaryStyle="number !== currentPage"
         v-for="(number, index) in numberList"
       />
-      <ButtonIcon
-        :secondaryStyle="true"
-        :disabled="currentPage === numberList.length"
-      >
+      <ButtonIcon :secondaryStyle="true" :disabled="currentPage === totalPage">
         <SvgIcon id="#drop_down_2" />
       </ButtonIcon>
     </div>
@@ -23,7 +20,7 @@
 </template>
 
 <script>
-import { generateNumbers } from "@/helpers/generate-numbers";
+import { generateNumbersList } from "@/helpers/generate-numbers-list";
 export default {
   name: "PaginationItem",
   props: {
@@ -38,7 +35,7 @@ export default {
   },
   computed: {
     numberList: function () {
-      return generateNumbers(this.totalPage);
+      return generateNumbersList(this.totalPage);
     },
   },
 };
