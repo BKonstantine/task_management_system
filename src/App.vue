@@ -13,10 +13,11 @@ export default {
     RouterView,
   },
   methods: {
-    ...mapActions(["fetchLogin"]),
+    ...mapActions(["fetchLogin", "fetchTasks"]),
   },
   beforeMount() {
-    this.fetchLogin();
+    //this.fetchLogin();
+    this.fetchTasks();
   },
 };
 </script>

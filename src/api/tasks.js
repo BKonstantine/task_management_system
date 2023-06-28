@@ -3,7 +3,7 @@ import { URL } from "@/constants/api";
 import { getToken } from "@/helpers/access-token";
 
 export const getTasks = (data) => {
-  return fetch(`${URL}/projects/search`, {
+  return fetch(`${URL}/tasks/search`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
