@@ -6,7 +6,7 @@
       </ButtonIcon>
       <ButtonItem
         :key="index"
-        v-text="number"
+        :text="number"
         :secondaryStyle="number !== currentPage"
         v-for="(number, index) in numberList"
       />
@@ -46,12 +46,15 @@ export default {
 
 <style lang="scss" scoped>
 .pagination {
+  border: 1px solid black;
+  padding: 20px;
+  width: 100%;
+  height: 82px;
   position: absolute;
   bottom: 0;
-  left: 24px;
+  left: 0;
   z-index: 1;
-  padding: 20px;
-  height: 82px;
+  background-color: $bgc-secondary-default;
   @include flex-setting(_, center, _, 32px);
 }
 
