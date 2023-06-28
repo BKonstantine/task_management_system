@@ -1,10 +1,19 @@
 <template>
   <div class="pagination">
     <div class="buttons">
-      <ButtonIcon :secondaryStyle="true">
+      <ButtonIcon :secondaryStyle="true" :disabled="currentPage === 1">
         <SvgIcon id="#drop_down_4" />
       </ButtonIcon>
-      <ButtonIcon :secondaryStyle="true">
+      <ButtonItem
+        :key="index"
+        v-text="number"
+        :secondaryStyle="number !== currentPage"
+        v-for="(number, index) in numberList"
+      />
+      <ButtonIcon
+        :secondaryStyle="true"
+        :disabled="currentPage === numberList.length"
+      >
         <SvgIcon id="#drop_down_2" />
       </ButtonIcon>
     </div>
@@ -18,8 +27,14 @@ import { generateNumbers } from "@/helpers/generate-numbers";
 export default {
   name: "PaginationItem",
   props: {
-    totalPage: Number,
-    currentPage: Number,
+    totalPage: {
+      type: Number,
+      require: true,
+    },
+    currentPage: {
+      type: Number,
+      require: true,
+    },
   },
   computed: {
     numberList: function () {

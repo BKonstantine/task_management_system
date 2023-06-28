@@ -8,7 +8,7 @@
         v-for="(project, index) in projectsList"
       />
     </ul>
-    <PaginationItem />
+    <PaginationItem :totalPage="5" :currentPage="5" />
     <StopperContainer v-if="projectsLength === 0 && !request">
       <BaseText>Не создан ни один проект</BaseText>
       <ButtonItem text="Добавить" />
