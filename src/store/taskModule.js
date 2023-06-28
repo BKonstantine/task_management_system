@@ -21,13 +21,17 @@ export default {
       state.tasksDataError = payload;
     },
   },
-  getters: {},
+  getters: {
+    getTasksLength(state) {
+      return state.tasksList.length;
+    },
+  },
   actions: {
     fetchTasks({ commit }, taskData) {
       commit("setTasksDataRequest", true);
       getTasks(taskData)
         .then((data) => {
-          commit("setTasksList", data);
+          commit("setTasksList", data.tasks);
           commit("setTasksDataRequest", false);
           commit("setTasksDataSuccess", true);
         })

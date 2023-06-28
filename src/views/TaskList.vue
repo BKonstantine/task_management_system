@@ -1,13 +1,13 @@
 <template>
   <PageContainer>
-    <ul class="task-list">
+    <ul v-if="tasksLength > 0" class="task-list">
       <TaskItem
         :taskData="item"
         :key="index"
         v-for="(item, index) in taskData"
       />
     </ul>
-    <StopperContainer>
+    <StopperContainer v-if="tasksLength === 0 && !request">
       <BaseText>Не создано ни одной задачи</BaseText>
     </StopperContainer>
   </PageContainer>
@@ -15,10 +15,27 @@
 
 <script>
 import TaskItem from "@/components/TaskItem.vue";
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   name: "TaskList",
   components: {
     TaskItem,
+  },
+  methods: {
+    ...mapActions(["fetchTasks"]),
+  },
+  computed: {
+    ...mapGetters(["getTasksLength"]),
+    ...mapState({
+      tasksList: (state) => state.taskModule.tasksList,
+      request: (state) => state.taskModule.tasksDataRequest,
+    }),
+    tasksLength: function () {
+      return this.getTasksLength;
+    },
+  },
+  beforeMount() {
+    this.fetchTasks();
   },
 };
 </script>
