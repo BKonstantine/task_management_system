@@ -133,7 +133,7 @@ export default {
 
   &__container {
     width: 100%;
-    @include flex-setting(column, _, space-between);
+    @include flex-setting(column);
   }
 
   &__header {
@@ -142,7 +142,7 @@ export default {
 
   &__title {
     margin: 0;
-    max-height: 38px;
+    height: 41px;
     font-weight: 400;
     font-size: 14px;
     line-height: 19px;
