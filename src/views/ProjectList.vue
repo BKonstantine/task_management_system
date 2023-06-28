@@ -8,7 +8,7 @@
         v-for="(project, index) in projectsList"
       />
     </ul>
-    <StopperContainer v-if="projectsLength === 0">
+    <StopperContainer v-if="projectsLength === 0 && !request">
       <BaseText>Не создан ни один проект</BaseText>
       <ButtonItem text="Добавить" />
     </StopperContainer>

@@ -1,16 +1,18 @@
 <template>
   <li class="project-item pointer">
     <div class="project-item__container">
-      <p class="project-item__title">{{ projectData.name }}</p>
+      <p class="project-item__title">
+        {{ projectData.name }}
+      </p>
       <div class="project-item__footer">
         <span class="project-item__info project-item__info_color_primary">
           {{ number }}#{{ projectData.code }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          {{ createUser }} создал(а) {{ createData }}
+          {{ createUser }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          {{ editUser }} изменил(а) {{ editData }}
+          {{ editUser }}
         </span>
       </div>
     </div>
@@ -39,7 +41,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { formatTime } from "@/helpers/format-time";
+import { textInfo } from "@/helpers/text-info";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "ProjectItem",
@@ -66,16 +68,12 @@ export default {
       return this.index + 1;
     },
     createUser: function () {
-      return this.findUser(this.projectData.author)?.name;
-    },
-    createData: function () {
-      return formatTime(this.projectData.dateCreated);
+      const user = this.findUser(this.projectData.author)?.name;
+      return textInfo(user, "создал(а)", this.projectData.dateCreated);
     },
     editUser: function () {
-      return this.findUser(this.projectData.authorEdited)?.name;
-    },
-    editData: function () {
-      return formatTime(this.projectData.dateEdited);
+      const user = this.findUser(this.projectData.authorEdited)?.name;
+      return textInfo(user, "изменил(а)", this.projectData.dateEdited);
     },
   },
   methods: {
@@ -121,11 +119,12 @@ export default {
 
   &__container {
     width: 100%;
-    @include flex-setting(column, _, space-between);
+    @include flex-setting(column);
   }
 
   &__title {
     margin: 0;
+    height: 37px;
     font-weight: 400;
     font-size: 14px;
     line-height: 19px;
