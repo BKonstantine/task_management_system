@@ -7,7 +7,7 @@
           {{ number }}#{{ projectData.code }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          {{ projectData.dateCreated }}
+          {{ createUser }} {{ projectData.dateCreated }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
           {{ projectData.changed }}
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "ProjectItem",
@@ -59,8 +60,12 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["findUser"]),
     number: function () {
       return this.index + 1;
+    },
+    createUser: function () {
+      return this.findUser(this.projectData.author).name;
     },
   },
   methods: {
@@ -78,7 +83,7 @@ export default {
       this.setting = false;
       this.dropDown = false;
     },
-    hideAll(event) {
+    hideAll() {
       const isButton = event.target.closest(".button");
       if (!isButton) {
         this.hideDropDown();

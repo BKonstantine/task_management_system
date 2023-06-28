@@ -25,9 +25,6 @@ export default {
   },
   methods: {
     ...mapActions(["fetchProjects"]),
-    logData(data) {
-      console.log(data);
-    },
   },
   computed: {
     ...mapState({
@@ -37,9 +34,6 @@ export default {
   },
   beforeMount() {
     this.fetchProjects();
-  },
-  mounted() {
-    document.addEventListener("click", () => this.logData(this.projectsList));
   },
 };
 </script>

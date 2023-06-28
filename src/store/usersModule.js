@@ -21,13 +21,17 @@ export default {
       state.usersListError = payload;
     },
   },
-  getters: {},
+  getters: {
+    findUser: (state) => (id) => {
+      return state.usersList.find((user) => user._id === id);
+    },
+  },
   actions: {
     fetchUsers({ commit }, userData) {
       commit("setUsersListRequest", true);
       getUsers(userData)
         .then((data) => {
-          commit("setUsersList", data);
+          commit("setUsersList", data.users);
           commit("setUsersListRequest", false);
           commit("setUsersListSuccess", true);
         })
