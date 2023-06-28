@@ -7,6 +7,9 @@ export function replaceText(text) {
 }
 
 export function abbreviateName(fullName) {
+  if (!fullName) {
+    return "";
+  }
   const nameParts = fullName.split(" ");
   const surname = nameParts[0];
   let abbreviation = nameParts[1].charAt(0).toUpperCase() + ".";
