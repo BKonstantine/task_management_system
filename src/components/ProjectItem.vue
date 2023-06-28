@@ -7,10 +7,10 @@
           {{ number }}#{{ projectData.code }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          {{ createUser }} {{ projectData.dateCreated }}
+          {{ createUser }} создал(а) {{ createData }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          {{ projectData.changed }}
+          {{ editUser }} {{ editData }}
         </span>
       </div>
     </div>
@@ -39,6 +39,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { formatTime } from "@/helpers/format-time";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "ProjectItem",
@@ -65,7 +66,16 @@ export default {
       return this.index + 1;
     },
     createUser: function () {
-      return this.findUser(this.projectData.author).name;
+      return this.findUser(this.projectData.author)?.name;
+    },
+    createData: function () {
+      return formatTime(this.projectData.dateCreated);
+    },
+    editUser: function () {
+      return this.findUser(this.projectData.authorEdited)?.name;
+    },
+    editData: function () {
+      return formatTime(this.projectData.dateEdited);
     },
   },
   methods: {

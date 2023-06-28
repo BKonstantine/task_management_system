@@ -37,7 +37,7 @@ export default {
     },
   },
   beforeMount() {
-    this.fetchProjects({ page: 6 });
+    this.fetchProjects();
   },
 };
 </script>
