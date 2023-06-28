@@ -8,7 +8,13 @@
         v-for="(project, index) in projectsList"
       />
     </ul>
-    <PaginationItem :totalPage="3" :currentPage="1" />
+    <PaginationItem
+      :totalPage="totalPage"
+      :currentPage="currentPage"
+      @prev-page="prevPage"
+      @next-page="nextPage"
+      @curr-page="currPage"
+    />
     <StopperContainer v-if="projectsLength === 0 && !request">
       <BaseText>Не создан ни один проект</BaseText>
       <ButtonItem text="Добавить" />
@@ -26,8 +32,23 @@ export default {
     ProjectItem,
     PaginationItem,
   },
+  data() {
+    return {
+      totalPage: 10,
+      currentPage: 1,
+    };
+  },
   methods: {
     ...mapActions(["fetchProjects"]),
+    prevPage(data) {
+      this.currentPage -= data;
+    },
+    nextPage(data) {
+      this.currentPage += data;
+    },
+    currPage(data) {
+      this.currentPage = data;
+    },
   },
   computed: {
     ...mapGetters(["getProjectsLength"]),

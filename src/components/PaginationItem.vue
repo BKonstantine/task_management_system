@@ -13,6 +13,7 @@
         :text="number"
         :secondaryStyle="number !== currentPage"
         v-for="(number, index) in numberList"
+        @click="currPage(number)"
       />
       <ButtonIcon
         :secondaryStyle="true"
@@ -39,6 +40,19 @@ export default {
     currentPage: {
       type: Number,
       require: true,
+    },
+  },
+  methods: {
+    prevPage() {
+      //console.log("prev-page");
+      this.$emit("prev-page", 1);
+    },
+    nextPage() {
+      //console.log("next-page");
+      this.$emit("next-page", 1);
+    },
+    currPage(data) {
+      this.$emit("curr-page", data);
     },
   },
   computed: {
