@@ -3,22 +3,22 @@
     <div class="task-item__container">
       <div class="task-item__header">
         <p class="task-item__title">
-          {{ taskData.title }}
+          {{ taskData.name }}
         </p>
-        <UserAvatar alt="Бузунов Константин Андреевич" />
+        <UserAvatar :userAvatar="userData" />
       </div>
       <div class="task-item__footer">
         <span class="task-item__info task-item__info_color_primary">
-          {{ taskData.number }}
+          {{ number }}#{{ taskData.number }}
         </span>
         <span class="task-item__info task-item__info_color_disabled">
-          {{ taskData.created }}
+          {{ createUser }}
         </span>
-        <span class="task-item__info task-item_type_status">
-          {{ taskData.status }}
-        </span>
+        <StatusText :color="taskStatus.color">
+          {{ taskStatus.text }}
+        </StatusText>
         <span class="task-item__info task-item__info_color_disabled">
-          {{ taskData.changed }}
+          {{ editUser }}
         </span>
       </div>
     </div>
@@ -43,11 +43,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import DropDown from "@/components/DropDown/DropDown.vue";
+import { checkTaskStatus } from "@/helpers/check-task-status";
+import { textInfo } from "@/helpers/text-info";
 export default {
   name: "TaskItem",
   components: {
     DropDown,
+  },
+  props: {
+    taskData: Object,
+    index: Number,
   },
 
   data() {
@@ -59,6 +66,27 @@ export default {
       setting: false,
       dropDown: false,
     };
+  },
+
+  computed: {
+    ...mapGetters(["findUser"]),
+    number: function () {
+      return this.index + 1;
+    },
+    taskStatus: function () {
+      return checkTaskStatus(this.taskData.status);
+    },
+    userData: function () {
+      return this.findUser(this.taskData.author);
+    },
+    createUser: function () {
+      const user = this.findUser(this.taskData.author)?.name;
+      return textInfo(user, "создал(а)", this.taskData.dateCreated);
+    },
+    editUser: function () {
+      const user = this.findUser(this.taskData.authorEdited)?.name;
+      return textInfo(user, "изменил(а)", this.taskData.dateEdited);
+    },
   },
 
   methods: {
@@ -89,26 +117,6 @@ export default {
 
   beforeDestroy() {
     document.removeEventListener("click", this.hideAll);
-  },
-
-  props: {
-    taskData: {
-      title: {
-        type: String,
-      },
-      number: {
-        type: String,
-      },
-      status: {
-        type: String,
-      },
-      created: {
-        type: String,
-      },
-      changed: {
-        type: String,
-      },
-    },
   },
 };
 </script>

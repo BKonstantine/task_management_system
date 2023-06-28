@@ -2,9 +2,10 @@
   <PageContainer>
     <ul v-if="tasksLength > 0" class="task-list">
       <TaskItem
-        :taskData="item"
+        :taskData="task"
         :key="index"
-        v-for="(item, index) in taskData"
+        :index="index"
+        v-for="(task, index) in tasksList"
       />
     </ul>
     <StopperContainer v-if="tasksLength === 0 && !request">

@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header v-if="loader" class="header">
     <nav class="nav">
       <ul class="nav__list">
         <li class="nav__item" :key="index" v-for="(link, index) in links">
@@ -9,6 +9,7 @@
           <ButtonProfile
             @click="toggleDropDown"
             :active="dropDown || matchRoute"
+            :userAvatar="userData"
           />
           <DropDown
             class="header__drop-down"
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "NavBar",
@@ -68,6 +70,10 @@ export default {
     matchRoute: function () {
       return this.$route.path === "/profile";
     },
+    ...mapState({
+      userData: (state) => state.currentUserModule.currentUser,
+      loader: (state) => state.currentUserModule.currentUserSuccess,
+    }),
   },
   mounted() {
     document.addEventListener("click", this.hideAll);

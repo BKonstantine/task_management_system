@@ -2,7 +2,7 @@
   <PageContainer>
     <div v-if="loader" class="profile">
       <div class="profile__avatar">
-        <UserAvatar :alt="user.name" :src="user.picture" :large="true" />
+        <UserAvatar :userAvatar="user" :large="true" />
       </div>
       <div class="profile__info">
         <div class="profile__header">
@@ -38,7 +38,7 @@
 
 <script>
 import DropDown from "@/components/DropDown/DropDown.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 import { checkUserStatus } from "@/helpers/check-user-status";
 export default {
   name: "ProfilePage",
@@ -65,7 +65,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchCurrentUser"]),
     changeProfileData() {
       console.log("changeProfileData");
     },
@@ -87,9 +86,6 @@ export default {
         this.hideDropDown();
       }
     },
-  },
-  beforeMount() {
-    this.fetchCurrentUser();
   },
   mounted() {
     document.addEventListener("click", this.hideAll);

@@ -1,9 +1,7 @@
 <template>
   <button v-on="$listeners" :class="buttonClasses" type="button">
-    <UserAvatar alt="Бузунов Константин Андреевич" /><SvgIcon
-      id="#drop_down_1"
-      class="button-profile__icon"
-    />
+    <UserAvatar :userAvatar="userAvatar" />
+    <SvgIcon id="#drop_down_1" class="button-profile__icon" />
   </button>
 </template>
 
@@ -14,6 +12,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    userAvatar: Object,
   },
   computed: {
     buttonClasses: function () {

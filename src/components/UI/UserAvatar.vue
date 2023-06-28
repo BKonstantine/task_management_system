@@ -1,5 +1,10 @@
 <template>
-  <img v-if="src" :src="src" :alt="alt" :class="imageClasses" />
+  <img
+    v-if="userAvatar.pucture"
+    :src="userAvatar.pucture"
+    :alt="userAvatar.name"
+    :class="imageClasses"
+  />
   <div v-else :class="textClasses">{{ initials }}</div>
 </template>
 
@@ -7,13 +12,7 @@
 import { replaceText } from "@/helpers/replace-text";
 export default {
   props: {
-    src: {
-      type: String,
-    },
-    alt: {
-      type: String,
-      required: true,
-    },
+    userAvatar: Object,
     large: {
       type: Boolean,
       default: false,
@@ -21,7 +20,7 @@ export default {
   },
   computed: {
     initials: function () {
-      return replaceText(this.alt);
+      return replaceText(this.userAvatar.name);
     },
     imageClasses: function () {
       return {
