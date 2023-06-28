@@ -1,7 +1,11 @@
 <template>
   <div class="pagination">
     <div class="buttons">
-      <ButtonIcon :secondaryStyle="true" :disabled="currentPage === 1">
+      <ButtonIcon
+        :secondaryStyle="true"
+        :disabled="currentPage === 1"
+        @click="prevPage"
+      >
         <SvgIcon id="#drop_down_4" />
       </ButtonIcon>
       <ButtonItem
@@ -10,7 +14,11 @@
         :secondaryStyle="number !== currentPage"
         v-for="(number, index) in numberList"
       />
-      <ButtonIcon :secondaryStyle="true" :disabled="currentPage === totalPage">
+      <ButtonIcon
+        :secondaryStyle="true"
+        :disabled="currentPage === totalPage"
+        @click="nextPage"
+      >
         <SvgIcon id="#drop_down_2" />
       </ButtonIcon>
     </div>
@@ -20,7 +28,7 @@
 </template>
 
 <script>
-import { generateNumbersList } from "@/helpers/generate-numbers-list";
+import { getPagingRange } from "@/helpers/get-paging-range";
 export default {
   name: "PaginationItem",
   props: {
@@ -34,8 +42,8 @@ export default {
     },
   },
   computed: {
-    numberList: function () {
-      return generateNumbersList(this.totalPage);
+    numberList() {
+      return getPagingRange(this.currentPage, { total: this.totalPage });
     },
   },
 };
