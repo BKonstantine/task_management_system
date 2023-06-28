@@ -16,8 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.main-page {
-  height: 100%;
-}
-</style>
+<style lang="scss" scoped></style>
