@@ -3,37 +3,37 @@ import { getProjects } from "@/api/projects";
 export default {
   state: {
     projectsList: [],
-    projectsListRequest: false,
-    projectsListSuccess: false,
-    projectsListError: false,
+    projectsDataRequest: false,
+    projectsDataSuccess: false,
+    projectsDataError: false,
   },
   mutations: {
     setProjectsList(state, payload) {
       state.projectsList = payload;
     },
-    setProjectsListRequest(state, payload) {
-      state.projectsListRequest = payload;
+    setProjectsDataRequest(state, payload) {
+      state.projectsDataRequest = payload;
     },
-    setProjectsListSuccess(state, payload) {
-      state.projectsListSuccess = payload;
+    setProjectsDataSuccess(state, payload) {
+      state.projectsDataSuccess = payload;
     },
-    setProjectsListError(state, payload) {
-      state.projectsListError = payload;
+    setProjectsDataError(state, payload) {
+      state.projectsDataError = payload;
     },
   },
   getters: {},
   actions: {
     fetchProjects({ commit }, projectData) {
-      commit("setProjectsListRequest", true);
+      commit("setProjectsDataRequest", true);
       getProjects(projectData)
         .then((data) => {
-          commit("setProjectsList", data);
-          commit("setProjectsListRequest", false);
-          commit("setProjectsListSuccess", true);
+          commit("setProjectsList", data.projects);
+          commit("setProjectsDataRequest", false);
+          commit("setProjectsDataSuccess", true);
         })
         .catch(() => {
-          commit("setProjectsListSuccess", false);
-          commit("setProjectsListError", true);
+          commit("setProjectsDataSuccess", false);
+          commit("setProjectsDataError", true);
         });
     },
   },

@@ -1,13 +1,13 @@
 <template>
   <li class="project-item pointer">
     <div class="project-item__container">
-      <p class="project-item__title">{{ projectData.title }}</p>
+      <p class="project-item__title">{{ projectData.name }}</p>
       <div class="project-item__footer">
         <span class="project-item__info project-item__info_color_primary">
-          {{ projectData.number }}
+          {{ number }}#{{ projectData.code }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
-          {{ projectData.created }}
+          {{ projectData.dateCreated }}
         </span>
         <span class="project-item__info project-item__info_color_disabled">
           {{ projectData.changed }}
@@ -44,6 +44,10 @@ export default {
   components: {
     DropDown,
   },
+  props: {
+    projectData: Object,
+    index: Number,
+  },
   data() {
     return {
       dropDownList: [
@@ -53,6 +57,11 @@ export default {
       setting: false,
       dropDown: false,
     };
+  },
+  computed: {
+    number: function () {
+      return this.index + 1;
+    },
   },
   methods: {
     goToProject() {
@@ -83,22 +92,6 @@ export default {
   beforeDestroy() {
     document.removeEventListener("click", this.hideAll);
   },
-  props: {
-    projectData: {
-      title: {
-        type: String,
-      },
-      number: {
-        type: String,
-      },
-      created: {
-        type: String,
-      },
-      changed: {
-        type: String,
-      },
-    },
-  },
 };
 </script>
 
@@ -106,8 +99,7 @@ export default {
 .project-item {
   list-style: none;
   padding: 0 16px 8px 16px;
-  height: 100%;
-  max-height: 65px;
+  height: 65px;
   box-sizing: border-box;
   display: flex;
   border-bottom: 1px solid $border-color-active;
