@@ -8,6 +8,7 @@
         v-for="(project, index) in projectsList"
       />
     </ul>
+    <PaginationItem />
     <StopperContainer v-if="projectsLength === 0 && !request">
       <BaseText>Не создан ни один проект</BaseText>
       <ButtonItem text="Добавить" />
@@ -18,10 +19,12 @@
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
 import ProjectItem from "@/components/ProjectItem.vue";
+import PaginationItem from "@/components/PaginationItem.vue";
 export default {
   name: "ProjectList",
   components: {
     ProjectItem,
+    PaginationItem,
   },
   methods: {
     ...mapActions(["fetchProjects"]),
