@@ -4,6 +4,7 @@ import MainPage from "@/views/MainPage.vue";
 import ProjectList from "@/views/ProjectList.vue";
 import TaskList from "@/views/TaskList.vue";
 import UserList from "@/views/UserList.vue";
+import TaskOverlay from "@/views/TaskOverlay.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
 import NotFoundPage from "@/views/NotFoundPage.vue";
 import CreateTask from "@/views/CreateTask.vue";
@@ -18,15 +19,24 @@ const routes = [
     children: [
       {
         path: "projects",
+        name: "Projects",
         component: ProjectList,
       },
       {
         path: "tasks",
-        component: TaskList,
-      },
-      {
-        path: "tasks/create",
-        component: CreateTask,
+        component: TaskOverlay,
+        children: [
+          {
+            path: "",
+            name: "Tasks",
+            component: TaskList,
+          },
+          {
+            path: "create",
+            name: "TaskCreate",
+            component: CreateTask,
+          },
+        ],
       },
       {
         path: "users",
