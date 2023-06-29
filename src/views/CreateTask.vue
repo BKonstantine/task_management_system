@@ -6,6 +6,7 @@
       <form class="create-task__form">
         <InputItem :isRequired="true" label="Название" :horizontal="true" />
         <TextareaItem label="Описание" :horizontal="true" />
+        <SelectItem v-model="selectedItem" :items="items" />
       </form>
       <BaseDivider />
       <div class="create-task__buttons">
@@ -19,11 +20,23 @@
 <script>
 import InputItem from "@/components/Form/InputItem.vue";
 import TextareaItem from "@/components/Form/TextareaItem.vue";
+import SelectItem from "@/components/Form/SelectItem.vue";
 export default {
   name: "CreateTask",
   components: {
     InputItem,
     TextareaItem,
+    SelectItem,
+  },
+  data() {
+    return {
+      items: [
+        { label: "Option 1", value: "option1" },
+        { label: "Option 2", value: "option2" },
+        { label: "Option 3", value: "option3" },
+      ],
+      selectedItem: null,
+    };
   },
 };
 </script>
