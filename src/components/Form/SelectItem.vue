@@ -86,6 +86,7 @@ export default {
 <style lang="scss" scoped>
 .select-item {
   position: relative;
+  width: 100%;
   @include font-setting(400, 14px, normal);
 
   &__label {

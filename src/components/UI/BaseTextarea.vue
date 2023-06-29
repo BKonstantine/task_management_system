@@ -28,6 +28,7 @@ export default {
   resize: none;
   border-radius: 4px;
   border: 1px solid $border-color-default;
+  font-family: inherit;
   @include font-setting(400, 14px, 19px);
   cursor: text;
 

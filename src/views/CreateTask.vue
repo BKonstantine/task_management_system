@@ -6,7 +6,26 @@
       <form class="create-task__form">
         <InputItem :isRequired="true" label="Название" :horizontal="true" />
         <TextareaItem label="Описание" :horizontal="true" />
-        <SelectItem v-model="selectedItem" :items="items" />
+        <div class="wrapper">
+          <div class="wrapper__input">
+            <InputLabel :isRequired="true">Проект</InputLabel>
+            <SelectItem
+              v-model="projectId"
+              :items="items"
+              placeholder="Не выбран..."
+            />
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="wrapper__input">
+            <InputLabel>Исполнитель</InputLabel>
+            <SelectItem
+              v-model="executorId"
+              :items="items"
+              placeholder="Не назначен..."
+            />
+          </div>
+        </div>
       </form>
       <BaseDivider />
       <div class="create-task__buttons">
@@ -30,12 +49,17 @@ export default {
   },
   data() {
     return {
+      taskData: {
+        name: null,
+        description: null,
+        projectId: null,
+        executor: null,
+      },
       items: [
-        { label: "Option 1", value: "option1" },
+        { label: "Проекты", value: "option1" },
         { label: "Option 2", value: "option2" },
         { label: "Option 3", value: "option3" },
       ],
-      selectedItem: null,
     };
   },
 };
@@ -63,6 +87,15 @@ export default {
   &__buttons {
     padding: 10px;
     @include flex-setting(_, center, flex-end, 24px);
+  }
+}
+
+.wrapper {
+  @include flex-setting(column, _, _, 8px);
+  width: 100%;
+
+  &__input {
+    @include flex-setting(_, _, _, 8px);
   }
 }
 </style>
