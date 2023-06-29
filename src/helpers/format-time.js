@@ -1,59 +1,43 @@
-export function formatTime(dateString) {
-  if (!dateString) {
+export function formatTime(time_str) {
+  const now = new Date();
+  const time = new Date(time_str);
+
+  if (!time_str) {
     return "";
   }
 
-  const date = new Date(dateString);
-  const now = new Date();
+  const diff = now - time;
+  const minutes = Math.round(diff / 60000);
+  const hours = Math.round(diff / 3600000);
+  const days = Math.round(diff / 86400000);
 
-  const timeDiff = now.getTime() - date.getTime();
-  const seconds = timeDiff / 1000;
-  const minutes = seconds / 60;
-  const hours = minutes / 60;
-  const days = hours / 24;
-
-  let result = "";
-
-  if (days >= 1) {
-    if (days >= 2) {
-      result =
-        date.toLocaleString("ru", { month: "short", day: "numeric" }) +
-        " в " +
-        date.toLocaleTimeString("ru", { hour: "numeric", minute: "numeric" });
-    } else {
-      result =
-        "Вчера в " +
-        date.toLocaleTimeString("ru", { hour: "numeric", minute: "numeric" });
-    }
-  } else if (hours >= 3) {
-    result =
-      "Сегодня в " +
-      date.toLocaleTimeString("ru", { hour: "numeric", minute: "numeric" });
-  } else if (hours >= 1) {
-    result =
-      Math.ceil(hours) +
-      " час" +
-      getEnding(Math.ceil(hours), ["", "а", "ов"]) +
-      " назад";
+  if (minutes <= 1) {
+    return "1 минуту назад";
+  } else if (minutes < 60) {
+    return `${minutes} минут назад`;
+  } else if (hours === 1 && now.getDate() === time.getDate()) {
+    return "1 час назад";
+  } else if (hours < 24 && now.getDate() === time.getDate()) {
+    return `${hours} часов назад`;
+  } else if (days === 1) {
+    return (
+      "Вчера в " +
+      time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    );
+  } else if (days < 365) {
+    return time.toLocaleDateString([], {
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   } else {
-    result =
-      Math.ceil(minutes) +
-      " минут" +
-      getEnding(Math.ceil(minutes), ["а", "ы", ""]) +
-      " назад";
-  }
-
-  return result;
-}
-
-function getEnding(value, endings) {
-  const mod = value % 10;
-
-  if (mod === 1 && value !== 11) {
-    return endings[0];
-  } else if (mod >= 2 && mod <= 4 && (value < 10 || value >= 20)) {
-    return endings[1];
-  } else {
-    return endings[2];
+    return time.toLocaleDateString([], {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
 }
