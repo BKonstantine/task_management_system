@@ -1,3 +1,10 @@
+function getNounEnding(number, endings) {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return endings[
+    number % 100 > 4 && number % 100 < 20 ? 2 : cases[Math.min(number % 10, 5)]
+  ];
+}
+
 export function formatTime(time_str) {
   const now = new Date();
   const time = new Date(time_str);
@@ -14,15 +21,23 @@ export function formatTime(time_str) {
   if (minutes <= 1) {
     return "1 минуту назад";
   } else if (minutes < 5) {
-    return `${minutes} минуты назад`;
+    const endings = ["минуту", "минуты", "минут"];
+    const ending = getNounEnding(minutes, endings);
+    return `${minutes} ${ending} назад`;
   } else if (minutes < 60) {
-    return `${minutes} минут назад`;
+    const endings = ["минуту", "минуты", "минут"];
+    const ending = getNounEnding(minutes, endings);
+    return `${minutes} ${ending} назад`;
   } else if (hours === 1 && now.getDate() === time.getDate()) {
     return "1 час назад";
   } else if (hours < 5 && now.getDate() === time.getDate()) {
-    return `${hours} часа назад`;
+    const endings = ["час", "часа", "часов"];
+    const ending = getNounEnding(hours, endings);
+    return `${hours} ${ending} назад`;
   } else if (hours < 24 && now.getDate() === time.getDate()) {
-    return `${hours} часов назад`;
+    const endings = ["час", "часа", "часов"];
+    const ending = getNounEnding(hours, endings);
+    return `${hours} ${ending} назад`;
   } else if (days === 1) {
     return (
       "Вчера в " +
