@@ -1,6 +1,7 @@
 <template>
   <PageContainer>
     <FilterContainer>
+      <BaseInput />
       <NavLink
         to="tasks/create"
         class="button"

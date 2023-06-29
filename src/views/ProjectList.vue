@@ -1,5 +1,9 @@
 <template>
   <PageContainer>
+    <FilterContainer>
+      <BaseInput />
+      <ButtonItem class="button" text="Добавить" :secondaryStyle="true" />
+    </FilterContainer>
     <ul v-if="projectsLength > 0" class="project-list">
       <ProjectItem
         :projectData="project"
@@ -87,5 +91,9 @@ export default {
 .block {
   height: 48px;
   list-style: none;
+}
+
+.button {
+  margin-left: auto;
 }
 </style>
