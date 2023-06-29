@@ -3,7 +3,9 @@
     <div class="create-task">
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
-      <form class="create-task__form"></form>
+      <form class="create-task__form">
+        <BaseTextarea />
+      </form>
       <BaseDivider />
       <div class="create-task__buttons">
         <ButtonItem text="Отмена" :secondaryStyle="true" />

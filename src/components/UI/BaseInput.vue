@@ -17,7 +17,7 @@ export default {};
   cursor: text;
 
   &::placeholder {
-    font-family: inherit;
+    font-family: "Open Sans", sans-serif;
     color: $font-color-placeholder;
   }
 }
