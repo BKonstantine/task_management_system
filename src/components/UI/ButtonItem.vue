@@ -48,7 +48,7 @@ export default {
   padding: 0 16px;
   min-height: 42px;
   @include flex-setting(_, center);
-  width: min-content;
+  flex: none;
   border: none;
   border-radius: 4px;
   background-color: $bgc-primary-default;
