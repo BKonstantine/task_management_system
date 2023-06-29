@@ -85,15 +85,16 @@ export default {
   @include flex-setting(column, _, _, 10px);
 
   &__pagination {
+    padding: 20px 44px;
     position: fixed;
     bottom: 0;
-    left: 24px;
+    left: 0px;
     z-index: 1;
   }
 }
 
 .block {
-  height: 48px;
+  height: 72px;
   list-style: none;
 }
 

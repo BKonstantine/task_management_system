@@ -23,6 +23,7 @@ export default {
 <style lang="scss">
 .app {
   width: 1024px;
+  height: 100%;
   @media screen and (min-width: 1024px) {
     width: 100%;
   }

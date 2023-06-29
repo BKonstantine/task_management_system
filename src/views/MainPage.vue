@@ -16,6 +16,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-page {
+  height: 100%;
+}
 .nav-bar {
   position: fixed;
   top: 0;

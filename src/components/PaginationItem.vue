@@ -64,7 +64,6 @@ export default {
 
 <style lang="scss" scoped>
 .pagination {
-  padding: 20px;
   width: 100%;
   height: 82px;
   background-color: $bgc-secondary-default;
