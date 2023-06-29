@@ -1,11 +1,11 @@
 <template>
-  <header v-if="loader" class="header">
+  <header class="header">
     <nav class="nav">
       <ul class="nav__list">
         <li class="nav__item" :key="index" v-for="(link, index) in links">
           <NavLink :to="link.to" :text="link.text" />
         </li>
-        <div class="header__profile">
+        <div class="header__profile" v-if="userData">
           <ButtonProfile
             @click="toggleDropDown"
             :active="dropDown || matchRoute"
@@ -72,7 +72,6 @@ export default {
     },
     ...mapState({
       userData: (state) => state.currentUserModule.currentUser,
-      loader: (state) => state.currentUserModule.currentUserSuccess,
     }),
   },
   mounted() {

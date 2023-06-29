@@ -1,5 +1,5 @@
 <template>
-  <PageContainer>CreateTask</PageContainer>
+  <PageContainer><div class="create-task">asd</div></PageContainer>
 </template>
 
 <script>
@@ -8,4 +8,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.create-task {
+  height: 100%;
+}
+</style>
