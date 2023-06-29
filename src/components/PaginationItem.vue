@@ -51,7 +51,9 @@ export default {
       this.$emit("next-page", 1);
     },
     currPage(data) {
-      this.$emit("curr-page", data);
+      if (typeof data === "number") {
+        this.$emit("curr-page", data);
+      }
     },
   },
   computed: {
