@@ -7,6 +7,7 @@
         :index="index"
         v-for="(task, index) in tasksList"
       />
+      <li v-if="totalPage > 1" class="block"></li>
     </ul>
     <PaginationItem
       v-if="totalPage > 1"
@@ -72,5 +73,10 @@ export default {
 <style lang="scss" scoped>
 .task-list {
   @include flex-setting(column, _, _, 10px);
+}
+
+.block {
+  height: 48px;
+  list-style: none;
 }
 </style>

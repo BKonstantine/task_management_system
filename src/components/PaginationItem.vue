@@ -10,6 +10,7 @@
       </ButtonIcon>
       <ButtonItem
         :key="index"
+        :small="true"
         :text="number"
         :secondaryStyle="number !== currentPage"
         v-for="(number, index) in numberList"
@@ -63,10 +64,10 @@ export default {
 
 <style lang="scss" scoped>
 .pagination {
-  padding: 20px;
+  padding: 20px 44px;
   width: 100%;
   height: 82px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   z-index: 1;
