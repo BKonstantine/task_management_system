@@ -1,5 +1,5 @@
 <template>
-  <RouterLink active-class="nav-link_active" :to="to" class="nav-link pointer">
+  <RouterLink active-class="nav-link_active" :to="to" :class="classObject">
     {{ text }}
   </RouterLink>
 </template>
@@ -14,6 +14,18 @@ export default {
     text: {
       type: String,
       required: true,
+    },
+    secondaryStyle: {
+      type: Boolean,
+    },
+  },
+  computed: {
+    classObject: function () {
+      return {
+        "nav-link": true,
+        pointer: true,
+        "nav-link_style_secondary": this.secondaryStyle,
+      };
     },
   },
 };
@@ -47,6 +59,28 @@ export default {
     background-color: $bgc-secondary-default;
     border: 1px solid $bgc-secondary-default;
     color: $font-color-primary;
+  }
+
+  &_style_secondary {
+    border: 1px solid $border-color-default;
+    background-color: $bgc-secondary-default;
+    color: $font-color-primary;
+
+    &:hover {
+      border-color: $border-color-hover;
+      background-color: $bgc-secondary-hover;
+    }
+
+    &:active {
+      border-color: $border-color-active;
+      background-color: $bgc-secondary-active;
+    }
+
+    &:disabled {
+      border-color: $border-color-disabled;
+      background-color: $bgc-secondary-default;
+      color: $font-color-disabled;
+    }
   }
 }
 </style>

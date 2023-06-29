@@ -18,5 +18,10 @@ export default {
 
 .title {
   @include font-setting(700, 90px, 100%);
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

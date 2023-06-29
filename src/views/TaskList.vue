@@ -1,5 +1,13 @@
 <template>
   <PageContainer>
+    <FilterContainer>
+      <NavLink
+        to="tasks/create"
+        class="button"
+        text="Добавить"
+        :secondaryStyle="true"
+      />
+    </FilterContainer>
     <ul v-if="tasksLength > 0" class="task-list">
       <TaskItem
         :taskData="task"
@@ -86,5 +94,9 @@ export default {
 .block {
   height: 48px;
   list-style: none;
+}
+
+.button {
+  margin-left: auto;
 }
 </style>

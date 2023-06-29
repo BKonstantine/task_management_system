@@ -6,6 +6,7 @@ import TaskList from "@/views/TaskList.vue";
 import UserList from "@/views/UserList.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
 import NotFoundPage from "@/views/NotFoundPage.vue";
+import CreateTask from "@/views/CreateTask.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,10 @@ const routes = [
       {
         path: "tasks",
         component: TaskList,
+      },
+      {
+        path: "tasks/create",
+        component: CreateTask,
       },
       {
         path: "users",
