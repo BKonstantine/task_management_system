@@ -19,6 +19,8 @@ export function formatTime(time_str) {
     return `${minutes} минут назад`;
   } else if (hours === 1 && now.getDate() === time.getDate()) {
     return "1 час назад";
+  } else if (hours < 5 && now.getDate() === time.getDate()) {
+    return `${hours} часа назад`;
   } else if (hours < 24 && now.getDate() === time.getDate()) {
     return `${hours} часов назад`;
   } else if (days === 1) {
