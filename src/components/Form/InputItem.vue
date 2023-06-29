@@ -1,6 +1,6 @@
 <template>
   <fieldset class="input-item">
-    <div class="input-item__container">
+    <div :class="position">
       <InputLabel :isRequired="isRequired">{{ label }}</InputLabel>
       <BaseInput v-bind="$attrs" />
     </div>
@@ -18,6 +18,14 @@ export default {
     isRequired: Boolean,
     horizontal: Boolean,
   },
+  computed: {
+    position() {
+      return {
+        "input-item__container": true,
+        "input-item__container_position_horizontal": this.horizontal,
+      };
+    },
+  },
 };
 </script>
 
@@ -27,6 +35,12 @@ export default {
 
   &__container {
     @include flex-setting(column, _, _, 8px);
+
+    &_position {
+      &_horizontal {
+        flex-direction: row;
+      }
+    }
   }
 }
 </style>

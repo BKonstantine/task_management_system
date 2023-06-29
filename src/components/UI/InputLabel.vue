@@ -20,7 +20,7 @@ export default {
 .label {
   @include flex-setting(_, _, _, 4px);
   @include font-setting(400, 14px, 19px, $font-color-disabled);
-  max-width: 120px;
+  min-width: 120px;
 }
 
 .require {

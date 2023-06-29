@@ -4,7 +4,7 @@
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
       <form class="create-task__form">
-        <InputItem :isRequired="true" label="Название" />
+        <InputItem :isRequired="true" label="Название" :horizontal="true" />
       </form>
       <BaseDivider />
       <div class="create-task__buttons">
