@@ -1,27 +1,9 @@
 <template>
-  <input
-    :type="type"
-    v-bind="$attrs"
-    class="base-input"
-    :id="id"
-    placeholder="Введите текст..."
-  />
+  <input v-bind="$attrs" class="base-input" placeholder="Введите текст..." />
 </template>
 
 <script>
-export default {
-  props: {
-    type: {
-      validator: function (value) {
-        return ["text", "password", "email"].includes(value);
-      },
-      default: "text",
-    },
-    id: {
-      type: String,
-    },
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

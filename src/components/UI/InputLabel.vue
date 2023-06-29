@@ -1,12 +1,16 @@
 <template>
   <label class="label">
     <slot />
-    <span class="require">*</span>
+    <span v-if="require" class="require">*</span>
   </label>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    require: Boolean,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
