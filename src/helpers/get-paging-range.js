@@ -1,12 +1,30 @@
-export function getPagingRange(
-  current,
-  { min = 1, total = 10, length = 3 } = {}
-) {
-  if (length > total) length = total;
+export function getPagingRange(c, m) {
+  let current = c,
+    last = m,
+    delta = 1,
+    left = current - delta,
+    right = current + delta + 1,
+    range = [],
+    rangeWithDots = [],
+    l;
 
-  let start = current - Math.floor(length / 2);
-  start = Math.max(start, min);
-  start = Math.min(start, min + total - length);
+  for (let i = 1; i <= last; i++) {
+    if (i == 1 || i == last || (i >= left && i < right)) {
+      range.push(i);
+    }
+  }
 
-  return Array.from({ length: length }, (el, i) => start + i);
+  for (let i of range) {
+    if (l) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (i - l !== 1) {
+        rangeWithDots.push("...");
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+
+  return rangeWithDots;
 }

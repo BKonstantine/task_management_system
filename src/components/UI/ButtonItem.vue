@@ -47,7 +47,7 @@ export default {
   font-family: inherit;
   padding: 0 16px;
   min-height: 42px;
-  @include flex-setting(_, center);
+  @include flex-setting(_, center, center);
   flex: none;
   border: none;
   border-radius: 4px;

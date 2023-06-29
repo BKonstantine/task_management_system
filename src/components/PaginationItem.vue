@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     numberList() {
-      return getPagingRange(this.currentPage, { total: this.totalPage });
+      return getPagingRange(this.currentPage, this.totalPage);
     },
   },
 };
