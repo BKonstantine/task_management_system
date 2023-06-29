@@ -10,7 +10,7 @@
           <div class="wrapper__input">
             <InputLabel :isRequired="true">Проект</InputLabel>
             <SelectItem
-              v-model="projectId"
+              v-model="taskData.projectId"
               :items="items"
               placeholder="Не выбран..."
             />
@@ -20,7 +20,7 @@
           <div class="wrapper__input">
             <InputLabel>Исполнитель</InputLabel>
             <SelectItem
-              v-model="executorId"
+              v-model="taskData.executor"
               :items="items"
               placeholder="Не назначен..."
             />
@@ -50,10 +50,10 @@ export default {
   data() {
     return {
       taskData: {
-        name: null,
-        description: null,
-        projectId: null,
-        executor: null,
+        name: "",
+        description: "",
+        projectId: "",
+        executor: "",
       },
       items: [
         { label: "Проекты", value: "option1" },
