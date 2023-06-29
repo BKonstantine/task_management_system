@@ -5,6 +5,7 @@
       <BaseDivider />
       <form class="create-task__form">
         <InputItem :isRequired="true" label="Название" :horizontal="true" />
+        <TextareaItem label="Описание" :horizontal="true" />
       </form>
       <BaseDivider />
       <div class="create-task__buttons">
@@ -17,10 +18,12 @@
 
 <script>
 import InputItem from "@/components/Form/InputItem.vue";
+import TextareaItem from "@/components/Form/TextareaItem.vue";
 export default {
   name: "CreateTask",
   components: {
     InputItem,
+    TextareaItem,
   },
 };
 </script>
@@ -39,6 +42,7 @@ export default {
   }
 
   &__form {
+    @include flex-setting(column, _, _, 24px);
     max-width: 720px;
     height: 100%;
     padding: 32px 24px 24px 24px;
