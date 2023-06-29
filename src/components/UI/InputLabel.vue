@@ -1,14 +1,17 @@
 <template>
   <label class="label">
     <slot />
-    <span v-if="require" class="require">*</span>
+    <span v-if="isRequired" class="require">*</span>
   </label>
 </template>
 
 <script>
 export default {
   props: {
-    require: Boolean,
+    isRequired: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -17,6 +20,7 @@ export default {
 .label {
   @include flex-setting(_, _, _, 4px);
   @include font-setting(400, 14px, 19px, $font-color-disabled);
+  max-width: 120px;
 }
 
 .require {

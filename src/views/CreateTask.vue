@@ -4,7 +4,7 @@
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
       <form class="create-task__form">
-        <BaseTextarea />
+        <InputItem :isRequired="true" label="Название" />
       </form>
       <BaseDivider />
       <div class="create-task__buttons">
@@ -16,8 +16,12 @@
 </template>
 
 <script>
+import InputItem from "@/components/Form/InputItem.vue";
 export default {
   name: "CreateTask",
+  components: {
+    InputItem,
+  },
 };
 </script>
 
