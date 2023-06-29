@@ -13,6 +13,8 @@ export function formatTime(time_str) {
 
   if (minutes <= 1) {
     return "1 минуту назад";
+  } else if (minutes < 5) {
+    return `${minutes} минуты назад`;
   } else if (minutes < 60) {
     return `${minutes} минут назад`;
   } else if (hours === 1 && now.getDate() === time.getDate()) {
