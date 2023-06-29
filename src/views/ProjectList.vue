@@ -16,6 +16,7 @@
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
+      class="project-list__pagination"
     />
     <StopperContainer v-if="projectsLength === 0 && !request">
       <BaseText>Не создан ни один проект</BaseText>
@@ -74,6 +75,13 @@ export default {
 <style lang="scss" scoped>
 .project-list {
   @include flex-setting(column, _, _, 10px);
+
+  &__pagination {
+    position: fixed;
+    bottom: 0;
+    left: 24px;
+    z-index: 1;
+  }
 }
 
 .block {

@@ -1,6 +1,6 @@
 <template>
   <div class="main-page">
-    <NavBar />
+    <NavBar class="nav-bar" />
     <RouterView />
   </div>
 </template>
@@ -16,4 +16,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+</style>

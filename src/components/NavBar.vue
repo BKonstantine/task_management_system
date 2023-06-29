@@ -88,6 +88,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   padding: 24px;
+  width: 100%;
   background-color: $bgc-primary-default;
 
   &__profile {

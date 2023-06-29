@@ -10,7 +10,7 @@ export default {};
 
 <style lang="scss" scoped>
 .main {
-  padding: 24px;
+  padding: 114px 24px 24px 24px;
   @include flex-setting(column, _, _, 24px);
 }
 </style>

@@ -16,6 +16,7 @@
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
+      class="task-list__pagination"
     />
     <StopperContainer v-if="tasksLength === 0 && !request">
       <BaseText>Не создано ни одной задачи</BaseText>
@@ -73,6 +74,13 @@ export default {
 <style lang="scss" scoped>
 .task-list {
   @include flex-setting(column, _, _, 10px);
+
+  &__pagination {
+    position: fixed;
+    bottom: 0;
+    left: 24px;
+    z-index: 1;
+  }
 }
 
 .block {
