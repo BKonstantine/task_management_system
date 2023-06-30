@@ -1,9 +1,17 @@
 <template>
-  <input v-bind="$attrs" class="base-input" placeholder="Введите текст..." />
+  <input
+    :value="value"
+    @input="$emit('input', $event.target.value)"
+    v-bind="$attrs"
+    class="base-input"
+    placeholder="Введите текст..."
+  />
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["value"],
+};
 </script>
 
 <style lang="scss" scoped>

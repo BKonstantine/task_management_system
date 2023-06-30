@@ -2,7 +2,7 @@
   <fieldset class="input-item">
     <div :class="position">
       <InputLabel :isRequired="isRequired">{{ label }}</InputLabel>
-      <BaseInput v-bind="$attrs" />
+      <BaseInput v-model="inputValue" v-bind="$attrs" />
     </div>
     <InputError v-if="error">{{ error }}</InputError>
   </fieldset>
@@ -12,6 +12,11 @@
 export default {
   name: "InputItem",
   inheritAttrs: false,
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
   props: {
     label: String,
     error: String,
