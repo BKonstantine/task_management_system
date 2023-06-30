@@ -2,7 +2,7 @@
   <fieldset class="textarea-item">
     <div :class="position">
       <InputLabel :isRequired="isRequired">{{ label }}</InputLabel>
-      <BaseTextarea v-bind="$attrs" />
+      <BaseTextarea v-model="textareaValue" v-bind="$attrs" />
     </div>
     <InputError v-if="error">{{ error }}</InputError>
   </fieldset>
@@ -12,6 +12,11 @@
 export default {
   name: "TextareaItem",
   inheritAttrs: false,
+  data() {
+    return {
+      textareaValue: "",
+    };
+  },
   props: {
     label: String,
     error: String,

@@ -3,13 +3,15 @@
     v-bind="$attrs"
     class="textarea"
     placeholder="Введите текст..."
-    @input="autoResize"
+    :value="value"
+    @input="autoResize, $emit('input', $event.target.value)"
     ref="textarea"
   ></textarea>
 </template>
 
 <script>
 export default {
+  props: ["value"],
   methods: {
     autoResize() {
       this.$refs.textarea.style.height = "auto";
