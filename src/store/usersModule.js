@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-labels */
 import { getUsers } from "@/api/users";
+import { abbreviateName } from "@/helpers/replace-text";
 
 export default {
   state: {
@@ -24,6 +26,11 @@ export default {
   getters: {
     findUser: (state) => (id) => {
       return state.usersList.find((user) => user._id === id);
+    },
+    getUsersForOptions(state) {
+      return state.usersList.map((user) => {
+        return { label: abbreviateName(user.name), value: user._id };
+      });
     },
   },
   actions: {

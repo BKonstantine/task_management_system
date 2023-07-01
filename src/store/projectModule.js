@@ -29,6 +29,11 @@ export default {
     getProjectsLength(state) {
       return state.projectsList.length;
     },
+    getProjectsForOptions(state) {
+      return state.projectsList.map((project) => {
+        return { label: project.name, value: project._id };
+      });
+    },
   },
   actions: {
     fetchProjects({ commit }, projectData) {

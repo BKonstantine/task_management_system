@@ -17,7 +17,7 @@
             <InputLabel :isRequired="true">Проект</InputLabel>
             <SelectItem
               v-model="taskData.projectId"
-              :items="items"
+              :items="getProjectsForOptions"
               placeholder="Не выбран..."
             />
           </div>
@@ -27,7 +27,7 @@
             <InputLabel>Исполнитель</InputLabel>
             <SelectItem
               v-model="taskData.executor"
-              :items="items"
+              :items="getUsersForOptions"
               placeholder="Не назначен..."
             />
           </div>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import SelectItem from "@/components/Form/SelectItem.vue";
 export default {
   name: "CreateTask",
@@ -63,6 +64,9 @@ export default {
         { label: "Option 3", value: "option3" },
       ],
     };
+  },
+  computed: {
+    ...mapGetters(["getUsersForOptions", "getProjectsForOptions"]),
   },
 };
 </script>

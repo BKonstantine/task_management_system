@@ -9,13 +9,19 @@ import { mapActions } from "vuex";
 export default {
   name: "App",
   methods: {
-    ...mapActions(["fetchLogin", "fetchUsers", "fetchCurrentUser"]),
+    ...mapActions([
+      "fetchLogin",
+      "fetchUsers",
+      "fetchCurrentUser",
+      "fetchProjects",
+    ]),
   },
 
   beforeMount() {
     //this.fetchLogin();
     this.fetchCurrentUser();
     this.fetchUsers({ limit: 100 });
+    this.fetchProjects({ limit: 1000 });
   },
 };
 </script>

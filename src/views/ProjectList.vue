@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import ProjectItem from "@/components/ProjectItem.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
 export default {
@@ -45,7 +45,6 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchProjects"]),
     prevPage(data) {
       this.currentPage -= data;
       this.fetchProjects({ page: this.currentPage });
@@ -69,9 +68,6 @@ export default {
     projectsLength: function () {
       return this.getProjectsLength;
     },
-  },
-  beforeMount() {
-    this.fetchProjects({ page: 1 });
   },
 };
 </script>

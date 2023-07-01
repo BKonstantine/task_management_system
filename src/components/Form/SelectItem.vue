@@ -117,7 +117,7 @@ export default {
     z-index: 1;
     top: 44px;
     left: 0;
-    max-height: 400px;
+    max-height: 200px;
     overflow-y: auto;
     background-color: $bgc-secondary-default;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
