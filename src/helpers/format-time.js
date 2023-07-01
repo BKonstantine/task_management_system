@@ -46,7 +46,7 @@ export function formatTime(time_str) {
   } else if (days < 365) {
     return time.toLocaleDateString([], {
       day: "numeric",
-      month: "short",
+      month: "long",
       hour: "2-digit",
       minute: "2-digit",
     });
