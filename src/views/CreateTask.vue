@@ -4,8 +4,14 @@
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
       <form class="create-task__form">
-        <InputItem :isRequired="true" label="Название" :horizontal="true" />
-        <TextareaItem label="Описание" :horizontal="true" />
+        <div class="wrapper__input">
+          <InputLabel :isRequired="true">Название</InputLabel>
+          <BaseInput v-model="taskData.name" />
+        </div>
+        <div class="wrapper__input">
+          <InputLabel>Описание</InputLabel>
+          <BaseTextarea v-model="taskData.description" />
+        </div>
         <div class="wrapper">
           <div class="wrapper__input">
             <InputLabel :isRequired="true">Проект</InputLabel>
@@ -37,14 +43,10 @@
 </template>
 
 <script>
-import InputItem from "@/components/Form/InputItem.vue";
-import TextareaItem from "@/components/Form/TextareaItem.vue";
 import SelectItem from "@/components/Form/SelectItem.vue";
 export default {
   name: "CreateTask",
   components: {
-    InputItem,
-    TextareaItem,
     SelectItem,
   },
   data() {
