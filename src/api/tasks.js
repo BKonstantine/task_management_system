@@ -12,3 +12,14 @@ export const getTasks = (data) => {
     body: JSON.stringify(data),
   }).then(checkResponse);
 };
+
+export const createTask = (data) => {
+  return fetch(`${URL}/tasks`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: getToken(),
+    },
+    body: JSON.stringify(data),
+  }).then(checkResponse);
+};

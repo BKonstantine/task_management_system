@@ -75,7 +75,12 @@ export default {
     },
   },
   beforeMount() {
-    this.fetchTasks();
+    this.fetchTasks({
+      sort: {
+        field: "dateCreated",
+        type: "des",
+      },
+    });
   },
 };
 </script>
