@@ -3,7 +3,7 @@
     <FilterContainer>
       <BaseInput />
       <NavLink
-        to="tasks/create"
+        :to="{ name: 'TaskCreate' }"
         class="button"
         text="Добавить"
         :secondaryStyle="true"

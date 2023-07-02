@@ -3,7 +3,7 @@
     <div class="create-task">
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
-      <form class="create-task__form">
+      <form class="create-task__form" id="createTaskForm" @submit="createTask">
         <div class="wrapper__input">
           <InputLabel :isRequired="true">Название</InputLabel>
           <BaseInput v-model="taskData.name" />
@@ -35,16 +35,17 @@
       </form>
       <BaseDivider />
       <div class="create-task__buttons">
-        <ButtonItem text="Отмена" :secondaryStyle="true" />
-        <ButtonItem type="submit" text="Создать задачу" />
+        <ButtonItem text="Отмена" :secondaryStyle="true" @click="goBackPage" />
+        <ButtonItem type="submit" text="Создать задачу" form="createTaskForm" />
       </div>
     </div>
   </PageContainer>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import SelectItem from "@/components/Form/SelectItem.vue";
+import { createTaskRequest } from "@/api/tasks";
 export default {
   name: "CreateTask",
   components: {
@@ -56,17 +57,28 @@ export default {
         name: "",
         description: "",
         projectId: "",
-        executor: "",
+        executor: "648af1e37287972ce8676f02",
       },
-      items: [
-        { label: "Проекты", value: "option1" },
-        { label: "Option 2", value: "option2" },
-        { label: "Option 3", value: "option3" },
-      ],
     };
+  },
+  methods: {
+    ...mapActions(["fetchProjects"]),
+    goBackPage() {
+      this.$router.go(-1);
+    },
+    createTask(e) {
+      e.preventDefault();
+      createTaskRequest(this.taskData).then((res) => {
+        console.log(res);
+        this.$router.replace({ name: "Tasks" });
+      });
+    },
   },
   computed: {
     ...mapGetters(["getUsersForOptions", "getProjectsForOptions"]),
+  },
+  beforeMount() {
+    this.fetchProjects();
   },
 };
 </script>

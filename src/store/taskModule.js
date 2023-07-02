@@ -1,4 +1,4 @@
-import { getTasks } from "@/api/tasks";
+import { getTasksRequest } from "@/api/tasks";
 
 export default {
   state: {
@@ -33,7 +33,7 @@ export default {
   actions: {
     fetchTasks({ commit }, taskData) {
       commit("setTasksDataRequest", true);
-      getTasks(taskData)
+      getTasksRequest(taskData)
         .then((data) => {
           commit("setTasksList", data.tasks);
           commit("setTasksTotalPage", data.total);

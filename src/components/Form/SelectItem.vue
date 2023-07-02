@@ -2,7 +2,7 @@
   <div class="select-item">
     <div :class="labelClass" @click="toggle">
       <span class="select-item__selected" v-if="selectedItem">
-        {{ items.find((item) => item.value === selectedItem).label }}
+        {{ items.find((item) => item.value === selectedItem)?.label }}
       </span>
       <span class="select-item__placeholder" v-else>{{ placeholder }}</span>
       <SvgIcon id="#drop_down_1" class="select-item__icon" />

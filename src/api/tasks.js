@@ -2,7 +2,7 @@ import { checkResponse } from "@/helpers/check-response";
 import { URL } from "@/constants/api";
 import { getToken } from "@/helpers/access-token";
 
-export const getTasks = (data) => {
+export const getTasksRequest = (data) => {
   return fetch(`${URL}/tasks/search`, {
     method: "POST",
     headers: {
@@ -13,7 +13,7 @@ export const getTasks = (data) => {
   }).then(checkResponse);
 };
 
-export const createTask = (data) => {
+export const createTaskRequest = (data) => {
   return fetch(`${URL}/tasks`, {
     method: "POST",
     headers: {
