@@ -4,13 +4,17 @@
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
       <form class="create-task__form" id="createTaskForm" @submit="createTask">
-        <div class="wrapper__input">
-          <InputLabel :isRequired="true">Название</InputLabel>
-          <BaseInput v-model="taskData.name" />
+        <div class="wrapper">
+          <div class="wrapper__input">
+            <InputLabel :isRequired="true">Название</InputLabel>
+            <BaseInput v-model="taskData.name" />
+          </div>
         </div>
-        <div class="wrapper__input">
-          <InputLabel>Описание</InputLabel>
-          <BaseTextarea v-model="taskData.description" />
+        <div class="wrapper">
+          <div class="wrapper__input">
+            <InputLabel>Описание</InputLabel>
+            <BaseTextarea v-model="taskData.description" />
+          </div>
         </div>
         <div class="wrapper">
           <div class="wrapper__input">
