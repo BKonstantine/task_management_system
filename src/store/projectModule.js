@@ -12,7 +12,7 @@ export default {
     setProjectsList(state, payload) {
       state.projectsList = payload;
     },
-    setTotalPage(state, payload) {
+    setProjectsTotalPage(state, payload) {
       state.totalPage = payload;
     },
     setProjectsDataRequest(state, payload) {
@@ -41,7 +41,7 @@ export default {
       getProjects(projectData)
         .then((data) => {
           commit("setProjectsList", data.projects);
-          commit("setTotalPage", data.total);
+          commit("setProjectsTotalPage", data.total);
           commit("setProjectsDataRequest", false);
           commit("setProjectsDataSuccess", true);
         })

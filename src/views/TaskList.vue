@@ -77,8 +77,8 @@ export default {
   beforeMount() {
     this.fetchTasks({
       sort: {
-        field: "dateCreated",
-        type: "des",
+        field: "dateEdited", // name, author, status, executor, dateCreated, dateEdited
+        type: "asc", // asc, des
       },
     });
   },

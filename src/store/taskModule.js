@@ -12,7 +12,7 @@ export default {
     setTasksList(state, payload) {
       state.tasksList = payload;
     },
-    setTotalPage(state, payload) {
+    setTasksTotalPage(state, payload) {
       state.totalPage = payload;
     },
     setTasksDataRequest(state, payload) {
@@ -36,7 +36,7 @@ export default {
       getTasks(taskData)
         .then((data) => {
           commit("setTasksList", data.tasks);
-          commit("setTotalPage", data.total);
+          commit("setTasksTotalPage", data.total);
           commit("setTasksDataRequest", false);
           commit("setTasksDataSuccess", true);
         })
