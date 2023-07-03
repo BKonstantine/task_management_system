@@ -15,7 +15,7 @@ const routes = [
   {
     path: "/",
     component: MainPage,
-    redirect: "/projects",
+    redirect: "/tasks",
     children: [
       {
         path: "projects",
@@ -33,7 +33,12 @@ const routes = [
           },
           {
             path: "create",
-            name: "TaskCreate",
+            name: "CreateTask",
+            component: CreateTask,
+          },
+          {
+            path: ":id",
+            name: "CurrentTask",
             component: CreateTask,
           },
         ],
