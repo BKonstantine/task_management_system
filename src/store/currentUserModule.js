@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/api/current-user";
+import { getCurrentUserRequest } from "@/api/current-user";
 
 export default {
   state: {
@@ -21,11 +21,15 @@ export default {
       state.currentUserError = payload;
     },
   },
-  getters: {},
+  getters: {
+    getCurrentUser(state) {
+      return state.currentUser;
+    },
+  },
   actions: {
     fetchCurrentUser({ commit }) {
       commit("setCurrentUserRequest", true);
-      getCurrentUser()
+      getCurrentUserRequest()
         .then((data) => {
           commit("setCurrentUser", data);
           commit("setCurrentUserRequest", false);

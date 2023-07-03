@@ -5,11 +5,11 @@
         <li class="nav__item" :key="index" v-for="(link, index) in links">
           <NavLink :to="link.to" :text="link.text" />
         </li>
-        <div class="header__profile" v-if="userData">
+        <div class="header__profile" v-if="getCurrentUser">
           <ButtonProfile
             @click="toggleDropDown"
             :active="dropDown || matchRoute"
-            :userAvatar="userData"
+            :userAvatar="getCurrentUser"
           />
           <DropDown
             class="header__drop-down"
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "NavBar",
@@ -70,9 +70,7 @@ export default {
     matchRoute: function () {
       return this.$route.path === "/profile";
     },
-    ...mapState({
-      userData: (state) => state.currentUserModule.currentUser,
-    }),
+    ...mapGetters(["getCurrentUser"]),
   },
   mounted() {
     document.addEventListener("click", this.hideAll);
