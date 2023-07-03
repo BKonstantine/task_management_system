@@ -10,12 +10,11 @@
           :isRequired="true"
           label="Название"
         />
-        <div class="wrapper">
-          <div class="wrapper__input">
-            <InputLabel>Описание</InputLabel>
-            <BaseTextarea v-model="taskData.description" />
-          </div>
-        </div>
+        <TextareaItem
+          v-model="taskData.description"
+          :horizontal="true"
+          label="Описание"
+        />
         <div class="wrapper">
           <div class="wrapper__input">
             <InputLabel :isRequired="true">Проект</InputLabel>
@@ -52,6 +51,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import TextareaItem from "@/components/Form/TextareaItem.vue";
 import InputItem from "@/components/Form/InputItem.vue";
 import SelectItem from "@/components/Form/SelectItem.vue";
 import { createTaskRequest } from "@/api/tasks";
@@ -60,6 +60,7 @@ export default {
   components: {
     SelectItem,
     InputItem,
+    TextareaItem,
   },
   data() {
     return {

@@ -3,7 +3,6 @@
     <div :class="position">
       <InputLabel :isRequired="isRequired">{{ label }}</InputLabel>
       <BaseInput
-        :value="value"
         v-bind="$attrs"
         v-model="inputValue"
         @input="$emit('input', inputValue)"
@@ -23,7 +22,6 @@ export default {
     };
   },
   props: {
-    value: String,
     label: String,
     error: String,
     isRequired: Boolean,

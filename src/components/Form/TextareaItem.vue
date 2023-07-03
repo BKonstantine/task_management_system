@@ -2,7 +2,11 @@
   <fieldset class="textarea-item">
     <div :class="position">
       <InputLabel :isRequired="isRequired">{{ label }}</InputLabel>
-      <BaseTextarea v-model="textareaValue" v-bind="$attrs" />
+      <BaseTextarea
+        v-bind="$attrs"
+        v-model="textareaValue"
+        @input="$emit('input', textareaValue)"
+      />
     </div>
     <InputError v-if="error">{{ error }}</InputError>
   </fieldset>
