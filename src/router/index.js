@@ -9,6 +9,7 @@ import ProfilePage from "@/views/ProfilePage.vue";
 import NotFoundPage from "@/views/NotFoundPage.vue";
 import CreateTask from "@/views/CreateTask.vue";
 import CurrentTask from "@/views/CurrentTask.vue";
+import AuthPage from "@/views/AuthPage.vue";
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,10 @@ const routes = [
         component: ProfilePage,
       },
     ],
+  },
+  {
+    path: "/auth",
+    component: AuthPage,
   },
   {
     path: "*",
