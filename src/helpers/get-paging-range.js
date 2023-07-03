@@ -1,30 +1,33 @@
-export function getPagingRange(c, m) {
-  let current = c,
-    last = m,
-    delta = 1,
-    left = current - delta,
-    right = current + delta + 1,
-    range = [],
-    rangeWithDots = [],
-    l;
+export function getPagingRange(currentPage, maxPages) {
+  const pages = [];
 
-  for (let i = 1; i <= last; i++) {
-    if (i == 1 || i == last || (i >= left && i < right)) {
-      range.push(i);
+  if (maxPages <= 7) {
+    for (let i = 1; i <= maxPages; i++) {
+      pages.push(i);
     }
-  }
-
-  for (let i of range) {
-    if (l) {
-      if (i - l === 2) {
-        rangeWithDots.push(l + 1);
-      } else if (i - l !== 1) {
-        rangeWithDots.push("...");
+  } else {
+    if (currentPage <= 4) {
+      for (let i = 1; i <= 5; i++) {
+        pages.push(i);
       }
+      pages.push("...");
+      pages.push(maxPages);
+    } else if (currentPage >= maxPages - 3) {
+      pages.push(1);
+      pages.push("...");
+      for (let i = maxPages - 4; i <= maxPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      pages.push("...");
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        pages.push(i);
+      }
+      pages.push("...");
+      pages.push(maxPages);
     }
-    rangeWithDots.push(i);
-    l = i;
   }
 
-  return rangeWithDots;
+  return pages;
 }
