@@ -4,25 +4,27 @@
       <BaseInput />
       <ButtonItem class="button" :secondaryStyle="true">Добавить</ButtonItem>
     </FilterContainer>
-    <ul v-if="projectsLength > 0" class="project-list">
+    <ul v-if="getProjectsLength > 0" class="project-list">
       <ProjectItem
         :projectData="project"
         :key="index"
         :index="index"
-        v-for="(project, index) in projectsList"
+        v-for="(project, index) in getProjectList"
       />
-      <li v-if="totalPage > 1" class="block"></li>
+      <li v-if="getProjectsTotalPage > 1" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="totalPage > 1"
-      :totalPage="totalPage"
+      v-if="getProjectsTotalPage > 1"
+      :totalPage="getProjectsTotalPage"
       :currentPage="currentPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
       class="project-list__pagination"
     />
-    <StopperContainer v-if="projectsLength === 0 && !request">
+    <StopperContainer
+      v-if="getProjectsLength === 0 && !getProjectRequestStatus"
+    >
       <BaseText>Не создан ни один проект</BaseText>
       <ButtonItem text="Добавить" />
     </StopperContainer>
@@ -30,7 +32,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import ProjectItem from "@/components/ProjectItem.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
 export default {
@@ -60,15 +62,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getProjectsLength"]),
-    ...mapState({
-      projectsList: (state) => state.projectModule.projectsList,
-      totalPage: (state) => state.projectModule.totalPage,
-      request: (state) => state.projectModule.projectsDataRequest,
-    }),
-    projectsLength: function () {
-      return this.getProjectsLength;
-    },
+    ...mapGetters([
+      "getProjectsLength",
+      "getProjectList",
+      "getProjectsTotalPage",
+      "getProjectRequestStatus",
+    ]),
   },
   beforeMount() {
     this.fetchProjects();

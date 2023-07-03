@@ -26,6 +26,15 @@ export default {
     },
   },
   getters: {
+    getProjectList(state) {
+      return state.projectsList;
+    },
+    getProjectsTotalPage(state) {
+      return state.totalPage;
+    },
+    getProjectRequestStatus(state) {
+      return state.projectsDataRequest;
+    },
     getProjectsLength(state) {
       return state.projectsList.length;
     },
