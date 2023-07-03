@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-labels */
 import { getUsers } from "@/api/users";
 import { abbreviateName } from "@/helpers/replace-text";
 
