@@ -46,11 +46,11 @@ const routes = [
         path: "profile",
         component: ProfilePage,
       },
-      {
-        path: "*",
-        component: NotFoundPage,
-      },
     ],
+  },
+  {
+    path: "*",
+    component: NotFoundPage,
   },
 ];
 

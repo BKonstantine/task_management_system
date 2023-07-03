@@ -1,19 +1,37 @@
 <template>
   <div class="container">
-    <p class="title">Страница не найдена</p>
+    <div class="wrapper">
+      <ButtonItem text="Вернуться назад" @click="navigate" />
+      <p class="title">Страница не найдена</p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "NotFoundPage",
+  methods: {
+    navigate() {
+      this.$router.replace("/");
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  padding: 24px;
   height: 100%;
+  width: 100%;
   @include flex-setting(_, center, center);
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+  border-radius: 4px;
+  border: 1px solid $border-color-default;
 }
 
 .title {
