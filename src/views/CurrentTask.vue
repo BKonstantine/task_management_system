@@ -35,6 +35,7 @@
           <span class="header__created header__created_color_disabled">
             Создана {{ createDate }}
           </span>
+          <UserBadge v-if="userData" :userData="userData" />
         </div>
       </div>
       <div class="main"></div>
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import DropDown from "@/components/DropDown/DropDown.vue";
 import { checkTaskStatus } from "@/helpers/check-task-status";
 import { formatDate } from "@/helpers/format-time";
@@ -64,8 +66,12 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["findUser"]),
     taskStatus() {
       return checkTaskStatus(this.taskData?.status);
+    },
+    userData: function () {
+      return this.findUser(this.taskData?.author);
     },
     createDate: function () {
       return formatDate(this.taskData?.dateCreated);
