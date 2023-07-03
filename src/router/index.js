@@ -8,6 +8,7 @@ import TaskOverlay from "@/views/TaskOverlay.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
 import NotFoundPage from "@/views/NotFoundPage.vue";
 import CreateTask from "@/views/CreateTask.vue";
+import CurrentTask from "@/views/CurrentTask.vue";
 
 Vue.use(VueRouter);
 
@@ -39,7 +40,7 @@ const routes = [
           {
             path: ":id",
             name: "CurrentTask",
-            component: CreateTask,
+            component: CurrentTask,
           },
         ],
       },

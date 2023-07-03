@@ -1,5 +1,5 @@
 <template>
-  <li v-if="userData" class="task-item pointer">
+  <li v-if="userData" class="task-item pointer" @click="goToTask">
     <div class="task-item__container">
       <div class="task-item__header">
         <p class="task-item__title">
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       dropDownList: [
-        { text: "Редактировать", click: this.goToTask },
+        { text: "Редактировать", click: this.editTask },
         { text: "Удалить", click: this.deleteTask },
       ],
       setting: false,
@@ -91,7 +91,13 @@ export default {
 
   methods: {
     goToTask() {
-      console.log("Task");
+      this.$router.push({
+        name: "CurrentTask",
+        params: { id: this.taskData._id },
+      });
+    },
+    editTask() {
+      console.log("Edit task");
     },
     deleteTask() {
       console.log("Delete task");

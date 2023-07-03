@@ -1,6 +1,9 @@
 <template>
   <PageContainer>
-    <ButtonItem>Вернуться к списку задач</ButtonItem>
+    <ButtonItem>
+      <SvgIcon id="#drop_down_4" />
+      Вернуться к списку задач
+    </ButtonItem>
   </PageContainer>
 </template>
 
