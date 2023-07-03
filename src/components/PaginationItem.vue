@@ -11,11 +11,11 @@
       <ButtonItem
         :key="index"
         :small="true"
-        :text="number"
         :secondaryStyle="number !== currentPage"
         v-for="(number, index) in numberList"
         @click="currPage(number)"
-      />
+        >{{ number }}</ButtonItem
+      >
       <ButtonIcon
         :secondaryStyle="true"
         :disabled="currentPage === totalPage"

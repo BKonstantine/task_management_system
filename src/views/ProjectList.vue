@@ -2,7 +2,7 @@
   <PageContainer>
     <FilterContainer>
       <BaseInput />
-      <ButtonItem class="button" text="Добавить" :secondaryStyle="true" />
+      <ButtonItem class="button" :secondaryStyle="true">Добавить</ButtonItem>
     </FilterContainer>
     <ul v-if="projectsLength > 0" class="project-list">
       <ProjectItem

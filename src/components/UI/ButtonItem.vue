@@ -6,7 +6,7 @@
     class="button"
     type="button"
   >
-    {{ text }}
+    <slot />
   </button>
 </template>
 
@@ -24,10 +24,6 @@ export default {
   },
 
   props: {
-    text: {
-      type: [String, Number],
-      required: true,
-    },
     disabled: {
       type: Boolean,
       default: false,
@@ -47,7 +43,7 @@ export default {
   font-family: inherit;
   padding: 0 16px;
   min-height: 42px;
-  @include flex-setting(_, center, center);
+  @include flex-setting(_, center, center, 8px);
   flex: none;
   border: none;
   border-radius: 4px;
