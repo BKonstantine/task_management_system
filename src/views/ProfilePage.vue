@@ -1,12 +1,12 @@
 <template>
   <PageContainer>
-    <div v-if="loader" class="profile">
+    <div v-if="!getRequestStatus" class="profile">
       <div class="profile__avatar">
-        <UserAvatar :userAvatar="user" :large="true" />
+        <UserAvatar :userAvatar="getCurrentUser" :large="true" />
       </div>
       <div class="profile__info">
         <div class="profile__header">
-          <p class="profile__title">{{ user.name }}</p>
+          <p class="profile__title">{{ getCurrentUser.name }}</p>
           <StatusText :color="userStatus.color">
             {{ userStatus.text }}
           </StatusText>
@@ -28,7 +28,7 @@
         <div class="profile__main">
           <span class="about">О себе:</span>
           <BaseText>
-            {{ user.description }}
+            {{ getCurrentUser.description }}
           </BaseText>
         </div>
       </div>
@@ -38,7 +38,7 @@
 
 <script>
 import DropDown from "@/components/DropDown/DropDown.vue";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { checkUserStatus } from "@/helpers/check-user-status";
 export default {
   name: "ProfilePage",
@@ -56,12 +56,9 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      user: (state) => state.currentUserModule.currentUser,
-      loader: (state) => state.currentUserModule.currentUserSuccess,
-    }),
+    ...mapGetters(["getCurrentUser", "getRequestStatus"]),
     userStatus: function () {
-      return checkUserStatus(this.user.status);
+      return checkUserStatus(this.getCurrentUser.status);
     },
   },
   methods: {

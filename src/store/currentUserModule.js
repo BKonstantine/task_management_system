@@ -25,6 +25,9 @@ export default {
     getCurrentUser(state) {
       return state.currentUser;
     },
+    getRequestStatus(state) {
+      return state.currentUserRequest;
+    },
   },
   actions: {
     fetchCurrentUser({ commit }) {
