@@ -4,12 +4,12 @@
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
       <form class="create-task__form" id="createTaskForm" @submit="createTask">
-        <div class="wrapper">
-          <div class="wrapper__input">
-            <InputLabel :isRequired="true">Название</InputLabel>
-            <BaseInput v-model="taskData.name" />
-          </div>
-        </div>
+        <InputItem
+          v-model="taskData.name"
+          :horizontal="true"
+          :isRequired="true"
+          label="Название"
+        />
         <div class="wrapper">
           <div class="wrapper__input">
             <InputLabel>Описание</InputLabel>
@@ -52,12 +52,14 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import InputItem from "@/components/Form/InputItem.vue";
 import SelectItem from "@/components/Form/SelectItem.vue";
 import { createTaskRequest } from "@/api/tasks";
 export default {
   name: "CreateTask",
   components: {
     SelectItem,
+    InputItem,
   },
   data() {
     return {

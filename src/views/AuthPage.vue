@@ -5,6 +5,8 @@
         <BaseTitle type="h2">Вход</BaseTitle>
       </div>
       <BaseDivider />
+      <InputItem label="Заголовок" v-model="inputData" />
+      <BaseDivider />
       <div class="auth__button">
         <ButtonItem @click="logout">Выйти</ButtonItem>
         <ButtonItem @click="login">Войти</ButtonItem>
@@ -14,8 +16,17 @@
 </template>
 
 <script>
+import InputItem from "@/components/Form/InputItem.vue";
 export default {
   name: "AuthPage",
+  components: {
+    InputItem,
+  },
+  data() {
+    return {
+      inputData: null,
+    };
+  },
   methods: {
     login() {
       localStorage.setItem("isAuth", true);
