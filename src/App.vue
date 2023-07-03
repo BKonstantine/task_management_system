@@ -16,6 +16,7 @@ export default {
     //this.fetchLogin();
     this.fetchCurrentUser();
     this.fetchUsers({ limit: 100 });
+    localStorage.setItem("isAuth", false);
   },
 };
 </script>

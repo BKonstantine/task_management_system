@@ -18,10 +18,11 @@ export default {
   name: "AuthPage",
   methods: {
     login() {
-      this.$store.commit("setAuth", true);
+      localStorage.setItem("isAuth", true);
+      this.$router.replace({ name: "Tasks" });
     },
     logout() {
-      this.$store.commit("setAuth", false);
+      localStorage.setItem("isAuth", false);
     },
   },
 };

@@ -24,7 +24,16 @@ export default {
   computed: {
     ...mapState({
       usersList: (state) => state.usersModule.usersList,
+      isAuth: (state) => state.auth.isAuth,
     }),
+  },
+  beforeRouteEnter(to, from, next) {
+    const isAuth = localStorage.getItem("isAuth");
+    if (isAuth === "false") {
+      next("/auth");
+    } else {
+      next();
+    }
   },
 };
 </script>
