@@ -14,6 +14,7 @@ export default {
 
   beforeMount() {
     //this.fetchLogin();
+    this.$api.Auth.notFoundError();
     this.fetchCurrentUser();
     this.fetchUsers({ limit: 100 });
     localStorage.setItem("isAuth", false);
