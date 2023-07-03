@@ -26,7 +26,7 @@
       :class="['task-item__setting', { 'task-item__setting_active': setting }]"
     >
       <ButtonIcon
-        @click="toggleDropDown"
+        @click.stop="toggleDropDown"
         :secondary-style="true"
         :active="dropDown"
       >
@@ -166,17 +166,10 @@ export default {
 
   &__info {
     @include font-setting(400, 14px, 19px);
-  }
 
-  &_type_status {
-    padding: 0 8px;
-    background: $border-color-bronze;
-    color: $font-color-secondary;
-    border-radius: 4px;
-  }
-
-  &__info_color_disabled {
-    color: $font-color-disabled;
+    &_color_disabled {
+      color: $font-color-disabled;
+    }
   }
 
   &__footer &__info:last-child {
