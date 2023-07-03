@@ -39,8 +39,12 @@
       </form>
       <BaseDivider />
       <div class="create-task__buttons">
-        <ButtonItem text="Отмена" :secondaryStyle="true" @click="goBackPage" />
-        <ButtonItem type="submit" text="Создать задачу" form="createTaskForm" />
+        <ButtonItem :secondaryStyle="true" @click="goBackPage">
+          Отмена
+        </ButtonItem>
+        <ButtonItem type="submit" form="createTaskForm">
+          Создать задачу
+        </ButtonItem>
       </div>
     </div>
   </PageContainer>

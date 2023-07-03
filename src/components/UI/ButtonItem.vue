@@ -44,6 +44,7 @@ export default {
   padding: 0 16px;
   min-height: 42px;
   @include flex-setting(_, center, center, 8px);
+  width: max-content;
   flex: none;
   border: none;
   border-radius: 4px;
