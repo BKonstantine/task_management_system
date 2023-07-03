@@ -7,7 +7,7 @@
       <UserItem
         :userData="user"
         :key="index"
-        v-for="(user, index) in usersList"
+        v-for="(user, index) in getUsersList"
       />
     </ul>
   </PageContainer>
@@ -15,17 +15,14 @@
 
 <script>
 import UserItem from "@/components/UserItem.vue";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "UserList",
   components: {
     UserItem,
   },
   computed: {
-    ...mapState({
-      usersList: (state) => state.usersModule.usersList,
-      isAuth: (state) => state.auth.isAuth,
-    }),
+    ...mapGetters(["getUsersList"]),
   },
   beforeRouteEnter(to, from, next) {
     const isAuth = localStorage.getItem("isAuth");

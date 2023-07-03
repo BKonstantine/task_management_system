@@ -23,6 +23,9 @@ export default {
     },
   },
   getters: {
+    getUsersList(state) {
+      return state.usersList;
+    },
     findUser: (state) => (id) => {
       return state.usersList.find((user) => user._id === id);
     },
