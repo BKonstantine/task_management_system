@@ -26,6 +26,15 @@ export default {
     },
   },
   getters: {
+    getTasksList(state) {
+      return state.tasksList;
+    },
+    getTasksTotalPage(state) {
+      return state.totalPage;
+    },
+    getTasksRequestStatus(state) {
+      return state.tasksDataRequest;
+    },
     getTasksLength(state) {
       return state.tasksList.length;
     },
