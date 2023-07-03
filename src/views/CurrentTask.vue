@@ -8,7 +8,7 @@
       <div class="header">
         <div class="header__title">
           <BaseTitle type="h2">Код проекта</BaseTitle>
-          <BaseTitle type="h2">#taskData.projectId</BaseTitle>
+          <BaseTitle type="h2">#{{ taskData?.number }}</BaseTitle>
           <div class="header__setting">
             <ButtonIcon
               @click="toggleDropDown"
@@ -29,11 +29,11 @@
           Название задачи
         </BaseTitle>
         <div class="header__task-info">
-          <!-- <StatusText :color="taskStatus.color">
+          <StatusText v-if="taskStatus" :color="taskStatus.color">
             {{ taskStatus.text }}
-          </StatusText> -->
+          </StatusText>
           <span class="header__created header__created_color_disabled">
-            Создано
+            Создана {{ createDate }}
           </span>
         </div>
       </div>
@@ -45,17 +45,13 @@
 
 <script>
 import DropDown from "@/components/DropDown/DropDown.vue";
-// import { checkTaskStatus } from "@/helpers/check-task-status";
+import { checkTaskStatus } from "@/helpers/check-task-status";
+import { formatDate } from "@/helpers/format-time";
+import { getCurrentTaskRequest } from "@/api/tasks";
 export default {
   name: "CurrentTask",
   components: {
     DropDown,
-  },
-  props: {
-    taskData: {
-      type: Object,
-      // require: true,
-    },
   },
   data() {
     return {
@@ -64,17 +60,17 @@ export default {
         { text: "Удалить", click: this.deleteTask },
       ],
       dropDown: false,
+      taskData: null,
     };
   },
-  /* computed: {
+  computed: {
     taskStatus() {
-      return checkTaskStatus(this.taskData.status);
+      return checkTaskStatus(this.taskData?.status);
     },
-    createUser: function () {
-      const user = this.findUser(this.taskData.author)?.name;
-      return textInfo(user, "создал(а)", this.taskData.dateCreated);
+    createDate: function () {
+      return formatDate(this.taskData?.dateCreated);
     },
-  }, */
+  },
   methods: {
     editTask() {
       console.log("Edit task");
@@ -97,6 +93,11 @@ export default {
         this.hideDropDown();
       }
     },
+  },
+  beforeMount() {
+    getCurrentTaskRequest(this.$route.params.id).then((res) => {
+      this.taskData = res;
+    });
   },
   mounted() {
     document.addEventListener("click", this.hideAll);
@@ -151,6 +152,10 @@ export default {
       &_color_disabled {
         color: $font-color-disabled;
       }
+    }
+
+    &__task-info {
+      @include flex-setting(_, center, _, 16px);
     }
   }
 

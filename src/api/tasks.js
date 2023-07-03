@@ -23,3 +23,13 @@ export const createTaskRequest = (data) => {
     body: JSON.stringify(data),
   }).then(checkResponse);
 };
+
+export const getCurrentTaskRequest = (id) => {
+  return fetch(`${URL}/tasks/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: getToken(),
+    },
+  }).then(checkResponse);
+};

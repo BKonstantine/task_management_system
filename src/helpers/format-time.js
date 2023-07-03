@@ -60,3 +60,38 @@ export function formatTime(time_str) {
     });
   }
 }
+
+export function formatDate(isoTime, showYear = true) {
+  const date = new Date(isoTime);
+
+  const months = [
+    "янв",
+    "фев",
+    "мар",
+    "апр",
+    "май",
+    "июн",
+    "июл",
+    "авг",
+    "сен",
+    "окт",
+    "ноя",
+    "дек",
+  ];
+
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  const time = date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  let formattedTime = `${day} ${month}`;
+  if (showYear) {
+    formattedTime += ` ${year}`;
+  }
+  formattedTime += ` в ${time}`;
+
+  return formattedTime;
+}
