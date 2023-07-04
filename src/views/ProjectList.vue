@@ -2,6 +2,7 @@
   <PageContainer>
     <FilterContainer>
       <SearchInput v-model="searchValue" @click="clear" />
+      <SelectWithButton v-model="filterValue" :items="filterList" />
       <ButtonItem class="button" :secondaryStyle="true">Добавить</ButtonItem>
     </FilterContainer>
     <ul v-if="getProjectsLength > 0" class="project-list">
@@ -36,17 +37,26 @@ import { mapGetters, mapActions } from "vuex";
 import SearchInput from "@/components/Form/SearchInput.vue";
 import ProjectItem from "@/components/ProjectItem.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
+import SelectWithButton from "@/components/Form/SelectWithButton.vue";
 export default {
   name: "ProjectList",
   components: {
     ProjectItem,
     PaginationItem,
     SearchInput,
+    SelectWithButton,
   },
   data() {
     return {
       currentPage: 1,
       searchValue: null,
+      filterValue: "name",
+      filterList: [
+        { label: "По названию", value: "name" },
+        { label: "По автору", value: "author" },
+        { label: "По дате создания", value: "dateCreated" },
+        { label: "По дате обновления", value: "dateEdited" },
+      ],
     };
   },
   methods: {
