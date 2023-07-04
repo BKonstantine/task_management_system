@@ -10,6 +10,7 @@ import NotFoundPage from "@/views/NotFoundPage.vue";
 import CreateTask from "@/views/CreateTask.vue";
 import CurrentTask from "@/views/CurrentTask.vue";
 import AuthPage from "@/views/AuthPage.vue";
+import EditTask from "@/views/EditTask.vue";
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,11 @@ const routes = [
             path: "create",
             name: "CreateTask",
             component: CreateTask,
+          },
+          {
+            path: "edit/:id",
+            name: "EditTask",
+            component: EditTask,
           },
           {
             path: ":id",

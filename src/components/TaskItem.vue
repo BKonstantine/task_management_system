@@ -97,7 +97,10 @@ export default {
       });
     },
     editTask() {
-      console.log("Edit task");
+      this.$router.push({
+        name: "EditTask",
+        params: { id: this.taskData._id },
+      });
     },
     deleteTask() {
       console.log("Delete task");
