@@ -33,8 +33,11 @@
     <StopperContainer
       v-if="getProjectsLength === 0 && !getProjectsRequestStatus"
     >
-      <BaseText>Не создан ни один проект</BaseText>
-      <ButtonItem>Добавить</ButtonItem>
+      <BaseText v-if="!useFilter">Не создан ни один проект</BaseText>
+      <ButtonItem v-if="!useFilter">Добавить</ButtonItem>
+      <BaseText v-if="useFilter">
+        Ни один проект не соответствует результатам поиска
+      </BaseText>
     </StopperContainer>
   </PageContainer>
 </template>
@@ -61,6 +64,7 @@ export default {
         { label: "По дате создания", value: "dateCreated" },
         { label: "По дате обновления", value: "dateEdited" },
       ],
+      useFilter: false,
     };
   },
   methods: {
@@ -74,7 +78,11 @@ export default {
     getProjectWithFilter() {
       this.fetchProjects({
         ...this.projectQuery,
+        page: this.getCurrentProjectsPage,
       });
+      if ("filter" in this.projectQuery) {
+        this.useFilter = true;
+      }
     },
     prevPage() {
       const page = this.getCurrentProjectsPage - 1;
@@ -83,6 +91,9 @@ export default {
         ...this.projectQuery,
         page: page,
       });
+      if ("filter" in this.projectQuery) {
+        this.useFilter = true;
+      }
     },
     nextPage() {
       const page = this.getCurrentProjectsPage + 1;
@@ -91,6 +102,9 @@ export default {
         ...this.projectQuery,
         page: page,
       });
+      if ("filter" in this.projectQuery) {
+        this.useFilter = true;
+      }
     },
     currPage(data) {
       this.setCurrentProjectsPage(data);
@@ -98,6 +112,9 @@ export default {
         ...this.projectQuery,
         page: data,
       });
+      if ("filter" in this.projectQuery) {
+        this.useFilter = true;
+      }
     },
   },
   computed: {
