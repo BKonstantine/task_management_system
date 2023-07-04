@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <div v-if="!getRequestStatus" class="profile">
+    <div v-if="!getCurrentUserRequestStatus" class="profile">
       <div class="profile__avatar">
         <UserAvatar :userAvatar="getCurrentUser" :large="true" />
       </div>
@@ -56,7 +56,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getCurrentUser", "getRequestStatus"]),
+    ...mapGetters(["getCurrentUser", "getCurrentUserRequestStatus"]),
     userStatus: function () {
       return checkUserStatus(this.getCurrentUser.status);
     },

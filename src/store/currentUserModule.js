@@ -30,7 +30,7 @@ export default {
   },
   getters: {
     getCurrentUser: (state) => state.currentUser,
-    getRequestStatus: (state) => state.currentUserRequest,
+    getCurrentUserRequestStatus: (state) => state.currentUserRequest,
   },
   actions: {
     fetchCurrentUser: ({ commit }) => {

@@ -1,16 +1,36 @@
 <template>
   <div class="main-page">
     <NavBar class="nav-bar" />
-    <RouterView />
+    <PageContainer v-show="loader" class="container">
+      <BaseLoader />
+    </PageContainer>
+    <RouterView v-show="!loader" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import NavBar from "@/components/NavBar.vue";
 export default {
   name: "MainPage",
   components: {
     NavBar,
+  },
+  computed: {
+    ...mapGetters([
+      "getCurrentUserRequestStatus",
+      "getProjectsRequestStatus",
+      "getTasksRequestStatus",
+      "getUsersRequestStatus",
+    ]),
+    loader() {
+      return (
+        this.getCurrentUserRequestStatus ||
+        this.getProjectsRequestStatus ||
+        this.getTasksRequestStatus ||
+        this.getUsersRequestStatus
+      );
+    },
   },
 };
 </script>
@@ -18,6 +38,11 @@ export default {
 <style lang="scss" scoped>
 .main-page {
   height: 100%;
+}
+
+.container {
+  align-items: center;
+  justify-content: center;
 }
 .nav-bar {
   position: fixed;
