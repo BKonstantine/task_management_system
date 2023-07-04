@@ -1,27 +1,29 @@
 import { getProjects } from "@/api/projects";
 
 export const mutation = {
-  SET_PROJECTS_LIST: "SET_PROJECT_LIST",
+  SET_PROJECTS_LIST: "SET_PROJECTS_LIST",
   SET_PROJECTS_CURRENT_PAGE: "SET_PROJECTS_CURRENT_PAGE",
   SET_PROJECTS_TOTAL_PAGE: "SET_PROJECTS_TOTAL_PAGE",
-  SET_PROJECTS_LIST_REQUEST: "SET_PROJECT_LIST_REQUEST",
-  SET_PROJECTS_LIST_SUCCESS: "SET_PROJECT_LIST_SUCCESS",
-  SET_PROJECTS_LIST_ERROR: "SET_PROJECT_LIST_ERROR",
+  SET_PROJECTS_LIST_REQUEST: "SET_PROJECTS_LIST_REQUEST",
+  SET_PROJECTS_LIST_SUCCESS: "SET_PROJECTS_LIST_SUCCESS",
+  SET_PROJECTS_LIST_ERROR: "SET_PROJECTS_LIST_ERROR",
   SET_FILTER_VALUE: "SET_FILTER_VALUE",
   SET_CLEAR_FILTER_VALUE: "SET_CLEAR_FILTER_VALUE",
   SET_SORT_VALUE: "SET_SORT_VALUE",
 };
 
 export default {
+  namespaced: true,
+
   state: {
     projectsList: [],
     filterValue: null,
     sortValue: "name",
     currentPage: 1,
     totalPage: null,
-    projectsDataRequest: false,
-    projectsDataSuccess: false,
-    projectsDataError: false,
+    projectsListRequest: false,
+    projectsListSuccess: false,
+    projectsListError: false,
   },
   mutations: {
     [mutation.SET_PROJECTS_LIST]: (state, payload) => {
@@ -34,13 +36,13 @@ export default {
       state.totalPage = payload;
     },
     [mutation.SET_PROJECTS_LIST_REQUEST]: (state, payload) => {
-      state.projectsDataRequest = payload;
+      state.projectsListRequest = payload;
     },
     [mutation.SET_PROJECTS_LIST_SUCCESS]: (state, payload) => {
-      state.projectsDataSuccess = payload;
+      state.projectsListSuccess = payload;
     },
     [mutation.SET_PROJECTS_LIST_ERROR]: (state, payload) => {
-      state.projectsDataError = payload;
+      state.projectsListError = payload;
     },
     [mutation.SET_FILTER_VALUE]: (state, payload) => {
       state.filterValue = payload;
@@ -54,9 +56,9 @@ export default {
   },
   getters: {
     getProjectsList: (state) => state.projectsList,
-    getCurrentProjectsPage: (state) => state.currentPage,
-    getProjectsTotalPage: (state) => state.totalPage,
-    getProjectsRequestStatus: (state) => state.projectsDataRequest,
+    getCurrentPage: (state) => state.currentPage,
+    getTotalPage: (state) => state.totalPage,
+    getRequestStatus: (state) => state.projectsDataRequest,
     getProjectsLength: (state) => state.projectsList.length,
     getProjectsForOptions: (state) =>
       state.projectsList.map((project) => {
@@ -99,7 +101,7 @@ export default {
         });
     }, */
 
-    setCurrentProjectsPage: ({ commit }, page) => {
+    setCurrentPage: ({ commit }, page) => {
       commit(mutation.SET_PROJECTS_CURRENT_PAGE, page);
     },
 
@@ -107,7 +109,7 @@ export default {
       commit(mutation.SET_FILTER_VALUE, payload);
     },
 
-    setClearFilterValue: ({ commit }) => {
+    setClear: ({ commit }) => {
       commit(mutation.SET_CLEAR_FILTER_VALUE);
     },
 

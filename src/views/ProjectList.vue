@@ -1,7 +1,7 @@
 <template>
   <PageContainer>
     <FilterContainer>
-      <SearchInput v-model="filterValue" @click="setClearFilterValue" />
+      <SearchInput v-model="filterValue" @click="setClear" />
       <SelectWithButton
         v-model="sortValue"
         :items="sortList"
@@ -16,23 +16,18 @@
         :index="index"
         v-for="(project, index) in getProjectsList"
       />
-      <li
-        v-if="getProjectsTotalPage > 1 && getProjectsLength > 0"
-        class="block"
-      ></li>
+      <li v-if="getTotalPage > 1 && getProjectsLength > 0" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="getProjectsTotalPage > 1 && getProjectsLength > 0"
-      :totalPage="getProjectsTotalPage"
-      :currentPage="getCurrentProjectsPage"
+      v-if="getTotalPage > 1 && getProjectsLength > 0"
+      :totalPage="getTotalPage"
+      :currentPage="getCurrentPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
       class="project-list__pagination"
     />
-    <StopperContainer
-      v-if="getProjectsLength === 0 && !getProjectsRequestStatus"
-    >
+    <StopperContainer v-if="getProjectsLength === 0 && !getRequestStatus">
       <BaseText v-if="!useFilter">Не создан ни один проект</BaseText>
       <ButtonItem v-if="!useFilter">Добавить</ButtonItem>
       <BaseText v-if="useFilter">
@@ -68,25 +63,25 @@ export default {
     };
   },
   methods: {
-    ...mapActions([
+    ...mapActions("projectsModule", [
       "fetchProjects",
-      "setCurrentProjectsPage",
+      "setCurrentPage",
       "setFilterValue",
       "setSortValue",
-      "setClearFilterValue",
+      "setClear",
     ]),
     getProjectWithFilter() {
       this.fetchProjects({
         ...this.projectQuery,
-        page: this.getCurrentProjectsPage,
+        page: this.getCurrentPage,
       });
       if ("filter" in this.projectQuery) {
         this.useFilter = true;
       }
     },
     prevPage() {
-      const page = this.getCurrentProjectsPage - 1;
-      this.setCurrentProjectsPage(page);
+      const page = this.getCurrentPage - 1;
+      this.setCurrentPage(page);
       this.fetchProjects({
         ...this.projectQuery,
         page: page,
@@ -96,8 +91,8 @@ export default {
       }
     },
     nextPage() {
-      const page = this.getCurrentProjectsPage + 1;
-      this.setCurrentProjectsPage(page);
+      const page = this.getCurrentPage + 1;
+      this.setCurrentPage(page);
       this.fetchProjects({
         ...this.projectQuery,
         page: page,
@@ -107,7 +102,7 @@ export default {
       }
     },
     currPage(data) {
-      this.setCurrentProjectsPage(data);
+      this.setCurrentPage(data);
       this.fetchProjects({
         ...this.projectQuery,
         page: data,
@@ -118,12 +113,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters("projectsModule", [
       "getProjectsLength",
-      "getProjectsTotalPage",
+      "getTotalPage",
       "getProjectsList",
-      "getProjectsRequestStatus",
-      "getCurrentProjectsPage",
+      "getRequestStatus",
+      "getCurrentPage",
       "getSortValue",
       "getFilterValue",
     ]),
@@ -164,7 +159,7 @@ export default {
   },
   beforeMount() {
     this.fetchProjects({
-      page: this.getCurrentProjectsPage,
+      page: this.getCurrentPage,
       sort: {
         field: this.sortValue,
         type: "desc",

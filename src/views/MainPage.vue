@@ -19,14 +19,15 @@ export default {
   computed: {
     ...mapGetters([
       "getCurrentUserRequestStatus",
-      "getProjectsRequestStatus",
+      "getRequestStatus",
       "getTasksRequestStatus",
       "getUsersRequestStatus",
     ]),
+    ...mapGetters("projectsModule", ["getRequestStatus"]),
     loader() {
       return (
         this.getCurrentUserRequestStatus ||
-        this.getProjectsRequestStatus ||
+        this.getRequestStatus ||
         this.getTasksRequestStatus ||
         this.getUsersRequestStatus
       );
