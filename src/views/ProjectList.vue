@@ -72,6 +72,7 @@ export default {
       this.fetchProjects({
         sort: {
           field: this.sortValue,
+          type: "desc",
         },
       });
     },
@@ -80,6 +81,10 @@ export default {
       this.setCurrentProjectsPage(page);
       this.fetchProjects({
         page: page,
+        sort: {
+          field: this.sortValue,
+          type: "desc",
+        },
       });
     },
     nextPage() {
@@ -87,12 +92,20 @@ export default {
       this.setCurrentProjectsPage(page);
       this.fetchProjects({
         page: page,
+        sort: {
+          field: this.sortValue,
+          type: "desc",
+        },
       });
     },
     currPage(data) {
       this.setCurrentProjectsPage(data);
       this.fetchProjects({
         page: data,
+        sort: {
+          field: this.sortValue,
+          type: "desc",
+        },
       });
     },
   },
@@ -128,6 +141,10 @@ export default {
   beforeMount() {
     this.fetchProjects({
       page: this.getCurrentProjectsPage,
+      sort: {
+        field: this.sortValue,
+        type: "des",
+      },
     });
   },
 };
