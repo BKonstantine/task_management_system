@@ -4,7 +4,7 @@ import currentUserModule from "./currentUserModule";
 import taskModule from "./taskModule";
 import projectModule from "./projectModule";
 import usersModule from "./usersModule";
-import auth from "./auth";
+import authModule from "./authModule";
 
 Vue.use(Vuex);
 
@@ -14,6 +14,6 @@ export default new Vuex.Store({
     taskModule,
     projectModule,
     usersModule,
-    auth,
+    authModule,
   },
 });
