@@ -1,7 +1,8 @@
 <template>
   <div class="user-badge">
     <UserAvatar :userAvatar="userData" />
-    <BaseText>{{ userName }}</BaseText>
+    <BaseText v-if="abbreviate">{{ userName }}</BaseText>
+    <BaseText v-else>{{ userData.name }}</BaseText>
   </div>
 </template>
 
@@ -12,6 +13,10 @@ export default {
     userData: {
       type: Object,
       require: true,
+    },
+    abbreviate: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
