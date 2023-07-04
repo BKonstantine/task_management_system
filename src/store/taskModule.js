@@ -1,5 +1,13 @@
 import { getTasksRequest } from "@/api/tasks";
 
+export const mutation = {
+  SET_TASKS_LIST: "SET_TASKS_LIST",
+  SET_TASKS_TOTAL_PAGE: "SET_TASKS_TOTAL_PAGE",
+  SET_TASKS_LIST_REQUEST: "SET_TASKS_LIST_REQUEST",
+  SET_TASKS_LIST_SUCCESS: "SET_TASKS_LIST_SUCCESS",
+  SET_TASKS_LIST_ERROR: "SET_TASKS_LIST_ERROR",
+};
+
 export default {
   state: {
     tasksList: [],
@@ -9,49 +17,41 @@ export default {
     tasksDataError: false,
   },
   mutations: {
-    setTasksList(state, payload) {
+    [mutation.SET_TASKS_LIST]: (state, payload) => {
       state.tasksList = payload;
     },
-    setTasksTotalPage(state, payload) {
+    [mutation.SET_TASKS_TOTAL_PAGE]: (state, payload) => {
       state.totalPage = payload;
     },
-    setTasksDataRequest(state, payload) {
+    [mutation.SET_TASKS_LIST_REQUEST]: (state, payload) => {
       state.tasksDataRequest = payload;
     },
-    setTasksDataSuccess(state, payload) {
+    [mutation.SET_TASKS_LIST_SUCCESS]: (state, payload) => {
       state.tasksDataSuccess = payload;
     },
-    setTasksDataError(state, payload) {
+    [mutation.SET_TASKS_LIST_ERROR]: (state, payload) => {
       state.tasksDataError = payload;
     },
   },
   getters: {
-    getTasksList(state) {
-      return state.tasksList;
-    },
-    getTasksTotalPage(state) {
-      return state.totalPage;
-    },
-    getTasksRequestStatus(state) {
-      return state.tasksDataRequest;
-    },
-    getTasksLength(state) {
-      return state.tasksList.length;
-    },
+    getTasksList: (state) => state.tasksList,
+    getTasksTotalPage: (state) => state.totalPage,
+    getTasksRequestStatus: (state) => state.tasksDataRequest,
+    getTasksLength: (state) => state.tasksList.length,
   },
   actions: {
-    fetchTasks({ commit }, taskData) {
-      commit("setTasksDataRequest", true);
+    fetchTasks: ({ commit }, taskData) => {
+      commit(mutation.SET_TASKS_LIST_REQUEST, true);
       getTasksRequest(taskData)
         .then((data) => {
-          commit("setTasksList", data.tasks);
-          commit("setTasksTotalPage", data.total);
-          commit("setTasksDataRequest", false);
-          commit("setTasksDataSuccess", true);
+          commit(mutation.SET_TASKS_LIST, data.tasks);
+          commit(mutation.SET_TASKS_TOTAL_PAGE, data.total);
+          commit(mutation.SET_TASKS_LIST_REQUEST, false);
+          commit(mutation.SET_TASKS_LIST_SUCCESS, true);
         })
         .catch(() => {
-          commit("setTasksDataSuccess", false);
-          commit("setTasksDataError", true);
+          commit(mutation.SET_TASKS_LIST_REQUEST, false);
+          commit(mutation.SET_TASKS_LIST_ERROR, true);
         });
     },
   },

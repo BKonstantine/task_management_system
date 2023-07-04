@@ -1,11 +1,11 @@
 import { getProjects } from "@/api/projects";
 
 export const mutation = {
-  SET_PROJECT_LIST: "SET_PROJECT_LIST",
-  SET_TOTAL_PAGE: "SET_TOTAL_PAGE",
-  SET_PROJECT_LIST_REQUEST: "SET_PROJECT_LIST_REQUEST",
-  SET_PROJECT_LIST_SUCCESS: "SET_PROJECT_LIST_SUCCESS",
-  SET_PROJECT_LIST_ERROR: "SET_PROJECT_LIST_ERROR",
+  SET_PROJECTS_LIST: "SET_PROJECT_LIST",
+  SET_PROJECTS_TOTAL_PAGE: "SET_TOTAL_PAGE",
+  SET_PROJECTS_LIST_REQUEST: "SET_PROJECT_LIST_REQUEST",
+  SET_PROJECTS_LIST_SUCCESS: "SET_PROJECT_LIST_SUCCESS",
+  SET_PROJECTS_LIST_ERROR: "SET_PROJECT_LIST_ERROR",
 };
 
 export default {
@@ -17,19 +17,19 @@ export default {
     projectsDataError: false,
   },
   mutations: {
-    [mutation.SET_PROJECT_LIST]: (state, payload) => {
+    [mutation.SET_PROJECTS_LIST]: (state, payload) => {
       state.projectsList = payload;
     },
-    [mutation.SET_TOTAL_PAGE]: (state, payload) => {
+    [mutation.SET_PROJECTS_TOTAL_PAGE]: (state, payload) => {
       state.totalPage = payload;
     },
-    [mutation.SET_PROJECT_LIST_REQUEST]: (state, payload) => {
+    [mutation.SET_PROJECTS_LIST_REQUEST]: (state, payload) => {
       state.projectsDataRequest = payload;
     },
-    [mutation.SET_PROJECT_LIST_SUCCESS]: (state, payload) => {
+    [mutation.SET_PROJECTS_LIST_SUCCESS]: (state, payload) => {
       state.projectsDataSuccess = payload;
     },
-    [mutation.SET_PROJECT_LIST_ERROR]: (state, payload) => {
+    [mutation.SET_PROJECTS_LIST_ERROR]: (state, payload) => {
       state.projectsDataError = payload;
     },
   },
@@ -45,17 +45,17 @@ export default {
   },
   actions: {
     fetchProjects: ({ commit }, projectData) => {
-      commit(mutation.SET_PROJECT_LIST_REQUEST, true);
+      commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
       getProjects(projectData)
         .then((data) => {
-          commit(mutation.SET_PROJECT_LIST, data.projects);
-          commit(mutation.SET_TOTAL_PAGE, data.total);
-          commit(mutation.SET_PROJECT_LIST_REQUEST, false);
-          commit(mutation.SET_PROJECT_LIST_SUCCESS, true);
+          commit(mutation.SET_PROJECTS_LIST, data.projects);
+          commit(mutation.SET_PROJECTS_TOTAL_PAGE, data.total);
+          commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+          commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
         })
         .catch(() => {
-          commit(mutation.SET_PROJECT_LIST_REQUEST, false);
-          commit(mutation.SET_PROJECT_LIST_ERROR, true);
+          commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+          commit(mutation.SET_PROJECTS_LIST_ERROR, true);
         });
     },
   },
