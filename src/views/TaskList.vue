@@ -19,7 +19,7 @@
       <li v-if="getTasksTotalPage > 1" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="getTasksTotalPage > 1"
+      v-if="false"
       :totalPage="getTasksTotalPage"
       :currentPage="currentPage"
       @prev-page="prevPage"

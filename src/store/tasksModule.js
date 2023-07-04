@@ -44,10 +44,13 @@ export default {
       commit(mutation.SET_TASKS_LIST_REQUEST, true);
       getTasksRequest(taskData)
         .then((data) => {
-          commit(mutation.SET_TASKS_LIST, data.tasks);
-          commit(mutation.SET_TASKS_TOTAL_PAGE, data.total);
-          commit(mutation.SET_TASKS_LIST_REQUEST, false);
-          commit(mutation.SET_TASKS_LIST_SUCCESS, true);
+          getTasksRequest({ ...taskData, limit: data.total * 10 }).then(
+            (data) => {
+              commit(mutation.SET_TASKS_LIST, data.tasks);
+              commit(mutation.SET_TASKS_LIST_REQUEST, false);
+              commit(mutation.SET_TASKS_LIST_SUCCESS, true);
+            }
+          );
         })
         .catch(() => {
           commit(mutation.SET_TASKS_LIST_REQUEST, false);

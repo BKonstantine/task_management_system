@@ -16,7 +16,7 @@ export default {
     //this.fetchLogin();
     //this.$api.Auth.login();
     this.fetchCurrentUser();
-    this.fetchUsers({ limit: 100 });
+    this.fetchUsers();
     localStorage.setItem("isAuth", false);
   },
 };

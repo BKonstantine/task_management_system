@@ -48,10 +48,13 @@ export default {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
       getProjects(projectData)
         .then((data) => {
-          commit(mutation.SET_PROJECTS_LIST, data.projects);
-          commit(mutation.SET_PROJECTS_TOTAL_PAGE, data.total);
-          commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
-          commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+          getProjects({ ...projectData, limit: data.total * 10 }).then(
+            (data) => {
+              commit(mutation.SET_PROJECTS_LIST, data.projects);
+              commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+              commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+            }
+          );
         })
         .catch(() => {
           commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
