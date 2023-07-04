@@ -128,6 +128,10 @@ export default {
     color: $font-color-placeholder;
   }
 
+  &__selected {
+    white-space: nowrap;
+  }
+
   &__icon {
     flex: none;
     color: $font-color-disabled;
