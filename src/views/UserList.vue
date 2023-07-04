@@ -14,19 +14,22 @@
     <PaginationItem
       v-if="getUsersTotalPage > 1"
       :totalPage="getUsersTotalPage"
-      :currentPage="currentPage"
+      :currentPage="getCurrentUsersPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
       class="user-list__pagination"
     />
+    <StopperContainer v-if="getUsersLength === 0 && !getUsersRequestStatus">
+      <BaseText>Нет ни одного пользователя</BaseText>
+    </StopperContainer>
   </PageContainer>
 </template>
 
 <script>
 import UserItem from "@/components/UserItem.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "UserList",
   components: {
@@ -34,7 +37,27 @@ export default {
     PaginationItem,
   },
   computed: {
-    ...mapGetters(["getUsersList", "getUsersTotalPage"]),
+    ...mapGetters([
+      "getUsersList",
+      "getUsersLength",
+      "getUsersTotalPage",
+      "getCurrentUsersPage",
+      "getUsersRequestStatus",
+    ]),
+  },
+  methods: {
+    ...mapActions(["setCurrentUsersPage"]),
+    prevPage() {
+      const page = this.getCurrentUsersPage - 1;
+      this.setCurrentUsersPage(page);
+    },
+    nextPage() {
+      const page = this.getCurrentUsersPage + 1;
+      this.setCurrentUsersPage(page);
+    },
+    currPage(data) {
+      this.setCurrentUsersPage(data);
+    },
   },
   beforeRouteEnter(to, from, next) {
     const isAuth = localStorage.getItem("isAuth");

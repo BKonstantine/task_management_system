@@ -3,6 +3,7 @@ import { abbreviateName } from "@/helpers/replace-text";
 
 export const mutation = {
   SET_USERS_LIST: "SET_USERS_LIST",
+  SET_USERS_CURRENT_PAGE: "SET_USERS_CURRENT_PAGE",
   SET_USERS_LIST_REQUEST: "SET_USERS_LIST_REQUEST",
   SET_USERS_LIST_SUCCESS: "SET_USERS_LIST_SUCCESS",
   SET_USERS_LIST_ERROR: "SET_USERS_LIST_ERROR",
@@ -11,6 +12,7 @@ export const mutation = {
 export default {
   state: {
     usersList: [],
+    currentPage: 1,
     usersListRequest: false,
     usersListSuccess: false,
     usersListError: false,
@@ -18,6 +20,9 @@ export default {
   mutations: {
     [mutation.SET_USERS_LIST]: (state, payload) => {
       state.usersList = payload;
+    },
+    [mutation.SET_USERS_CURRENT_PAGE]: (state, payload) => {
+      state.currentPage = payload;
     },
     [mutation.SET_USERS_LIST_REQUEST]: (state, payload) => {
       state.usersListRequest = payload;
@@ -31,6 +36,9 @@ export default {
   },
   getters: {
     getUsersList: (state) => state.usersList,
+    getUsersRequestStatus: (state) => state.usersListRequest,
+    getUsersLength: (state) => state.usersList.length,
+    getCurrentUsersPage: (state) => state.currentPage,
     getUsersTotalPage: (state) => Math.ceil(state.usersList.length / 10),
     findUser: (state) => (id) =>
       state.usersList.find((user) => user._id === id),
@@ -54,6 +62,10 @@ export default {
           commit(mutation.SET_USERS_LIST_REQUEST, false);
           commit(mutation.SET_USERS_LIST_ERROR, true);
         });
+    },
+
+    setCurrentUsersPage: ({ commit }, page) => {
+      commit(mutation.SET_USERS_CURRENT_PAGE, page);
     },
   },
 };
