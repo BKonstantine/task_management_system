@@ -14,7 +14,7 @@
         :taskData="task"
         :key="index"
         :index="index"
-        v-for="(task, index) in getTasksPage(this.getCurrentTasksPage)"
+        v-for="(task, index) in getTasksList"
       />
       <li v-if="getTasksTotalPage > 1" class="block"></li>
     </ul>
@@ -53,19 +53,22 @@ export default {
     prevPage() {
       const page = this.getCurrentTasksPage - 1;
       this.setCurrentTasksPage(page);
+      this.fetchTasks({ page: page });
     },
     nextPage() {
       const page = this.getCurrentTasksPage + 1;
       this.setCurrentTasksPage(page);
+      this.fetchTasks({ page: page });
     },
     currPage(data) {
       this.setCurrentTasksPage(data);
+      this.fetchTasks({ page: data });
     },
   },
   computed: {
     ...mapGetters([
       "getTasksLength",
-      "getTasksPage",
+      "getTasksList",
       "getTasksTotalPage",
       "getTasksRequestStatus",
       "getCurrentTasksPage",
@@ -73,10 +76,7 @@ export default {
   },
   beforeMount() {
     this.fetchTasks({
-      sort: {
-        field: "dateEdited", // name, author, status, executor, dateCreated, dateEdited
-        type: "asc", // asc, des
-      },
+      page: this.getCurrentTasksPage,
     });
   },
 };
