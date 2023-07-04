@@ -1,7 +1,7 @@
 <template>
   <PageContainer>
     <FilterContainer>
-      <BaseInput />
+      <SearchInput v-model="searchValue" @click="clear" />
       <ButtonItem class="button" :secondaryStyle="true">Добавить</ButtonItem>
     </FilterContainer>
     <ul v-if="getProjectsLength > 0" class="project-list">
@@ -33,6 +33,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import SearchInput from "@/components/Form/SearchInput.vue";
 import ProjectItem from "@/components/ProjectItem.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
 export default {
@@ -40,14 +41,19 @@ export default {
   components: {
     ProjectItem,
     PaginationItem,
+    SearchInput,
   },
   data() {
     return {
       currentPage: 1,
+      searchValue: null,
     };
   },
   methods: {
     ...mapActions(["fetchProjects", "setCurrentProjectsPage"]),
+    clear() {
+      this.searchValue = null;
+    },
     prevPage() {
       const page = this.getCurrentProjectsPage - 1;
       this.setCurrentProjectsPage(page);
