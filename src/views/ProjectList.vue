@@ -2,7 +2,11 @@
   <PageContainer>
     <FilterContainer>
       <SearchInput v-model="searchValue" @click="clear" />
-      <SelectWithButton v-model="filterValue" :items="filterList" />
+      <SelectWithButton
+        v-model="filterValue"
+        :items="filterList"
+        @filter-click="getProjectWithFilter"
+      />
       <ButtonItem class="button" :secondaryStyle="true">Добавить</ButtonItem>
     </FilterContainer>
     <ul v-if="getProjectsLength > 0" class="project-list">
@@ -63,6 +67,13 @@ export default {
     ...mapActions(["fetchProjects", "setCurrentProjectsPage"]),
     clear() {
       this.searchValue = null;
+    },
+    getProjectWithFilter() {
+      this.fetchProjects({
+        sort: {
+          field: this.filterValue,
+        },
+      });
     },
     prevPage() {
       const page = this.getCurrentProjectsPage - 1;

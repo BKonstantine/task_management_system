@@ -24,7 +24,11 @@
       </ul>
       <input type="hidden" :name="name" v-bind="$attrs" :value="selectedItem" />
     </div>
-    <button type="button" class="select-button__button pointer">
+    <button
+      type="button"
+      class="select-button__button pointer"
+      @click="$emit('filter-click')"
+    >
       <SvgIcon id="#sort-up" />
     </button>
   </div>
