@@ -7,11 +7,16 @@ export const mutation = {
   SET_PROJECTS_LIST_REQUEST: "SET_PROJECT_LIST_REQUEST",
   SET_PROJECTS_LIST_SUCCESS: "SET_PROJECT_LIST_SUCCESS",
   SET_PROJECTS_LIST_ERROR: "SET_PROJECT_LIST_ERROR",
+  SET_FILTER_VALUE: "SET_FILTER_VALUE",
+  SET_CLEAR_FILTER_VALUE: "SET_CLEAR_FILTER_VALUE",
+  SET_SORT_VALUE: "SET_SORT_VALUE",
 };
 
 export default {
   state: {
     projectsList: [],
+    filterValue: null,
+    sortValue: "name",
     currentPage: 1,
     totalPage: null,
     projectsDataRequest: false,
@@ -37,6 +42,15 @@ export default {
     [mutation.SET_PROJECTS_LIST_ERROR]: (state, payload) => {
       state.projectsDataError = payload;
     },
+    [mutation.SET_FILTER_VALUE]: (state, payload) => {
+      state.filterValue = payload;
+    },
+    [mutation.SET_CLEAR_FILTER_VALUE]: (state) => {
+      state.filterValue = null;
+    },
+    [mutation.SET_SORT_VALUE]: (state, payload) => {
+      state.sortValue = payload;
+    },
   },
   getters: {
     getProjectsList: (state) => state.projectsList,
@@ -48,6 +62,8 @@ export default {
       state.projectsList.map((project) => {
         return { label: project.name, value: project._id };
       }),
+    getSortValue: (state) => state.sortValue,
+    getFilterValue: (state) => state.filterValue,
   },
   actions: {
     fetchProjects: ({ commit }, projectData) => {
@@ -85,6 +101,18 @@ export default {
 
     setCurrentProjectsPage: ({ commit }, page) => {
       commit(mutation.SET_PROJECTS_CURRENT_PAGE, page);
+    },
+
+    setFilterValue: ({ commit }, payload) => {
+      commit(mutation.SET_FILTER_VALUE, payload);
+    },
+
+    setClearFilterValue: ({ commit }) => {
+      commit(mutation.SET_CLEAR_FILTER_VALUE);
+    },
+
+    setSortValue: ({ commit }, payload) => {
+      commit(mutation.SET_SORT_VALUE, payload);
     },
   },
 };

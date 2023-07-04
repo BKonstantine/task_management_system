@@ -1,13 +1,13 @@
 <template>
   <PageContainer>
     <FilterContainer>
-      <SearchInput v-model="searchValue" @click="clear" />
+      <SearchInput v-model="filterValue" @click="setClearFilterValue" />
       <SelectWithButton
-        v-model="filterValue"
-        :items="filterList"
+        v-model="sortValue"
+        :items="sortList"
         @filter-click="getProjectWithFilter"
       />
-      <ButtonItem class="button" :secondaryStyle="true">Добавить</ButtonItem>
+      <ButtonItem :secondaryStyle="true">Добавить</ButtonItem>
     </FilterContainer>
     <ul v-if="getProjectsLength > 0" class="project-list">
       <ProjectItem
@@ -31,7 +31,7 @@
       v-if="getProjectsLength === 0 && !getProjectsRequestStatus"
     >
       <BaseText>Не создан ни один проект</BaseText>
-      <ButtonItem text="Добавить" />
+      <ButtonItem>Добавить</ButtonItem>
     </StopperContainer>
   </PageContainer>
 </template>
@@ -52,10 +52,7 @@ export default {
   },
   data() {
     return {
-      currentPage: 1,
-      searchValue: null,
-      filterValue: "name",
-      filterList: [
+      sortList: [
         { label: "По названию", value: "name" },
         { label: "По автору", value: "author" },
         { label: "По дате создания", value: "dateCreated" },
@@ -64,30 +61,39 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchProjects", "setCurrentProjectsPage"]),
-    clear() {
-      this.searchValue = null;
-    },
+    ...mapActions([
+      "fetchProjects",
+      "setCurrentProjectsPage",
+      "setFilterValue",
+      "setSortValue",
+      "setClearFilterValue",
+    ]),
     getProjectWithFilter() {
       this.fetchProjects({
         sort: {
-          field: this.filterValue,
+          field: this.sortValue,
         },
       });
     },
     prevPage() {
       const page = this.getCurrentProjectsPage - 1;
       this.setCurrentProjectsPage(page);
-      this.fetchProjects({ page: page });
+      this.fetchProjects({
+        page: page,
+      });
     },
     nextPage() {
       const page = this.getCurrentProjectsPage + 1;
       this.setCurrentProjectsPage(page);
-      this.fetchProjects({ page: page });
+      this.fetchProjects({
+        page: page,
+      });
     },
     currPage(data) {
       this.setCurrentProjectsPage(data);
-      this.fetchProjects({ page: data });
+      this.fetchProjects({
+        page: data,
+      });
     },
   },
   computed: {
@@ -97,10 +103,32 @@ export default {
       "getProjectsList",
       "getProjectsRequestStatus",
       "getCurrentProjectsPage",
+      "getSortValue",
+      "getFilterValue",
     ]),
+
+    filterValue: {
+      get() {
+        return this.getFilterValue;
+      },
+      set(value) {
+        this.setFilterValue(value);
+      },
+    },
+
+    sortValue: {
+      get() {
+        return this.getSortValue;
+      },
+      set(value) {
+        this.setSortValue(value);
+      },
+    },
   },
   beforeMount() {
-    this.fetchProjects({ page: this.getCurrentProjectsPage });
+    this.fetchProjects({
+      page: this.getCurrentProjectsPage,
+    });
   },
 };
 </script>
@@ -121,9 +149,5 @@ export default {
 .block {
   height: 72px;
   list-style: none;
-}
-
-.button {
-  margin-left: auto;
 }
 </style>
