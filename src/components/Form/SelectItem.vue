@@ -7,7 +7,11 @@
       <span class="select-item__placeholder" v-else>{{ placeholder }}</span>
       <SvgIcon id="#drop_down_1" class="select-item__icon" />
     </div>
-    <ul class="select-item__options" v-show="isOpen">
+    <ul
+      class="select-item__options"
+      v-show="isOpen"
+      :style="{ zIndex: zIndex }"
+    >
       <li
         v-for="(item, index) in items"
         :key="index"
@@ -41,6 +45,9 @@ export default {
     name: {
       type: String,
       default: "",
+    },
+    zIndex: {
+      type: Number,
     },
   },
   data() {

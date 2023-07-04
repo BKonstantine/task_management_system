@@ -13,7 +13,7 @@ export default {
   },
 
   beforeMount() {
-    //this.fetchLogin();
+    this.fetchLogin();
     //this.$api.Auth.login();
     this.fetchCurrentUser();
     this.fetchUsers();
