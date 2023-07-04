@@ -16,7 +16,7 @@
     <PaginationItem
       v-if="getProjectsTotalPage > 1"
       :totalPage="getProjectsTotalPage"
-      :currentPage="currentPage"
+      :currentPage="getCurrentProjectPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
@@ -47,18 +47,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchProjects"]),
-    prevPage(data) {
-      this.currentPage -= data;
-      this.fetchProjects({ page: this.currentPage });
+    ...mapActions(["fetchProjects", "setCurrentProjectPage"]),
+    prevPage() {
+      const page = this.getCurrentProjectPage - 1;
+      this.setCurrentProjectPage(page);
     },
-    nextPage(data) {
-      this.currentPage += data;
-      this.fetchProjects({ page: this.currentPage });
+    nextPage() {
+      const page = this.getCurrentProjectPage + 1;
+      this.setCurrentProjectPage(page);
     },
     currPage(data) {
-      this.currentPage = data;
-      this.fetchProjects({ page: this.currentPage });
+      this.setCurrentProjectPage(data);
     },
   },
   computed: {
@@ -67,6 +66,7 @@ export default {
       "getProjectList",
       "getProjectsTotalPage",
       "getProjectRequestStatus",
+      "getCurrentProjectPage",
     ]),
   },
   beforeMount() {

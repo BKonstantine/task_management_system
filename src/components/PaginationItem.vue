@@ -45,10 +45,10 @@ export default {
   },
   methods: {
     prevPage() {
-      this.$emit("prev-page", 1);
+      this.$emit("prev-page");
     },
     nextPage() {
-      this.$emit("next-page", 1);
+      this.$emit("next-page");
     },
     currPage(data) {
       if (typeof data === "number") {

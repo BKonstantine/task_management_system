@@ -2,6 +2,7 @@ import { getTasksRequest } from "@/api/tasks";
 
 export const mutation = {
   SET_TASKS_LIST: "SET_TASKS_LIST",
+  SET_TASKS_CURRENT_PAGE: "SET_TASKS_CURRENT_PAGE",
   SET_TASKS_LIST_REQUEST: "SET_TASKS_LIST_REQUEST",
   SET_TASKS_LIST_SUCCESS: "SET_TASKS_LIST_SUCCESS",
   SET_TASKS_LIST_ERROR: "SET_TASKS_LIST_ERROR",
@@ -10,6 +11,7 @@ export const mutation = {
 export default {
   state: {
     tasksList: [],
+    currentPage: 1,
     tasksDataRequest: false,
     tasksDataSuccess: false,
     tasksDataError: false,
@@ -17,6 +19,9 @@ export default {
   mutations: {
     [mutation.SET_TASKS_LIST]: (state, payload) => {
       state.tasksList = payload;
+    },
+    [mutation.SET_TASKS_CURRENT_PAGE]: (state, payload) => {
+      state.currentPage = payload;
     },
     [mutation.SET_TASKS_LIST_REQUEST]: (state, payload) => {
       state.tasksDataRequest = payload;
@@ -30,6 +35,7 @@ export default {
   },
   getters: {
     getTasksList: (state) => state.tasksList,
+    getCurrentTasksPage: (state) => state.currentPage,
     getTasksTotalPage: (state) => Math.ceil(state.tasksList.length / 10),
     getTasksRequestStatus: (state) => state.tasksDataRequest,
     getTasksLength: (state) => state.tasksList.length,
@@ -51,6 +57,10 @@ export default {
           commit(mutation.SET_TASKS_LIST_REQUEST, false);
           commit(mutation.SET_TASKS_LIST_ERROR, true);
         });
+    },
+
+    setCurrentTasksPage: ({ commit }, page) => {
+      commit(mutation.SET_TASKS_CURRENT_PAGE, page);
     },
   },
 };

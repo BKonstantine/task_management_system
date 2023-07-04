@@ -21,7 +21,7 @@
     <PaginationItem
       v-if="getTasksTotalPage > 1"
       :totalPage="getTasksTotalPage"
-      :currentPage="currentPage"
+      :currentPage="getCurrentTasksPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
@@ -49,18 +49,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchTasks"]),
-    prevPage(data) {
-      this.currentPage -= data;
-      this.fetchTasks({ page: this.currentPage });
+    ...mapActions(["fetchTasks", "setCurrentTasksPage"]),
+    prevPage() {
+      const page = this.getCurrentTasksPage - 1;
+      this.setCurrentTasksPage(page);
     },
-    nextPage(data) {
-      this.currentPage += data;
-      this.fetchTasks({ page: this.currentPage });
+    nextPage() {
+      const page = this.getCurrentTasksPage + 1;
+      this.setCurrentTasksPage(page);
     },
     currPage(data) {
-      this.currentPage = data;
-      this.fetchTasks({ page: this.currentPage });
+      this.setCurrentTasksPage(data);
     },
   },
   computed: {
@@ -69,6 +68,7 @@ export default {
       "getTasksList",
       "getTasksTotalPage",
       "getTasksRequestStatus",
+      "getCurrentTasksPage",
     ]),
   },
   beforeMount() {

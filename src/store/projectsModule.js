@@ -2,6 +2,7 @@ import { getProjects } from "@/api/projects";
 
 export const mutation = {
   SET_PROJECTS_LIST: "SET_PROJECT_LIST",
+  SET_PROJECTS_CURRENT_PAGE: "SET_CURRENT_PAGE",
   SET_PROJECTS_LIST_REQUEST: "SET_PROJECT_LIST_REQUEST",
   SET_PROJECTS_LIST_SUCCESS: "SET_PROJECT_LIST_SUCCESS",
   SET_PROJECTS_LIST_ERROR: "SET_PROJECT_LIST_ERROR",
@@ -10,6 +11,7 @@ export const mutation = {
 export default {
   state: {
     projectsList: [],
+    currentPage: 1,
     projectsDataRequest: false,
     projectsDataSuccess: false,
     projectsDataError: false,
@@ -18,8 +20,8 @@ export default {
     [mutation.SET_PROJECTS_LIST]: (state, payload) => {
       state.projectsList = payload;
     },
-    [mutation.SET_PROJECTS_TOTAL_PAGE]: (state, payload) => {
-      state.totalPage = payload;
+    [mutation.SET_PROJECTS_CURRENT_PAGE]: (state, payload) => {
+      state.currentPage = payload;
     },
     [mutation.SET_PROJECTS_LIST_REQUEST]: (state, payload) => {
       state.projectsDataRequest = payload;
@@ -33,6 +35,7 @@ export default {
   },
   getters: {
     getProjectList: (state) => state.projectsList,
+    getCurrentProjectPage: (state) => state.currentPage,
     getProjectsTotalPage: (state) => Math.ceil(state.projectsList.length / 10),
     getProjectRequestStatus: (state) => state.projectsDataRequest,
     getProjectsLength: (state) => state.projectsList.length,
@@ -58,6 +61,10 @@ export default {
           commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
           commit(mutation.SET_PROJECTS_LIST_ERROR, true);
         });
+    },
+
+    setCurrentProjectPage: ({ commit }, page) => {
+      commit(mutation.SET_PROJECTS_CURRENT_PAGE, page);
     },
   },
 };
