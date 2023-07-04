@@ -14,7 +14,7 @@
         :projectData="project"
         :key="index"
         :index="index"
-        v-for="(project, index) in getProjectsPage(this.getCurrentProjectsPage)"
+        v-for="(project, index) in getProjectsList"
       />
       <li v-if="getProjectsTotalPage > 1" class="block"></li>
     </ul>
@@ -78,26 +78,29 @@ export default {
     prevPage() {
       const page = this.getCurrentProjectsPage - 1;
       this.setCurrentProjectsPage(page);
+      this.fetchProjects({ page: page });
     },
     nextPage() {
       const page = this.getCurrentProjectsPage + 1;
       this.setCurrentProjectsPage(page);
+      this.fetchProjects({ page: page });
     },
     currPage(data) {
       this.setCurrentProjectsPage(data);
+      this.fetchProjects({ page: data });
     },
   },
   computed: {
     ...mapGetters([
       "getProjectsLength",
       "getProjectsTotalPage",
-      "getProjectsPage",
+      "getProjectsList",
       "getProjectsRequestStatus",
       "getCurrentProjectsPage",
     ]),
   },
   beforeMount() {
-    this.fetchProjects();
+    this.fetchProjects({ page: this.getCurrentProjectsPage });
   },
 };
 </script>

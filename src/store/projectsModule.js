@@ -2,7 +2,8 @@ import { getProjects } from "@/api/projects";
 
 export const mutation = {
   SET_PROJECTS_LIST: "SET_PROJECT_LIST",
-  SET_PROJECTS_CURRENT_PAGE: "SET_CURRENT_PAGE",
+  SET_PROJECTS_CURRENT_PAGE: "SET_PROJECTS_CURRENT_PAGE",
+  SET_PROJECTS_TOTAL_PAGE: "SET_PROJECTS_TOTAL_PAGE",
   SET_PROJECTS_LIST_REQUEST: "SET_PROJECT_LIST_REQUEST",
   SET_PROJECTS_LIST_SUCCESS: "SET_PROJECT_LIST_SUCCESS",
   SET_PROJECTS_LIST_ERROR: "SET_PROJECT_LIST_ERROR",
@@ -12,6 +13,7 @@ export default {
   state: {
     projectsList: [],
     currentPage: 1,
+    totalPage: null,
     projectsDataRequest: false,
     projectsDataSuccess: false,
     projectsDataError: false,
@@ -22,6 +24,9 @@ export default {
     },
     [mutation.SET_PROJECTS_CURRENT_PAGE]: (state, payload) => {
       state.currentPage = payload;
+    },
+    [mutation.SET_PROJECTS_TOTAL_PAGE]: (state, payload) => {
+      state.totalPage = payload;
     },
     [mutation.SET_PROJECTS_LIST_REQUEST]: (state, payload) => {
       state.projectsDataRequest = payload;
@@ -36,21 +41,31 @@ export default {
   getters: {
     getProjectsList: (state) => state.projectsList,
     getCurrentProjectsPage: (state) => state.currentPage,
-    getProjectsTotalPage: (state) => Math.ceil(state.projectsList.length / 10),
+    getProjectsTotalPage: (state) => state.totalPage,
     getProjectsRequestStatus: (state) => state.projectsDataRequest,
     getProjectsLength: (state) => state.projectsList.length,
     getProjectsForOptions: (state) =>
       state.projectsList.map((project) => {
         return { label: project.name, value: project._id };
       }),
-    getProjectsPage: (state) => (page) => {
-      const startIndex = (page - 1) * 10;
-      const endIndex = startIndex + 10;
-      return state.projectsList.slice(startIndex, endIndex);
-    },
   },
   actions: {
     fetchProjects: ({ commit }, projectData) => {
+      commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
+      getProjects(projectData)
+        .then((data) => {
+          commit(mutation.SET_PROJECTS_LIST, data.projects);
+          commit(mutation.SET_PROJECTS_TOTAL_PAGE, data.total);
+          commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+          commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+        })
+        .catch(() => {
+          commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+          commit(mutation.SET_PROJECTS_LIST_ERROR, true);
+        });
+    },
+
+    /* fetchAllProjects: ({ commit }, projectData) => {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
       getProjects(projectData)
         .then((data) => {
@@ -66,7 +81,7 @@ export default {
           commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
           commit(mutation.SET_PROJECTS_LIST_ERROR, true);
         });
-    },
+    }, */
 
     setCurrentProjectsPage: ({ commit }, page) => {
       commit(mutation.SET_PROJECTS_CURRENT_PAGE, page);
