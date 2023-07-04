@@ -1,0 +1,23 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" fill="#F5F5F5"/>
+  <g id="Preloader">
+    <path d="M-165 -46C-165 -47.1046 -164.105 -48 -163 -48H86C87.1046 -48 88 -47.1046 88 -46V86C88 87.1046 87.1046 88 86 88H-163C-164.105 88 -165 87.1046 -165 86V-46Z" fill="white"/>
+    <g id="preloader">
+      <g id="Property 1=Default">
+        <path id="Subtract" fill-rule="evenodd" clip-rule="evenodd" d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40ZM20 36C28.8366 36 36 28.8366 36 20C36 11.1634 28.8366 4 20 4C11.1634 4 4 11.1634 4 20C4 28.8366 11.1634 36 20 36Z" fill="#DCDCDE"/>
+        <path id="Intersect" fill-rule="evenodd" clip-rule="evenodd" d="M38 20C39.1046 20 40.0105 19.102 39.9015 18.0028C38.9645 8.55175 31.4483 1.03553 21.9972 0.0985064C20.898 -0.0104713 20 0.895464 20 2.00003C20 3.1046 20.8999 3.98692 21.996 4.12333C29.2367 5.02438 34.9757 10.7634 35.8767 18.004C36.0131 19.1001 36.8954 20 38 20Z" fill="#1F75CB"/>
+      </g>
+      <rect x="-19.5" y="-19.5" width="79" height="79" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
+      <animateTransform 
+        xlink:href="#Intersect" 
+        attributeName="transform" 
+        attributeType="XML" 
+        type="rotate" 
+        from="0 20 20" 
+        to="360 20 20" 
+        dur="1s" 
+        repeatCount="indefinite" />
+    </g>
+    <path d="M-163 -47H86V-49H-163V-47ZM87 -46V86H89V-46H87ZM86 87H-163V89H86V87ZM-164 86V-46H-166V86H-164ZM-163 87C-163.552 87 -164 86.5523 -164 86H-166C-166 87.6568 -164.657 89 -163 89V87ZM87 86C87 86.5523 86.5523 87 86 87V89C87.6569 89 89 87.6568 89 86H87ZM86 -47C86.5523 -47 87 -46.5523 87 -46H89C89 -47.6569 87.6569 -49 86 -49V-47ZM-163 -49C-164.657 -49 -166 -47.6569 -166 -46H-164C-164 -46.5523 -163.552 -47 -163 -47V-49Z" fill="black" fill-opacity="0.15"/>
+  </g>
+</svg>
