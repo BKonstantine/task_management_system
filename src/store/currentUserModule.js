@@ -29,12 +29,8 @@ export default {
     },
   },
   getters: {
-    getCurrentUser(state) {
-      return state.currentUser;
-    },
-    getRequestStatus(state) {
-      return state.currentUserRequest;
-    },
+    getCurrentUser: (state) => state.currentUser,
+    getRequestStatus: (state) => state.currentUserRequest,
   },
   actions: {
     fetchCurrentUser: ({ commit }) => {
