@@ -23,9 +23,10 @@
 export default {
   name: "SearchInput",
   inheritAttrs: false,
+  props: ["value"],
   data() {
     return {
-      inputValue: null,
+      inputValue: this.value,
     };
   },
   methods: {

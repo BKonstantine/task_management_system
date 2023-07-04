@@ -16,10 +16,13 @@
         :index="index"
         v-for="(project, index) in getProjectsList"
       />
-      <li v-if="getProjectsTotalPage > 1" class="block"></li>
+      <li
+        v-if="getProjectsTotalPage > 1 && getProjectsLength > 0"
+        class="block"
+      ></li>
     </ul>
     <PaginationItem
-      v-if="getProjectsTotalPage > 1"
+      v-if="getProjectsTotalPage > 1 && getProjectsLength > 0"
       :totalPage="getProjectsTotalPage"
       :currentPage="getCurrentProjectsPage"
       @prev-page="prevPage"
@@ -70,42 +73,30 @@ export default {
     ]),
     getProjectWithFilter() {
       this.fetchProjects({
-        sort: {
-          field: this.sortValue,
-          type: "desc",
-        },
+        ...this.projectQuery,
       });
     },
     prevPage() {
       const page = this.getCurrentProjectsPage - 1;
       this.setCurrentProjectsPage(page);
       this.fetchProjects({
+        ...this.projectQuery,
         page: page,
-        sort: {
-          field: this.sortValue,
-          type: "desc",
-        },
       });
     },
     nextPage() {
       const page = this.getCurrentProjectsPage + 1;
       this.setCurrentProjectsPage(page);
       this.fetchProjects({
+        ...this.projectQuery,
         page: page,
-        sort: {
-          field: this.sortValue,
-          type: "desc",
-        },
       });
     },
     currPage(data) {
       this.setCurrentProjectsPage(data);
       this.fetchProjects({
+        ...this.projectQuery,
         page: data,
-        sort: {
-          field: this.sortValue,
-          type: "desc",
-        },
       });
     },
   },
@@ -137,13 +128,29 @@ export default {
         this.setSortValue(value);
       },
     },
+
+    projectQuery() {
+      const query = {
+        sort: {
+          field: this.sortValue,
+          type: "desc",
+        },
+      };
+      if (this.filterValue) {
+        query.filter = {
+          name: this.filterValue,
+        };
+      }
+
+      return query;
+    },
   },
   beforeMount() {
     this.fetchProjects({
       page: this.getCurrentProjectsPage,
       sort: {
         field: this.sortValue,
-        type: "des",
+        type: "desc",
       },
     });
   },
