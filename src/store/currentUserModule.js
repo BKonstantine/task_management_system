@@ -1,5 +1,12 @@
 import { getCurrentUserRequest } from "@/api/current-user";
 
+export const mutation = {
+  SET_CURRENT_USER: "SET_CURRENT_USER",
+  SET_CURRENT_USER_REQUEST: "SET_CURRENT_USER_REQUEST",
+  SET_CURRENT_USER_SUCCESS: "SET_CURRENT_USER_SUCCESS",
+  SET_CURRENT_USER_ERROR: "SET_CURRENT_USER_ERROR",
+};
+
 export default {
   state: {
     currentUser: null,
@@ -8,16 +15,16 @@ export default {
     currentUserError: false,
   },
   mutations: {
-    setCurrentUser(state, payload) {
+    [mutation.SET_CURRENT_USER]: (state, payload) => {
       state.currentUser = payload;
     },
-    setCurrentUserRequest(state, payload) {
+    [mutation.SET_CURRENT_USER_REQUEST]: (state, payload) => {
       state.currentUserRequest = payload;
     },
-    setCurrentUserSuccess(state, payload) {
+    [mutation.SET_CURRENT_USER_SUCCESS]: (state, payload) => {
       state.currentUserSuccess = payload;
     },
-    setCurrentUserError(state, payload) {
+    [mutation.SET_CURRENT_USER_ERROR]: (state, payload) => {
       state.currentUserError = payload;
     },
   },
@@ -30,17 +37,17 @@ export default {
     },
   },
   actions: {
-    fetchCurrentUser({ commit }) {
-      commit("setCurrentUserRequest", true);
+    fetchCurrentUser: ({ commit }) => {
+      commit(mutation.SET_CURRENT_USER_REQUEST, true);
       getCurrentUserRequest()
         .then((data) => {
-          commit("setCurrentUser", data);
-          commit("setCurrentUserRequest", false);
-          commit("setCurrentUserSuccess", true);
+          commit(mutation.SET_CURRENT_USER, data);
+          commit(mutation.SET_CURRENT_USER_REQUEST, false);
+          commit(mutation.SET_CURRENT_USER_SUCCESS, true);
         })
         .catch(() => {
-          commit("setCurrentUserRequest", false);
-          commit("setCurrentUserError", true);
+          commit(mutation.SET_CURRENT_USER_REQUEST, false);
+          commit(mutation.SET_CURRENT_USER_ERROR, true);
         });
     },
   },

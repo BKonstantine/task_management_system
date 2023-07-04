@@ -41,7 +41,8 @@ export default {
           commit(mutation.SET_AUTH_SUCCESS, true);
         })
         .catch(() => {
-          commit(mutation.SET_AUTH_ERROR, false);
+          commit(mutation.SET_AUTH_REQUEST, false);
+          commit(mutation.SET_AUTH_ERROR, true);
         });
     },
   },
