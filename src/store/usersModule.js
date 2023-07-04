@@ -1,6 +1,13 @@
 import { getUsers } from "@/api/users";
 import { abbreviateName } from "@/helpers/replace-text";
 
+export const mutation = {
+  SET_USERS_LIST: "SET_USERS_LIST",
+  SET_USERS_LIST_REQUEST: "SET_USERS_LIST_REQUEST",
+  SET_USERS_LIST_SUCCESS: "SET_USERS_LIST_SUCCESS",
+  SET_USERS_LIST_ERROR: "SET_USERS_LIST_ERROR",
+};
+
 export default {
   state: {
     usersList: [],
@@ -9,44 +16,40 @@ export default {
     usersListError: false,
   },
   mutations: {
-    setUsersList(state, payload) {
+    [mutation.SET_USERS_LIST]: (state, payload) => {
       state.usersList = payload;
     },
-    setUsersListRequest(state, payload) {
+    [mutation.SET_USERS_LIST_REQUEST]: (state, payload) => {
       state.usersListRequest = payload;
     },
-    setUsersListSuccess(state, payload) {
+    [mutation.SET_USERS_LIST_SUCCESS]: (state, payload) => {
       state.usersListSuccess = payload;
     },
-    setUsersListError(state, payload) {
+    [mutation.SET_USERS_LIST_ERROR]: (state, payload) => {
       state.usersListError = payload;
     },
   },
   getters: {
-    getUsersList(state) {
-      return state.usersList;
-    },
-    findUser: (state) => (id) => {
-      return state.usersList.find((user) => user._id === id);
-    },
-    getUsersForOptions(state) {
-      return state.usersList.map((user) => {
+    getUsersList: (state) => state.usersList,
+    findUser: (state) => (id) =>
+      state.usersList.find((user) => user._id === id),
+    getUsersForOptions: (state) =>
+      state.usersList.map((user) => {
         return { label: abbreviateName(user.name), value: user._id };
-      });
-    },
+      }),
   },
   actions: {
     fetchUsers({ commit }, userData) {
-      commit("setUsersListRequest", true);
+      commit(mutation.SET_USERS_LIST_REQUEST, true);
       getUsers(userData)
         .then((data) => {
-          commit("setUsersList", data.users);
-          commit("setUsersListRequest", false);
-          commit("setUsersListSuccess", true);
+          commit(mutation.SET_USERS_LIST, data.users);
+          commit(mutation.SET_USERS_LIST_REQUEST, false);
+          commit(mutation.SET_USERS_LIST_SUCCESS, true);
         })
         .catch(() => {
-          commit("setUsersListSuccess", false);
-          commit("setUsersListError", true);
+          commit(mutation.SET_USERS_LIST_REQUEST, false);
+          commit(mutation.SET_USERS_LIST_ERROR, true);
         });
     },
   },
