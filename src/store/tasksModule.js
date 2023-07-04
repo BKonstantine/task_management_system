@@ -2,7 +2,6 @@ import { getTasksRequest } from "@/api/tasks";
 
 export const mutation = {
   SET_TASKS_LIST: "SET_TASKS_LIST",
-  SET_TASKS_TOTAL_PAGE: "SET_TASKS_TOTAL_PAGE",
   SET_TASKS_LIST_REQUEST: "SET_TASKS_LIST_REQUEST",
   SET_TASKS_LIST_SUCCESS: "SET_TASKS_LIST_SUCCESS",
   SET_TASKS_LIST_ERROR: "SET_TASKS_LIST_ERROR",
@@ -11,7 +10,6 @@ export const mutation = {
 export default {
   state: {
     tasksList: [],
-    totalPage: null,
     tasksDataRequest: false,
     tasksDataSuccess: false,
     tasksDataError: false,
@@ -19,9 +17,6 @@ export default {
   mutations: {
     [mutation.SET_TASKS_LIST]: (state, payload) => {
       state.tasksList = payload;
-    },
-    [mutation.SET_TASKS_TOTAL_PAGE]: (state, payload) => {
-      state.totalPage = payload;
     },
     [mutation.SET_TASKS_LIST_REQUEST]: (state, payload) => {
       state.tasksDataRequest = payload;
@@ -35,7 +30,7 @@ export default {
   },
   getters: {
     getTasksList: (state) => state.tasksList,
-    getTasksTotalPage: (state) => state.totalPage,
+    getTasksTotalPage: (state) => Math.ceil(state.tasksList.length / 10),
     getTasksRequestStatus: (state) => state.tasksDataRequest,
     getTasksLength: (state) => state.tasksList.length,
   },

@@ -31,6 +31,7 @@ export default {
   },
   getters: {
     getUsersList: (state) => state.usersList,
+    getUsersTotalPage: (state) => Math.ceil(state.usersList.length / 10),
     findUser: (state) => (id) =>
       state.usersList.find((user) => user._id === id),
     getUsersForOptions: (state) =>

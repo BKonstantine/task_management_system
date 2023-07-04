@@ -2,7 +2,6 @@ import { getProjects } from "@/api/projects";
 
 export const mutation = {
   SET_PROJECTS_LIST: "SET_PROJECT_LIST",
-  SET_PROJECTS_TOTAL_PAGE: "SET_TOTAL_PAGE",
   SET_PROJECTS_LIST_REQUEST: "SET_PROJECT_LIST_REQUEST",
   SET_PROJECTS_LIST_SUCCESS: "SET_PROJECT_LIST_SUCCESS",
   SET_PROJECTS_LIST_ERROR: "SET_PROJECT_LIST_ERROR",
@@ -11,7 +10,6 @@ export const mutation = {
 export default {
   state: {
     projectsList: [],
-    totalPage: null,
     projectsDataRequest: false,
     projectsDataSuccess: false,
     projectsDataError: false,
@@ -35,7 +33,7 @@ export default {
   },
   getters: {
     getProjectList: (state) => state.projectsList,
-    getProjectsTotalPage: (state) => state.totalPage,
+    getProjectsTotalPage: (state) => Math.ceil(state.projectsList.length / 10),
     getProjectRequestStatus: (state) => state.projectsDataRequest,
     getProjectsLength: (state) => state.projectsList.length,
     getProjectsForOptions: (state) =>
