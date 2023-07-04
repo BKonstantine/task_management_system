@@ -14,7 +14,7 @@
         :taskData="task"
         :key="index"
         :index="index"
-        v-for="(task, index) in getTasksList"
+        v-for="(task, index) in getTasksPage(this.getCurrentTasksPage)"
       />
       <li v-if="getTasksTotalPage > 1" class="block"></li>
     </ul>
@@ -65,7 +65,7 @@ export default {
   computed: {
     ...mapGetters([
       "getTasksLength",
-      "getTasksList",
+      "getTasksPage",
       "getTasksTotalPage",
       "getTasksRequestStatus",
       "getCurrentTasksPage",

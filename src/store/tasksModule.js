@@ -39,6 +39,11 @@ export default {
     getTasksTotalPage: (state) => Math.ceil(state.tasksList.length / 10),
     getTasksRequestStatus: (state) => state.tasksDataRequest,
     getTasksLength: (state) => state.tasksList.length,
+    getTasksPage: (state) => (page) => {
+      const startIndex = (page - 1) * 10;
+      const endIndex = startIndex + 10;
+      return state.tasksList.slice(startIndex, endIndex);
+    },
   },
   actions: {
     fetchTasks: ({ commit }, taskData) => {

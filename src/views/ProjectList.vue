@@ -9,21 +9,21 @@
         :projectData="project"
         :key="index"
         :index="index"
-        v-for="(project, index) in getProjectList"
+        v-for="(project, index) in getProjectsPage(this.getCurrentProjectsPage)"
       />
       <li v-if="getProjectsTotalPage > 1" class="block"></li>
     </ul>
     <PaginationItem
       v-if="getProjectsTotalPage > 1"
       :totalPage="getProjectsTotalPage"
-      :currentPage="getCurrentProjectPage"
+      :currentPage="getCurrentProjectsPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
       class="project-list__pagination"
     />
     <StopperContainer
-      v-if="getProjectsLength === 0 && !getProjectRequestStatus"
+      v-if="getProjectsLength === 0 && !getProjectsRequestStatus"
     >
       <BaseText>Не создан ни один проект</BaseText>
       <ButtonItem text="Добавить" />
@@ -47,26 +47,26 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchProjects", "setCurrentProjectPage"]),
+    ...mapActions(["fetchProjects", "setCurrentProjectsPage"]),
     prevPage() {
-      const page = this.getCurrentProjectPage - 1;
-      this.setCurrentProjectPage(page);
+      const page = this.getCurrentProjectsPage - 1;
+      this.setCurrentProjectsPage(page);
     },
     nextPage() {
-      const page = this.getCurrentProjectPage + 1;
-      this.setCurrentProjectPage(page);
+      const page = this.getCurrentProjectsPage + 1;
+      this.setCurrentProjectsPage(page);
     },
     currPage(data) {
-      this.setCurrentProjectPage(data);
+      this.setCurrentProjectsPage(data);
     },
   },
   computed: {
     ...mapGetters([
       "getProjectsLength",
-      "getProjectList",
       "getProjectsTotalPage",
-      "getProjectRequestStatus",
-      "getCurrentProjectPage",
+      "getProjectsPage",
+      "getProjectsRequestStatus",
+      "getCurrentProjectsPage",
     ]),
   },
   beforeMount() {

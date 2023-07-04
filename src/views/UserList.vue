@@ -7,7 +7,7 @@
       <UserItem
         :userData="user"
         :key="index"
-        v-for="(user, index) in getUsersList"
+        v-for="(user, index) in getUsersPage(this.getCurrentUsersPage)"
       />
       <li v-if="getUsersTotalPage > 1" class="block"></li>
     </ul>
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getUsersList",
+      "getUsersPage",
       "getUsersLength",
       "getUsersTotalPage",
       "getCurrentUsersPage",

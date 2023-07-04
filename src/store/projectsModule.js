@@ -34,15 +34,20 @@ export default {
     },
   },
   getters: {
-    getProjectList: (state) => state.projectsList,
-    getCurrentProjectPage: (state) => state.currentPage,
+    getProjectsList: (state) => state.projectsList,
+    getCurrentProjectsPage: (state) => state.currentPage,
     getProjectsTotalPage: (state) => Math.ceil(state.projectsList.length / 10),
-    getProjectRequestStatus: (state) => state.projectsDataRequest,
+    getProjectsRequestStatus: (state) => state.projectsDataRequest,
     getProjectsLength: (state) => state.projectsList.length,
     getProjectsForOptions: (state) =>
       state.projectsList.map((project) => {
         return { label: project.name, value: project._id };
       }),
+    getProjectsPage: (state) => (page) => {
+      const startIndex = (page - 1) * 10;
+      const endIndex = startIndex + 10;
+      return state.projectsList.slice(startIndex, endIndex);
+    },
   },
   actions: {
     fetchProjects: ({ commit }, projectData) => {
@@ -63,7 +68,7 @@ export default {
         });
     },
 
-    setCurrentProjectPage: ({ commit }, page) => {
+    setCurrentProjectsPage: ({ commit }, page) => {
       commit(mutation.SET_PROJECTS_CURRENT_PAGE, page);
     },
   },

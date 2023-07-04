@@ -46,6 +46,11 @@ export default {
       state.usersList.map((user) => {
         return { label: abbreviateName(user.name), value: user._id };
       }),
+    getUsersPage: (state) => (page) => {
+      const startIndex = (page - 1) * 10;
+      const endIndex = startIndex + 10;
+      return state.usersList.slice(startIndex, endIndex);
+    },
   },
   actions: {
     fetchUsers({ commit }, userData) {
