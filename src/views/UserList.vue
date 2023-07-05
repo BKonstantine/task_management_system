@@ -86,10 +86,9 @@ export default {
     getUsersWithFilter() {
       if ("filter" in this.userQuery) {
         this.useFilter = true;
-        this.fetchUsers({ ...this.userQuery, page: 1 });
-      } else {
-        this.fetchUsers({ ...this.userQuery, page: this.getCurrentPage });
+        this.setCurrentPage(1);
       }
+      this.fetchUsers({ ...this.userQuery, page: this.getCurrentPage });
     },
     prevPage() {
       const page = this.getCurrentPage - 1;

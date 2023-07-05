@@ -83,16 +83,12 @@ export default {
     getTasksWithFilter() {
       if ("filter" in this.taskQuery) {
         this.useFilter = true;
-        this.fetchTasks({
-          ...this.taskQuery,
-          page: 1,
-        });
-      } else {
-        this.fetchTasks({
-          ...this.taskQuery,
-          page: this.getCurrentPage,
-        });
+        this.setCurrentPage(1);
       }
+      this.fetchTasks({
+        ...this.taskQuery,
+        page: this.getCurrentPage,
+      });
     },
     prevPage() {
       const page = this.getCurrentPage - 1;
