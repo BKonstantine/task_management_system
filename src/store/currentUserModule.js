@@ -1,4 +1,4 @@
-import { getCurrentUserRequest } from "@/api/current-user";
+import api from "@/api";
 
 export const mutation = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
@@ -35,8 +35,8 @@ export default {
   actions: {
     fetchCurrentUser: ({ commit }) => {
       commit(mutation.SET_CURRENT_USER_REQUEST, true);
-      getCurrentUserRequest()
-        .then((data) => {
+      api.CurrentUser.getCurrentUserRequest()
+        .then(({ data }) => {
           commit(mutation.SET_CURRENT_USER, data);
           commit(mutation.SET_CURRENT_USER_REQUEST, false);
           commit(mutation.SET_CURRENT_USER_SUCCESS, true);

@@ -60,7 +60,6 @@ import { mapGetters, mapActions } from "vuex";
 import TextareaItem from "@/components/Form/TextareaItem.vue";
 import InputItem from "@/components/Form/InputItem.vue";
 import SelectItem from "@/components/Form/SelectItem.vue";
-import { createTaskRequest } from "@/api/tasks";
 export default {
   name: "CreateTask",
   components: {
@@ -87,7 +86,7 @@ export default {
       this.$router.go(-1);
     },
     createTask() {
-      createTaskRequest(this.taskData).then(() => {
+      this.$api.Tasks.createTaskRequest(this.taskData).then(() => {
         this.$router.replace({ name: "Tasks" });
       });
     },

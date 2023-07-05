@@ -49,7 +49,6 @@ import { mapGetters } from "vuex";
 import DropDown from "@/components/DropDown/DropDown.vue";
 import { checkTaskStatus } from "@/helpers/check-task-status";
 import { formatDate } from "@/helpers/format-time";
-import { getCurrentTaskRequest } from "@/api/tasks";
 export default {
   name: "CurrentTask",
   components: {
@@ -101,9 +100,11 @@ export default {
     },
   },
   beforeMount() {
-    getCurrentTaskRequest(this.$route.params.id).then((res) => {
-      this.taskData = res;
-    });
+    this.$api.Tasks.getCurrentTaskRequest(this.$route.params.id).then(
+      ({ data }) => {
+        this.taskData = data;
+      }
+    );
   },
   mounted() {
     document.addEventListener("click", this.hideAll);

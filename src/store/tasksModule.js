@@ -1,4 +1,4 @@
-import { getTasksRequest } from "@/api/tasks";
+import api from "@/api";
 
 export const mutation = {
   SET_TASKS_LIST: "SET_TASKS_LIST",
@@ -69,15 +69,17 @@ export default {
   actions: {
     fetchTasks: ({ commit, state }, taskData) => {
       commit(mutation.SET_TASKS_LIST_REQUEST, true);
-      getTasksRequest(taskData)
-        .then((data) => {
+      api.Tasks.getTasksRequest(taskData)
+        .then(({ data }) => {
           if (state.currentPage > data.total) {
-            getTasksRequest({ ...taskData, page: data.total }).then((data) => {
-              commit(mutation.SET_TASKS_LIST, data.tasks);
-              commit(mutation.SET_TASKS_TOTAL_PAGE, data.total);
-              commit(mutation.SET_TASKS_LIST_REQUEST, false);
-              commit(mutation.SET_TASKS_LIST_SUCCESS, true);
-            });
+            api.Tasks.getTasksRequest({ ...taskData, page: data.total }).then(
+              ({ data }) => {
+                commit(mutation.SET_TASKS_LIST, data.tasks);
+                commit(mutation.SET_TASKS_TOTAL_PAGE, data.total);
+                commit(mutation.SET_TASKS_LIST_REQUEST, false);
+                commit(mutation.SET_TASKS_LIST_SUCCESS, true);
+              }
+            );
           } else {
             commit(mutation.SET_TASKS_LIST, data.tasks);
             commit(mutation.SET_TASKS_TOTAL_PAGE, data.total);
@@ -93,16 +95,17 @@ export default {
 
     fetchAllTasks: ({ commit }, taskData) => {
       commit(mutation.SET_TASKS_LIST_REQUEST, true);
-      getTasksRequest(taskData)
-        .then((data) => {
+      api.Tasks.getTasksRequest(taskData)
+        .then(({ data }) => {
           if (data.total > 1) {
-            getTasksRequest({ ...taskData, limit: data.total * 10 }).then(
-              (data) => {
-                commit(mutation.SET_TASKS_LIST, data.tasks);
-                commit(mutation.SET_TASKS_LIST_REQUEST, false);
-                commit(mutation.SET_TASKS_LIST_SUCCESS, true);
-              }
-            );
+            api.Tasks.getTasksRequest({
+              ...taskData,
+              limit: data.total * 10,
+            }).then(({ data }) => {
+              commit(mutation.SET_TASKS_LIST, data.tasks);
+              commit(mutation.SET_TASKS_LIST_REQUEST, false);
+              commit(mutation.SET_TASKS_LIST_SUCCESS, true);
+            });
           } else {
             commit(mutation.SET_TASKS_LIST, data.tasks);
             commit(mutation.SET_TASKS_LIST_REQUEST, false);

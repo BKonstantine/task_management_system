@@ -1,4 +1,4 @@
-import { getUsers } from "@/api/users";
+import api from "@/api";
 import { abbreviateName } from "@/helpers/replace-text";
 
 export const mutation = {
@@ -67,15 +67,17 @@ export default {
   actions: {
     fetchUsers: ({ commit, state }, userData) => {
       commit(mutation.SET_USERS_LIST_REQUEST, true);
-      getUsers(userData)
-        .then((data) => {
+      api.Users.getUsersRequest(userData)
+        .then(({ data }) => {
           if (state.currentPage > data.total) {
-            getUsers({ ...userData, page: data.total }).then((data) => {
-              commit(mutation.SET_USERS_LIST, data.users);
-              commit(mutation.SET_USERS_TOTAL_PAGE, data.total);
-              commit(mutation.SET_USERS_LIST_REQUEST, false);
-              commit(mutation.SET_USERS_LIST_SUCCESS, true);
-            });
+            api.Users.getUsersRequest({ ...userData, page: data.total }).then(
+              ({ data }) => {
+                commit(mutation.SET_USERS_LIST, data.users);
+                commit(mutation.SET_USERS_TOTAL_PAGE, data.total);
+                commit(mutation.SET_USERS_LIST_REQUEST, false);
+                commit(mutation.SET_USERS_LIST_SUCCESS, true);
+              }
+            );
           } else {
             commit(mutation.SET_USERS_LIST, data.users);
             commit(mutation.SET_USERS_TOTAL_PAGE, data.total);
@@ -91,10 +93,13 @@ export default {
 
     fetchAllUsers: ({ commit }, userData) => {
       commit(mutation.SET_USERS_LIST_REQUEST, true);
-      getUsers(userData)
-        .then((data) => {
+      api.Users.getUsersRequest(userData)
+        .then(({ data }) => {
           if (data.total > 1) {
-            getUsers({ ...userData, limit: data.total * 10 }).then((data) => {
+            api.Users.getUsersRequest({
+              ...userData,
+              limit: data.total * 10,
+            }).then(({ data }) => {
               commit(mutation.SET_USERS_LIST, data.users);
               commit(mutation.SET_USERS_LIST_REQUEST, false);
               commit(mutation.SET_USERS_LIST_SUCCESS, true);

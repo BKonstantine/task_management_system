@@ -1,4 +1,4 @@
-import { login } from "@/api/auth";
+import api from "@/api";
 import { saveToken } from "@/helpers/access-token";
 
 export const mutation = {
@@ -33,8 +33,8 @@ export default {
   actions: {
     fetchLogin: ({ commit }) => {
       commit(mutation.SET_AUTH_REQUEST, true);
-      login()
-        .then((data) => {
+      api.Auth.loginRequest()
+        .then(({ data }) => {
           saveToken(data.token);
           commit(mutation.SET_AUTH, true);
           commit(mutation.SET_AUTH_REQUEST, false);

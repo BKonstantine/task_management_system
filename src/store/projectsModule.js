@@ -1,4 +1,4 @@
-import { getProjects } from "@/api/projects";
+import api from "@/api";
 
 export const mutation = {
   SET_PROJECTS_LIST: "SET_PROJECTS_LIST",
@@ -73,10 +73,13 @@ export default {
   actions: {
     fetchProjects: ({ commit, state }, projectData) => {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
-      getProjects(projectData)
-        .then((data) => {
+      api.Projects.getProjectsRequest(projectData)
+        .then(({ data }) => {
           if (state.currentPage > data.total) {
-            getProjects({ ...projectData, page: data.total }).then((data) => {
+            api.Projects.getProjectsRequest({
+              ...projectData,
+              page: data.total,
+            }).then(({ data }) => {
               commit(mutation.SET_PROJECTS_LIST, data.projects);
               commit(mutation.SET_PROJECTS_TOTAL_PAGE, data.total);
               commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
@@ -97,16 +100,17 @@ export default {
 
     fetchAllProjects: ({ commit }, projectData) => {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
-      getProjects(projectData)
-        .then((data) => {
+      api.Projects.getProjectsRequest(projectData)
+        .then(({ data }) => {
           if (data.total > 1) {
-            getProjects({ ...projectData, limit: data.total * 10 }).then(
-              (data) => {
-                commit(mutation.SET_PROJECTS_LIST, data.projects);
-                commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
-                commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
-              }
-            );
+            api.Projects.getProjectsRequest({
+              ...projectData,
+              limit: data.total * 10,
+            }).then(({ data }) => {
+              commit(mutation.SET_PROJECTS_LIST, data.projects);
+              commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+              commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+            });
           } else {
             commit(mutation.SET_PROJECTS_LIST, data.projects);
             commit(mutation.SET_PROJECTS_LIST_REQUEST, false);

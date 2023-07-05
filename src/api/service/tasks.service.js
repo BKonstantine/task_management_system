@@ -1,11 +1,11 @@
 import { getToken } from "@/helpers/access-token";
 
 export default (api) => {
-  api.Projects = {
-    getProjectsRequest(data) {
+  api.Tasks = {
+    getTasksRequest(data) {
       return api.instance.request({
         method: "post",
-        url: `/projects/search`,
+        url: `/tasks/search`,
         headers: {
           Authorization: getToken(),
         },
@@ -13,10 +13,10 @@ export default (api) => {
       });
     },
 
-    createProjectRequest(data) {
+    createTaskRequest(data) {
       return api.instance.request({
         method: "post",
-        url: `/projects`,
+        url: `/tasks`,
         headers: {
           Authorization: getToken(),
         },
@@ -24,21 +24,10 @@ export default (api) => {
       });
     },
 
-    editProjectsRequest(data) {
+    getCurrentTaskRequest(id) {
       return api.instance.request({
-        method: "put",
-        url: `/projects`,
-        headers: {
-          Authorization: getToken(),
-        },
-        data: data,
-      });
-    },
-
-    deleteProjectsRequest(id) {
-      return api.instance.request({
-        method: "delete",
-        url: `/projects/${id}`,
+        method: "get",
+        url: `/tasks/${id}`,
         headers: {
           Authorization: getToken(),
         },

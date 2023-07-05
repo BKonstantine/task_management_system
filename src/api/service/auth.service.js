@@ -5,7 +5,7 @@ const userData = {
 
 export default (api) => {
   api.Auth = {
-    login() {
+    loginRequest() {
       return api.instance.request({
         method: "post",
         url: `/login`,
