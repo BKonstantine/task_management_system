@@ -1,19 +1,17 @@
 <template>
   <ModalOverlay>
     <div class="header">
-      <BaseTitle type="h2">Создание проекта</BaseTitle>
+      <BaseTitle type="h2">Редактирование проекта</BaseTitle>
     </div>
     <BaseDivider />
-    <form class="form" id="createProjectForm" @submit.prevent="createProject">
+    <form class="form" id="editProjectForm" @submit.prevent="editProject">
       <InputItem v-model="query.code" label="Код" :isRequired="true" />
       <InputItem v-model="query.name" label="Название" :isRequired="true" />
     </form>
     <BaseDivider />
     <div class="footer">
       <ButtonItem :secondaryStyle="true" @click="close">Отмена</ButtonItem>
-      <ButtonItem type="submit" form="createProjectForm">
-        Создать проект
-      </ButtonItem>
+      <ButtonItem type="submit" form="editProjectForm">Сохранить</ButtonItem>
     </div>
   </ModalOverlay>
 </template>
@@ -21,25 +19,28 @@
 <script>
 import InputItem from "@/components/Form/InputItem.vue";
 export default {
-  name: "CreateProject",
+  name: "EditProject",
   components: {
     InputItem,
+  },
+  props: {
+    projectData: Object,
   },
   data() {
     return {
       query: {
-        code: null,
-        name: null,
+        _id: this.projectData._id,
+        code: this.projectData.code,
+        name: this.projectData.name,
       },
     };
   },
-
   methods: {
     close() {
-      this.$emit("close");
+      this.$emit("close", false);
     },
-    createProject() {
-      this.$api.Projects.createProjectRequest(this.query).then(() => {
+    editProject() {
+      this.$api.Projects.editProjectsRequest(this.query).then(() => {
         this.close();
       });
     },

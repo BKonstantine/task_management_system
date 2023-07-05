@@ -3,7 +3,11 @@
     <div class="create-task">
       <BaseTitle class="create-task__title">Создание задачи</BaseTitle>
       <BaseDivider />
-      <form class="create-task__form" id="createTaskForm" @submit="createTask">
+      <form
+        class="create-task__form"
+        id="createTaskForm"
+        @submit.prevent="createTask"
+      >
         <InputItem
           v-model="taskData.name"
           :horizontal="true"
@@ -82,10 +86,8 @@ export default {
     goBackPage() {
       this.$router.go(-1);
     },
-    createTask(e) {
-      e.preventDefault();
-      createTaskRequest(this.taskData).then((res) => {
-        console.log(res);
+    createTask() {
+      createTaskRequest(this.taskData).then(() => {
         this.$router.replace({ name: "Tasks" });
       });
     },

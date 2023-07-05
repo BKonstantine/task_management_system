@@ -18,10 +18,11 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      inputValue: "",
+      inputValue: this.value,
     };
   },
   props: {
+    value: String,
     label: String,
     error: String,
     isRequired: Boolean,

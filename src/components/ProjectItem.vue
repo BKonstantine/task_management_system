@@ -36,17 +36,24 @@
         :checkLastItem="true"
       />
     </div>
+    <EditProject
+      :projectData="projectData"
+      v-if="editModal"
+      @close="toggleEditProject"
+    />
   </li>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { textInfo } from "@/helpers/text-info";
+import EditProject from "@/components/Modal/EditProject.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "ProjectItem",
   components: {
     DropDown,
+    EditProject,
   },
   props: {
     projectData: Object,
@@ -55,11 +62,13 @@ export default {
   data() {
     return {
       dropDownList: [
-        { text: "Редактировать", click: this.goToProject },
+        { text: "Редактировать", click: this.toggleEditProject },
         { text: "Удалить", click: this.deleteProject },
       ],
       setting: false,
       dropDown: false,
+      editModal: false,
+      deleteModal: false,
     };
   },
   computed: {
@@ -77,8 +86,8 @@ export default {
     },
   },
   methods: {
-    goToProject() {
-      console.log("Project");
+    toggleEditProject() {
+      this.editModal = !this.editModal;
     },
     deleteProject() {
       console.log("Delete project");
