@@ -84,9 +84,11 @@ export default {
       setClear: "usersModule/setClear",
     }),
     getUsersWithFilter() {
-      this.fetchUsers({ ...this.userQuery, page: this.getCurrentPage });
       if ("filter" in this.userQuery) {
         this.useFilter = true;
+        this.fetchUsers({ ...this.userQuery, page: 1 });
+      } else {
+        this.fetchUsers({ ...this.userQuery, page: this.getCurrentPage });
       }
     },
     prevPage() {

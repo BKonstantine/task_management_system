@@ -81,6 +81,9 @@ export default {
       this.fetchProjects({ ...this.projectQuery, page: this.getCurrentPage });
       if ("filter" in this.projectQuery) {
         this.useFilter = true;
+        this.fetchProjects({ ...this.projectQuery, page: 1 });
+      } else {
+        this.fetchProjects({ ...this.projectQuery, page: this.getCurrentPage });
       }
     },
     prevPage() {

@@ -81,12 +81,17 @@ export default {
       setSortValue: "tasksModule/setSortValue",
     }),
     getTasksWithFilter() {
-      this.fetchTasks({
-        ...this.taskQuery,
-        page: this.getCurrentPage,
-      });
       if ("filter" in this.taskQuery) {
         this.useFilter = true;
+        this.fetchTasks({
+          ...this.taskQuery,
+          page: 1,
+        });
+      } else {
+        this.fetchTasks({
+          ...this.taskQuery,
+          page: this.getCurrentPage,
+        });
       }
     },
     prevPage() {
