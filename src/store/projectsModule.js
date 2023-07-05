@@ -25,6 +25,7 @@ export default {
     projectsListSuccess: false,
     projectsListError: false,
   },
+
   mutations: {
     [mutation.SET_PROJECTS_LIST]: (state, payload) => {
       state.projectsList = payload;
@@ -54,11 +55,12 @@ export default {
       state.sortValue = payload;
     },
   },
+
   getters: {
     getProjectsList: (state) => state.projectsList,
     getCurrentPage: (state) => state.currentPage,
     getTotalPage: (state) => state.totalPage,
-    getRequestStatus: (state) => state.projectsDataRequest,
+    getRequestStatus: (state) => state.projectsListRequest,
     getProjectsLength: (state) => state.projectsList.length,
     getProjectsForOptions: (state) =>
       state.projectsList.map((project) => {
@@ -67,6 +69,7 @@ export default {
     getSortValue: (state) => state.sortValue,
     getFilterValue: (state) => state.filterValue,
   },
+
   actions: {
     fetchProjects: ({ commit }, projectData) => {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
@@ -83,23 +86,29 @@ export default {
         });
     },
 
-    /* fetchAllProjects: ({ commit }, projectData) => {
+    fetchAllProjects: ({ commit }, projectData) => {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
       getProjects(projectData)
         .then((data) => {
-          getProjects({ ...projectData, limit: data.total * 10 }).then(
-            (data) => {
-              commit(mutation.SET_PROJECTS_LIST, data.projects);
-              commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
-              commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
-            }
-          );
+          if (data.total > 1) {
+            getProjects({ ...projectData, limit: data.total * 10 }).then(
+              (data) => {
+                commit(mutation.SET_PROJECTS_LIST, data.projects);
+                commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+                commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+              }
+            );
+          } else {
+            commit(mutation.SET_PROJECTS_LIST, data.projects);
+            commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+            commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+          }
         })
         .catch(() => {
           commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
           commit(mutation.SET_PROJECTS_LIST_ERROR, true);
         });
-    }, */
+    },
 
     setCurrentPage: ({ commit }, page) => {
       commit(mutation.SET_PROJECTS_CURRENT_PAGE, page);

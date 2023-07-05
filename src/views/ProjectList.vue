@@ -5,7 +5,7 @@
       <SelectWithButton
         v-model="sortValue"
         :items="sortList"
-        @filter-click="getProjectWithFilter"
+        @filter-click="getProjectsWithFilter"
       />
       <ButtonItem :secondaryStyle="true">Добавить</ButtonItem>
     </FilterContainer>
@@ -70,7 +70,7 @@ export default {
       "setSortValue",
       "setClear",
     ]),
-    getProjectWithFilter() {
+    getProjectsWithFilter() {
       this.fetchProjects({
         ...this.projectQuery,
         page: this.getCurrentPage,

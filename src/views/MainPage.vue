@@ -24,11 +24,12 @@ export default {
       "getUsersRequestStatus",
     ]),
     ...mapGetters("projectsModule", ["getRequestStatus"]),
+    ...mapGetters("tasksModule", ["getRequestStatus"]),
     loader() {
       return (
         this.getCurrentUserRequestStatus ||
         this.getRequestStatus ||
-        this.getTasksRequestStatus ||
+        this.getRequestStatus ||
         this.getUsersRequestStatus
       );
     },
