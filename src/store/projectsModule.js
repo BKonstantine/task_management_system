@@ -71,14 +71,23 @@ export default {
   },
 
   actions: {
-    fetchProjects: ({ commit }, projectData) => {
+    fetchProjects: ({ commit, state }, projectData) => {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
       getProjects(projectData)
         .then((data) => {
-          commit(mutation.SET_PROJECTS_LIST, data.projects);
-          commit(mutation.SET_PROJECTS_TOTAL_PAGE, data.total);
-          commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
-          commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+          if (state.currentPage > data.total) {
+            getProjects({ ...projectData, page: data.total }).then((data) => {
+              commit(mutation.SET_PROJECTS_LIST, data.projects);
+              commit(mutation.SET_PROJECTS_TOTAL_PAGE, data.total);
+              commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+              commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+            });
+          } else {
+            commit(mutation.SET_PROJECTS_LIST, data.projects);
+            commit(mutation.SET_PROJECTS_TOTAL_PAGE, data.total);
+            commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
+            commit(mutation.SET_PROJECTS_LIST_SUCCESS, true);
+          }
         })
         .catch(() => {
           commit(mutation.SET_PROJECTS_LIST_REQUEST, false);
