@@ -23,5 +23,15 @@ export default (api) => {
         data: data,
       });
     },
+
+    deleteProjectsRequest(id) {
+      return api.instance.request({
+        method: "delete",
+        url: `/projects/${id}`,
+        headers: {
+          Authorization: getToken(),
+        },
+      });
+    },
   };
 };

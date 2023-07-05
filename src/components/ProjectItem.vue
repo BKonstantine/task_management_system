@@ -41,6 +41,11 @@
       v-if="editModal"
       @close="toggleEditProject"
     />
+    <DeleteProject
+      :projectData="projectData"
+      v-if="deleteModal"
+      @close="toggleDeleteProject"
+    />
   </li>
 </template>
 
@@ -48,12 +53,14 @@
 import { mapGetters } from "vuex";
 import { textInfo } from "@/helpers/text-info";
 import EditProject from "@/components/Modal/EditProject.vue";
+import DeleteProject from "@/components/Modal/DeleteProject.vue";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "ProjectItem",
   components: {
     DropDown,
     EditProject,
+    DeleteProject,
   },
   props: {
     projectData: Object,
@@ -63,7 +70,7 @@ export default {
     return {
       dropDownList: [
         { text: "Редактировать", click: this.toggleEditProject },
-        { text: "Удалить", click: this.deleteProject },
+        { text: "Удалить", click: this.toggleDeleteProject },
       ],
       setting: false,
       dropDown: false,
@@ -89,8 +96,8 @@ export default {
     toggleEditProject() {
       this.editModal = !this.editModal;
     },
-    deleteProject() {
-      console.log("Delete project");
+    toggleDeleteProject() {
+      this.deleteModal = !this.deleteModal;
     },
     toggleDropDown() {
       this.setting = !this.setting;
