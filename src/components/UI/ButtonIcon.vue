@@ -112,6 +112,7 @@ export default {
 }
 
 .secondary {
+  @include flex-setting(_, center, center);
   color: $font-color-primary;
 }
 </style>

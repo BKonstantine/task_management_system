@@ -2,6 +2,9 @@
   <PageContainer>
     <FilterContainer>
       <SearchInput v-model="filterValue" @click="setClear" />
+      <ButtonIcon :secondaryStyle="true">
+        <SvgIcon id="#filter" />
+      </ButtonIcon>
       <SelectWithButton
         v-model="sortValue"
         :items="sortList"
