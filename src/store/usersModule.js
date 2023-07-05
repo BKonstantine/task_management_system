@@ -8,6 +8,8 @@ export const mutation = {
   SET_USERS_LIST_REQUEST: "SET_USERS_LIST_REQUEST",
   SET_USERS_LIST_SUCCESS: "SET_USERS_LIST_SUCCESS",
   SET_USERS_LIST_ERROR: "SET_USERS_LIST_ERROR",
+  SET_FILTER_VALUE: "SET_FILTER_VALUE",
+  SET_CLEAR_FILTER_VALUE: "SET_CLEAR_FILTER_VALUE",
 };
 
 export default {
@@ -15,6 +17,7 @@ export default {
 
   state: {
     usersList: [],
+    filterValue: null,
     currentPage: 1,
     totalPage: null,
     usersListRequest: false,
@@ -40,6 +43,12 @@ export default {
     [mutation.SET_USERS_LIST_ERROR]: (state, payload) => {
       state.usersListError = payload;
     },
+    [mutation.SET_FILTER_VALUE]: (state, payload) => {
+      state.filterValue = payload;
+    },
+    [mutation.SET_CLEAR_FILTER_VALUE]: (state) => {
+      state.filterValue = null;
+    },
   },
   getters: {
     getUsersList: (state) => state.usersList,
@@ -53,6 +62,7 @@ export default {
       state.usersList.map((user) => {
         return { label: abbreviateName(user.name), value: user._id };
       }),
+    getFilterValue: (state) => state.filterValue,
   },
   actions: {
     fetchUsers({ commit }, userData) {
@@ -94,6 +104,13 @@ export default {
 
     setCurrentPage: ({ commit }, page) => {
       commit(mutation.SET_USERS_CURRENT_PAGE, page);
+    },
+    setFilterValue: ({ commit }, payload) => {
+      commit(mutation.SET_FILTER_VALUE, payload);
+    },
+
+    setClear: ({ commit }) => {
+      commit(mutation.SET_CLEAR_FILTER_VALUE);
     },
   },
 };

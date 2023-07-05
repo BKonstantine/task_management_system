@@ -1,7 +1,10 @@
 <template>
   <PageContainer>
     <FilterContainer>
-      <BaseInput />
+      <SearchInput v-model="filterValue" @click="setClear" />
+      <ButtonIcon :secondaryStyle="true" @click="getUsersWithFilter">
+        <SvgIcon id="#sort-up" />
+      </ButtonIcon>
     </FilterContainer>
     <ul class="user-list">
       <UserItem
@@ -9,10 +12,10 @@
         :key="index"
         v-for="(user, index) in getUsersList"
       />
-      <li v-if="getTotalPage > 1" class="block"></li>
+      <li v-if="getTotalPage > 1 && getUsersLength > 0" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="getTotalPage > 1"
+      v-if="getTotalPage > 1 && getUsersLength > 0"
       :totalPage="getTotalPage"
       :currentPage="getCurrentPage"
       @prev-page="prevPage"
@@ -21,13 +24,17 @@
       class="user-list__pagination"
     />
     <StopperContainer v-if="getUsersLength === 0 && !getRequestStatus">
-      <BaseText>Нет ни одного пользователя</BaseText>
+      <BaseText v-if="!useFilter">Нет ни одного пользователя</BaseText>
+      <BaseText v-if="useFilter">
+        Ни один пользователь не соответствует результатам поиска
+      </BaseText>
     </StopperContainer>
   </PageContainer>
 </template>
 
 <script>
 import UserItem from "@/components/UserItem.vue";
+import SearchInput from "@/components/Form/SearchInput.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -35,6 +42,12 @@ export default {
   components: {
     UserItem,
     PaginationItem,
+    SearchInput,
+  },
+  data() {
+    return {
+      useFilter: false,
+    };
   },
   computed: {
     ...mapGetters({
@@ -43,30 +56,65 @@ export default {
       getTotalPage: "usersModule/getTotalPage",
       getCurrentPage: "usersModule/getCurrentPage",
       getRequestStatus: "usersModule/getRequestStatus",
+      getFilterValue: "usersModule/getFilterValue",
     }),
+
+    filterValue: {
+      get() {
+        return this.getFilterValue;
+      },
+      set(value) {
+        this.setFilterValue(value);
+      },
+    },
+
+    userQuery() {
+      const query = {};
+      if (this.filterValue) {
+        query.filter = { name: this.filterValue };
+      }
+      return query;
+    },
   },
   methods: {
     ...mapActions({
       fetchUsers: "usersModule/fetchUsers",
       setCurrentPage: "usersModule/setCurrentPage",
+      setFilterValue: "usersModule/setFilterValue",
+      setClear: "usersModule/setClear",
     }),
+    getUsersWithFilter() {
+      this.fetchUsers({ ...this.userQuery, page: this.getCurrentPage });
+      if ("filter" in this.userQuery) {
+        this.useFilter = true;
+      }
+    },
     prevPage() {
       const page = this.getCurrentPage - 1;
       this.setCurrentPage(page);
-      this.fetchUsers({ page: page });
+      this.fetchUsers({ ...this.userQuery, page: page });
+      if ("filter" in this.userQuery) {
+        this.useFilter = true;
+      }
     },
     nextPage() {
       const page = this.getCurrentPage + 1;
       this.setCurrentPage(page);
-      this.fetchUsers({ page: page });
+      this.fetchUsers({ ...this.userQuery, page: page });
+      if ("filter" in this.userQuery) {
+        this.useFilter = true;
+      }
     },
     currPage(data) {
       this.setCurrentPage(data);
-      this.fetchUsers({ page: data });
+      this.fetchUsers({ ...this.userQuery, page: data });
+      if ("filter" in this.userQuery) {
+        this.useFilter = true;
+      }
     },
   },
   beforeMount() {
-    this.fetchUsers();
+    this.fetchUsers({ page: this.getCurrentPage });
   },
   beforeRouteEnter(to, from, next) {
     const isAuth = localStorage.getItem("isAuth");
