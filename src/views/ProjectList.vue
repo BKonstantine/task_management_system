@@ -1,13 +1,15 @@
 <template>
   <PageContainer>
     <FilterContainer>
-      <SearchInput v-model="filterValue" @click="setClear" />
+      <SearchInput v-model="filterValue" @click.stop="setClear" />
       <SelectWithButton
         v-model="sortValue"
         :items="sortList"
         @filter-click="getProjectsWithFilter"
       />
-      <ButtonItem :secondaryStyle="true">Добавить</ButtonItem>
+      <ButtonItem :secondaryStyle="true" @click.stop="toggleModal">
+        Добавить
+      </ButtonItem>
     </FilterContainer>
     <ul v-if="getProjectsLength > 0" class="project-list">
       <ProjectItem
@@ -34,11 +36,13 @@
         Ни один проект не соответствует результатам поиска
       </BaseText>
     </StopperContainer>
+    <CreateProject v-if="modal" @close="toggleModal" />
   </PageContainer>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import CreateProject from "@/components/Modal/CreateProject.vue";
 import SearchInput from "@/components/Form/SearchInput.vue";
 import ProjectItem from "@/components/ProjectItem.vue";
 import PaginationItem from "@/components/PaginationItem.vue";
@@ -46,6 +50,7 @@ import SelectWithButton from "@/components/Form/SelectWithButton.vue";
 export default {
   name: "ProjectList",
   components: {
+    CreateProject,
     ProjectItem,
     PaginationItem,
     SearchInput,
@@ -60,6 +65,7 @@ export default {
         { label: "По дате обновления", value: "dateEdited" },
       ],
       useFilter: false,
+      modal: false,
     };
   },
   methods: {
@@ -99,6 +105,9 @@ export default {
       if ("filter" in this.projectQuery) {
         this.useFilter = true;
       }
+    },
+    toggleModal() {
+      this.modal = !this.modal;
     },
   },
   computed: {
