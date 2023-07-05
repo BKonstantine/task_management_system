@@ -109,7 +109,9 @@ export default {
     },
     currPage(data) {
       this.setCurrentPage(data);
-      this.fetchUsers({ ...this.userQuery, page: data });
+      this.fetchUsers({ ...this.userQuery, page: data }).then((res) =>
+        console.log(res)
+      );
       if ("filter" in this.userQuery) {
         this.useFilter = true;
       }

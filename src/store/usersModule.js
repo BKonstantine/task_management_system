@@ -65,7 +65,7 @@ export default {
     getFilterValue: (state) => state.filterValue,
   },
   actions: {
-    fetchUsers({ commit }, userData) {
+    fetchUsers: ({ commit }, userData) => {
       commit(mutation.SET_USERS_LIST_REQUEST, true);
       getUsers(userData)
         .then((data) => {
@@ -80,7 +80,7 @@ export default {
         });
     },
 
-    fetchAllUsers({ commit }, userData) {
+    fetchAllUsers: ({ commit }, userData) => {
       commit(mutation.SET_USERS_LIST_REQUEST, true);
       getUsers(userData)
         .then((data) => {
