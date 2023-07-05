@@ -19,17 +19,16 @@ export default {
   computed: {
     ...mapGetters([
       "getCurrentUserRequestStatus",
-      "getRequestStatus",
-      "getTasksRequestStatus",
       "getUsersRequestStatus",
+      "tasksModule/getRequestStatus",
+      "projectsModule/getRequestStatus",
     ]),
-    ...mapGetters("projectsModule", ["getRequestStatus"]),
-    ...mapGetters("tasksModule", ["getRequestStatus"]),
+
     loader() {
       return (
         this.getCurrentUserRequestStatus ||
-        this.getRequestStatus ||
-        this.getRequestStatus ||
+        this["tasksModule/getRequestStatus"] ||
+        this["projectsModule/getRequestStatus"] ||
         this.getUsersRequestStatus
       );
     },
