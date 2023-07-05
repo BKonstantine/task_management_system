@@ -71,10 +71,7 @@ export default {
       "setClear",
     ]),
     getProjectsWithFilter() {
-      this.fetchProjects({
-        ...this.projectQuery,
-        page: this.getCurrentPage,
-      });
+      this.fetchProjects({ ...this.projectQuery, page: this.getCurrentPage });
       if ("filter" in this.projectQuery) {
         this.useFilter = true;
       }
@@ -82,10 +79,7 @@ export default {
     prevPage() {
       const page = this.getCurrentPage - 1;
       this.setCurrentPage(page);
-      this.fetchProjects({
-        ...this.projectQuery,
-        page: page,
-      });
+      this.fetchProjects({ ...this.projectQuery, page: page });
       if ("filter" in this.projectQuery) {
         this.useFilter = true;
       }
@@ -93,20 +87,14 @@ export default {
     nextPage() {
       const page = this.getCurrentPage + 1;
       this.setCurrentPage(page);
-      this.fetchProjects({
-        ...this.projectQuery,
-        page: page,
-      });
+      this.fetchProjects({ ...this.projectQuery, page: page });
       if ("filter" in this.projectQuery) {
         this.useFilter = true;
       }
     },
     currPage(data) {
       this.setCurrentPage(data);
-      this.fetchProjects({
-        ...this.projectQuery,
-        page: data,
-      });
+      this.fetchProjects({ ...this.projectQuery, page: data });
       if ("filter" in this.projectQuery) {
         this.useFilter = true;
       }
@@ -149,11 +137,8 @@ export default {
         },
       };
       if (this.filterValue) {
-        query.filter = {
-          name: this.filterValue,
-        };
+        query.filter = { name: this.filterValue };
       }
-
       return query;
     },
   },

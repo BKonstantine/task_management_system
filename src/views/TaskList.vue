@@ -21,10 +21,10 @@
         :index="index"
         v-for="(task, index) in getTasksList"
       />
-      <li v-if="getTotalPage > 1" class="block"></li>
+      <li v-if="getTotalPage > 1 && getTasksLength > 0" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="getTotalPage > 1"
+      v-if="getTotalPage > 1 && getTasksLength > 0"
       :totalPage="getTotalPage"
       :currentPage="getCurrentPage"
       @prev-page="prevPage"
@@ -33,7 +33,10 @@
       class="task-list__pagination"
     />
     <StopperContainer v-if="getTasksLength === 0 && !getRequestStatus">
-      <BaseText>Не создано ни одной задачи</BaseText>
+      <BaseText v-if="!useFilter">Не создано ни одной задачи</BaseText>
+      <BaseText v-if="useFilter">
+        Ни одна задача не соответствует результатам поиска/фильтрации
+      </BaseText>
     </StopperContainer>
   </PageContainer>
 </template>
@@ -74,27 +77,36 @@ export default {
       "setSortValue",
     ]),
     getTasksWithFilter() {
-      this.fetchProjects({
+      this.fetchTasks({
         ...this.taskQuery,
         page: this.getCurrentPage,
       });
-      if ("filter" in this.projectQuery) {
+      if ("filter" in this.taskQuery) {
         this.useFilter = true;
       }
     },
     prevPage() {
       const page = this.getCurrentPage - 1;
       this.setCurrentPage(page);
-      this.fetchTasks({ page: page });
+      this.fetchTasks({ ...this.taskQuery, page: page });
+      if ("filter" in this.taskQuery) {
+        this.useFilter = true;
+      }
     },
     nextPage() {
       const page = this.getCurrentPage + 1;
       this.setCurrentPage(page);
-      this.fetchTasks({ page: page });
+      this.fetchTasks({ ...this.taskQuery, page: page });
+      if ("filter" in this.taskQuery) {
+        this.useFilter = true;
+      }
     },
     currPage(data) {
       this.setCurrentPage(data);
-      this.fetchTasks({ page: data });
+      this.fetchTasks({ ...this.taskQuery, page: data });
+      if ("filter" in this.taskQuery) {
+        this.useFilter = true;
+      }
     },
   },
   computed: {
@@ -104,6 +116,8 @@ export default {
       "getTotalPage",
       "getRequestStatus",
       "getCurrentPage",
+      "getSortValue",
+      "getFilterValue",
     ]),
 
     filterValue: {
@@ -132,17 +146,18 @@ export default {
         },
       };
       if (this.filterValue) {
-        query.filter = {
-          name: this.filterValue,
-        };
+        query.filter = { name: this.filterValue };
       }
-
       return query;
     },
   },
   beforeMount() {
     this.fetchTasks({
       page: this.getCurrentPage,
+      sort: {
+        field: this.sortValue,
+        type: "desc",
+      },
     });
   },
 };
