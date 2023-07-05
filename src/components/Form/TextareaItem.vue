@@ -18,10 +18,11 @@ export default {
   inheritAttrs: false,
   data() {
     return {
-      textareaValue: "",
+      textareaValue: this.value,
     };
   },
   props: {
+    value: String,
     label: String,
     error: String,
     isRequired: Boolean,
