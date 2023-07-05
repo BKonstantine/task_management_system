@@ -66,7 +66,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["findUser"]),
+    ...mapGetters("usersModule", ["findUser"]),
     taskStatus() {
       return checkTaskStatus(this.taskData?.status);
     },
