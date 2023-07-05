@@ -1,13 +1,13 @@
 <template>
   <PageContainer>
     <FilterContainer>
-      <SearchInput v-model="filterValue" @click.stop="setClear" />
+      <SearchInput v-model="filterValue" @click="setClear" />
       <SelectWithButton
         v-model="sortValue"
         :items="sortList"
         @filter-click="getProjectsWithFilter"
       />
-      <ButtonItem :secondaryStyle="true" @click.stop="toggleModal">
+      <ButtonItem :secondaryStyle="true" @click="toggleModal">
         Добавить
       </ButtonItem>
     </FilterContainer>
