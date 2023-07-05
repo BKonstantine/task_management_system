@@ -69,6 +69,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["fetchAllUsers"]),
     ...mapActions("tasksModule", [
       "fetchTasks",
       "setCurrentPage",
@@ -159,6 +160,7 @@ export default {
         type: "desc",
       },
     });
+    this.fetchAllUsers();
   },
 };
 </script>

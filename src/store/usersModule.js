@@ -57,6 +57,20 @@ export default {
       commit(mutation.SET_USERS_LIST_REQUEST, true);
       getUsers(userData)
         .then((data) => {
+          commit(mutation.SET_USERS_LIST, data.users);
+          commit(mutation.SET_USERS_LIST_REQUEST, false);
+          commit(mutation.SET_USERS_LIST_SUCCESS, true);
+        })
+        .catch(() => {
+          commit(mutation.SET_USERS_LIST_REQUEST, false);
+          commit(mutation.SET_USERS_LIST_ERROR, true);
+        });
+    },
+
+    fetchAllUsers({ commit }, userData) {
+      commit(mutation.SET_USERS_LIST_REQUEST, true);
+      getUsers(userData)
+        .then((data) => {
           if (data.total > 1) {
             getUsers({ ...userData, limit: data.total * 10 }).then((data) => {
               commit(mutation.SET_USERS_LIST, data.users);

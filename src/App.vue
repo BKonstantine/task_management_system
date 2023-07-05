@@ -16,7 +16,6 @@ export default {
     this.fetchLogin();
     //this.$api.Auth.login();
     this.fetchCurrentUser();
-    this.fetchUsers();
     localStorage.setItem("isAuth", false);
   },
 };
