@@ -75,7 +75,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchProjects"]),
+    ...mapActions({
+      fetchAllProjects: "projectsModule/fetchAllProjects",
+      fetchAllUsers: "usersModule/fetchAllUsers",
+    }),
     goBackPage() {
       this.$router.go(-1);
     },
@@ -88,10 +91,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUsersForOptions", "getProjectsForOptions"]),
+    ...mapGetters({
+      getUsersForOptions: "usersModule/getUsersForOptions",
+      getProjectsForOptions: "projectsModule/getProjectsForOptions",
+    }),
   },
   beforeMount() {
-    this.fetchProjects();
+    this.fetchAllProjects();
+    this.fetchAllUsers();
   },
 };
 </script>

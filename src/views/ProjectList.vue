@@ -63,14 +63,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchAllUsers"]),
-    ...mapActions("projectsModule", [
-      "fetchProjects",
-      "setCurrentPage",
-      "setFilterValue",
-      "setSortValue",
-      "setClear",
-    ]),
+    ...mapActions({
+      fetchAllUsers: "usersModule/fetchAllUsers",
+      fetchProjects: "projectsModule/fetchProjects",
+      setCurrentPage: "projectsModule/setCurrentPage",
+      setFilterValue: "projectsModule/setFilterValue",
+      setSortValue: "projectsModule/setSortValue",
+      setClear: "projectsModule/setClear",
+    }),
     getProjectsWithFilter() {
       this.fetchProjects({ ...this.projectQuery, page: this.getCurrentPage });
       if ("filter" in this.projectQuery) {

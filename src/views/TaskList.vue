@@ -72,14 +72,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchAllUsers"]),
-    ...mapActions("tasksModule", [
-      "fetchTasks",
-      "setCurrentPage",
-      "setFilterValue",
-      "setClear",
-      "setSortValue",
-    ]),
+    ...mapActions({
+      fetchAllUsers: "usersModule/fetchAllUsers",
+      fetchTasks: "tasksModule/fetchTasks",
+      setCurrentPage: "tasksModule/setCurrentPage",
+      setFilterValue: "tasksModule/setFilterValue",
+      setClear: "tasksModule/setClear",
+      setSortValue: "tasksModule/setSortValue",
+    }),
     getTasksWithFilter() {
       this.fetchTasks({
         ...this.taskQuery,

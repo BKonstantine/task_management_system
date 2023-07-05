@@ -17,19 +17,20 @@ export default {
     NavBar,
   },
   computed: {
-    ...mapGetters([
-      "getCurrentUserRequestStatus",
-      "getUsersRequestStatus",
-      "tasksModule/getRequestStatus",
-      "projectsModule/getRequestStatus",
-    ]),
+    ...mapGetters(["getCurrentUserRequestStatus"]),
+
+    ...mapGetters({
+      usersRequest: "usersModule/getRequestStatus",
+      tasksRequest: "tasksModule/getRequestStatus",
+      projectsRequest: "projectsModule/getRequestStatus",
+    }),
 
     loader() {
       return (
         this.getCurrentUserRequestStatus ||
-        this["tasksModule/getRequestStatus"] ||
-        this["projectsModule/getRequestStatus"] ||
-        this.getUsersRequestStatus
+        this.usersRequest ||
+        this.tasksRequest ||
+        this.projectsRequest
       );
     },
   },

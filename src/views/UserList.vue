@@ -7,20 +7,20 @@
       <UserItem
         :userData="user"
         :key="index"
-        v-for="(user, index) in getUsersPage(this.getCurrentUsersPage)"
+        v-for="(user, index) in getUsersList"
       />
-      <li v-if="getUsersTotalPage > 1" class="block"></li>
+      <li v-if="getTotalPage > 1" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="getUsersTotalPage > 1"
-      :totalPage="getUsersTotalPage"
-      :currentPage="getCurrentUsersPage"
+      v-if="getTotalPage > 1"
+      :totalPage="getTotalPage"
+      :currentPage="getCurrentPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
       class="user-list__pagination"
     />
-    <StopperContainer v-if="getUsersLength === 0 && !getUsersRequestStatus">
+    <StopperContainer v-if="getUsersLength === 0 && !getRequestStatus">
       <BaseText>Нет ни одного пользователя</BaseText>
     </StopperContainer>
   </PageContainer>
@@ -37,27 +37,36 @@ export default {
     PaginationItem,
   },
   computed: {
-    ...mapGetters([
-      "getUsersPage",
-      "getUsersLength",
-      "getUsersTotalPage",
-      "getCurrentUsersPage",
-      "getUsersRequestStatus",
-    ]),
+    ...mapGetters({
+      getUsersList: "usersModule/getUsersList",
+      getUsersLength: "usersModule/getUsersLength",
+      getTotalPage: "usersModule/getTotalPage",
+      getCurrentPage: "usersModule/getCurrentPage",
+      getRequestStatus: "usersModule/getRequestStatus",
+    }),
   },
   methods: {
-    ...mapActions(["setCurrentUsersPage"]),
+    ...mapActions({
+      fetchUsers: "usersModule/fetchUsers",
+      setCurrentPage: "usersModule/setCurrentPage",
+    }),
     prevPage() {
-      const page = this.getCurrentUsersPage - 1;
-      this.setCurrentUsersPage(page);
+      const page = this.getCurrentPage - 1;
+      this.setCurrentPage(page);
+      this.fetchUsers({ page: page });
     },
     nextPage() {
-      const page = this.getCurrentUsersPage + 1;
-      this.setCurrentUsersPage(page);
+      const page = this.getCurrentPage + 1;
+      this.setCurrentPage(page);
+      this.fetchUsers({ page: page });
     },
     currPage(data) {
-      this.setCurrentUsersPage(data);
+      this.setCurrentPage(data);
+      this.fetchUsers({ page: data });
     },
+  },
+  beforeMount() {
+    this.fetchUsers();
   },
   beforeRouteEnter(to, from, next) {
     const isAuth = localStorage.getItem("isAuth");

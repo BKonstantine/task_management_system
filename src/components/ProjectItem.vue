@@ -63,7 +63,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["findUser"]),
+    ...mapGetters("usersModule", ["findUser"]),
     number: function () {
       return this.index + 1;
     },
