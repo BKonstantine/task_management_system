@@ -11,6 +11,7 @@
         label="Название"
         :isRequired="true"
         :small="true"
+        areaSize="42px"
       />
     </form>
     <BaseDivider />

@@ -18,6 +18,7 @@
           v-model="taskData.description"
           :horizontal="true"
           label="Описание"
+          areaSize="120px"
         />
         <div class="wrapper">
           <div class="wrapper__input">

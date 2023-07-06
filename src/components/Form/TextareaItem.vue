@@ -4,7 +4,7 @@
       <InputLabel :isRequired="isRequired">{{ label }}</InputLabel>
       <BaseTextarea
         v-bind="$attrs"
-        :class="size"
+        :areaSize="areaSize"
         v-model="textareaValue"
         @input="$emit('input', textareaValue)"
       />
@@ -28,19 +28,13 @@ export default {
     error: String,
     isRequired: Boolean,
     horizontal: Boolean,
-    small: Boolean,
+    areaSize: String,
   },
   computed: {
     position() {
       return {
         "textarea-item__container": true,
         "textarea-item__container_position_horizontal": this.horizontal,
-      };
-    },
-    size() {
-      return {
-        "textarea-item_size_small": this.small,
-        "textarea-item_size_large": !this.small,
       };
     },
   },
@@ -50,15 +44,6 @@ export default {
 <style lang="scss" scoped>
 .textarea-item {
   border: none;
-
-  &_size {
-    &_small {
-      height: 42px;
-    }
-    &_large {
-      height: 120px;
-    }
-  }
 
   &__container {
     @include flex-setting(column, _, _, 8px);

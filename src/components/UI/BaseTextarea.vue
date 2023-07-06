@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  props: ["value"],
+  props: ["value", "areaSize"],
   methods: {
     onChange(event) {
       this.$emit("input", event.target.value);
@@ -19,8 +19,13 @@ export default {
     },
     autoResize() {
       const { textarea } = this.$refs;
+      textarea.style.height = this.areaSize;
       textarea.style.height = textarea.scrollHeight + 2 + "px";
     },
+  },
+  mounted() {
+    const { textarea } = this.$refs;
+    textarea.style.height = this.areaSize;
   },
 };
 </script>
