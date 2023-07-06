@@ -5,11 +5,22 @@
         <BaseTitle type="h2">Вход</BaseTitle>
       </div>
       <BaseDivider />
-      <InputItem label="Заголовок" v-model="inputData" />
+      <form id="loginForm" class="auth__form">
+        <InputItem
+          :isRequired="true"
+          label="Логин"
+          v-model="loginQuery.login"
+        />
+        <InputItem
+          :isRequired="true"
+          label="Пароль"
+          v-model="loginQuery.password"
+        />
+      </form>
+
       <BaseDivider />
       <div class="auth__button">
-        <ButtonItem @click="logout">Выйти</ButtonItem>
-        <ButtonItem @click="login">Войти</ButtonItem>
+        <ButtonItem form="loginForm">Войти</ButtonItem>
       </div>
     </div>
   </div>
@@ -24,18 +35,13 @@ export default {
   },
   data() {
     return {
-      inputData: null,
+      loginQuery: {
+        login: null,
+        password: null,
+      },
     };
   },
-  methods: {
-    login() {
-      localStorage.setItem("isAuth", true);
-      this.$router.replace({ name: "Tasks" });
-    },
-    logout() {
-      localStorage.setItem("isAuth", false);
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -59,10 +65,16 @@ export default {
     padding: 16px 0;
   }
 
+  &__form {
+    width: 100%;
+    padding: 24px 24px 48px 24px;
+    @include flex-setting(column, _, _, 36px);
+  }
+
   &__button {
     width: 100%;
     padding: 24px;
-    @include flex-setting(_, center, space-between);
+    @include flex-setting(_, center, flex-end);
   }
 }
 </style>

@@ -15,7 +15,6 @@ export default {
   beforeMount() {
     this.fetchLogin();
     this.fetchCurrentUser();
-    localStorage.setItem("isAuth", false);
   },
 };
 </script>

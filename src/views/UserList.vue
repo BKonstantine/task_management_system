@@ -117,14 +117,6 @@ export default {
   beforeMount() {
     this.fetchUsers({ page: this.getCurrentPage });
   },
-  beforeRouteEnter(to, from, next) {
-    const isAuth = localStorage.getItem("isAuth");
-    if (isAuth === "false") {
-      next("/auth");
-    } else {
-      next();
-    }
-  },
 };
 </script>
 
