@@ -4,7 +4,7 @@
     class="textarea"
     placeholder="Введите текст..."
     :value="value"
-    @input="autoResize, $emit('input', $event.target.value)"
+    @input="autoResize"
     ref="textarea"
   ></textarea>
 </template>
@@ -13,10 +13,10 @@
 export default {
   props: ["value"],
   methods: {
+    /* $emit('input', $event.target.value) */
     autoResize() {
-      this.$refs.textarea.style.height = "auto";
-      this.$refs.textarea.style.height =
-        this.$refs.textarea.scrollHeight + 2 + "px";
+      const { textarea } = this.$refs;
+      textarea.style.height = textarea.scrollHeight + 2 + "px";
     },
   },
 };
@@ -26,7 +26,7 @@ export default {
 .textarea {
   padding: 10px 12px;
   width: 100%;
-  min-height: 120px;
+  height: 42px;
   resize: none;
   border-radius: 4px;
   border: 1px solid $border-color-default;
