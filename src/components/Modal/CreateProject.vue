@@ -6,7 +6,12 @@
     <BaseDivider />
     <form class="form" id="createProjectForm" @submit.prevent="createProject">
       <InputItem v-model="query.code" label="Код" :isRequired="true" />
-      <InputItem v-model="query.name" label="Название" :isRequired="true" />
+      <TextareaItem
+        v-model="query.name"
+        label="Название"
+        :isRequired="true"
+        :small="true"
+      />
     </form>
     <BaseDivider />
     <div class="footer">
@@ -20,10 +25,12 @@
 
 <script>
 import InputItem from "@/components/Form/InputItem.vue";
+import TextareaItem from "../Form/TextareaItem.vue";
 export default {
   name: "CreateProject",
   components: {
     InputItem,
+    TextareaItem,
   },
   data() {
     return {
