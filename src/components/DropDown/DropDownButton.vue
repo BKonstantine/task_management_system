@@ -4,12 +4,14 @@
       @click="toggleDropDown"
       :secondary-style="true"
       :active="dropDown"
+      v-click-outside.stop="hideDropDown"
     >
       <SvgIcon id="#dots" />
     </ButtonIcon>
     <DropDown
       class="dropdown-button__list"
       v-show="dropDown"
+      v-click-inside.stop="hideDropDown"
       :items="dropDownList"
       :checkLastItem="checkLastItem"
     />
@@ -35,6 +37,9 @@ export default {
   methods: {
     toggleDropDown() {
       this.dropDown = !this.dropDown;
+    },
+    hideDropDown() {
+      this.dropDown = false;
     },
   },
 };

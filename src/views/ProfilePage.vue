@@ -75,12 +75,12 @@ export default {
       }
     },
   },
-  mounted() {
+  /* mounted() {
     document.addEventListener("click", this.hideAll);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.hideAll);
-  },
+  }, */
 };
 </script>
 
