@@ -4,7 +4,7 @@
     class="textarea"
     placeholder="Введите текст..."
     :value="value"
-    @input="autoResize"
+    @input="onChange"
     ref="textarea"
   ></textarea>
 </template>
@@ -13,7 +13,10 @@
 export default {
   props: ["value"],
   methods: {
-    /* $emit('input', $event.target.value) */
+    onChange(event) {
+      this.$emit("input", event.target.value);
+      this.autoResize();
+    },
     autoResize() {
       const { textarea } = this.$refs;
       textarea.style.height = textarea.scrollHeight + 2 + "px";
