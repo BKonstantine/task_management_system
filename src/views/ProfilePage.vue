@@ -10,20 +10,11 @@
           <StatusText :color="userStatus.color">
             {{ userStatus.text }}
           </StatusText>
-          <div class="profile__setting">
-            <ButtonIcon
-              @click="toggleDropDown"
-              :secondary-style="true"
-              :active="dropDown"
-            >
-              <SvgIcon id="#dots" />
-            </ButtonIcon>
-            <DropDown
-              class="profile__drop-down"
-              v-show="dropDown"
-              :items="dropDownList"
-            />
-          </div>
+          <DropDownButton
+            class="profile__setting"
+            :dropDownList="dropDownList"
+            :checkLastItem="true"
+          />
         </div>
         <div class="profile__main">
           <span class="about">О себе:</span>
@@ -37,13 +28,13 @@
 </template>
 
 <script>
-import DropDown from "@/components/DropDown/DropDown.vue";
+import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 import { mapGetters } from "vuex";
 import { checkUserStatus } from "@/helpers/check-user-status";
 export default {
   name: "ProfilePage",
   components: {
-    DropDown,
+    DropDownButton,
   },
   data() {
     return {
@@ -118,15 +109,6 @@ export default {
 
   &__setting {
     margin-left: auto;
-    position: relative;
-  }
-
-  &__drop-down {
-    width: max-content;
-    position: absolute;
-    top: 44px;
-    right: 0;
-    z-index: 1;
   }
 
   &__main {
