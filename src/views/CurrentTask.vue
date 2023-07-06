@@ -9,21 +9,11 @@
         <div class="header__title">
           <BaseTitle type="h2">Код проекта</BaseTitle>
           <BaseTitle type="h2">#{{ taskData?.number }}</BaseTitle>
-          <div class="header__setting">
-            <ButtonIcon
-              @click="toggleDropDown"
-              :secondary-style="true"
-              :active="dropDown"
-            >
-              <SvgIcon id="#dots" />
-            </ButtonIcon>
-            <DropDown
-              class="header__drop-down"
-              v-show="dropDown"
-              :items="dropDownList"
-              :checkLastItem="true"
-            />
-          </div>
+          <DropDownButton
+            class="header__setting"
+            :dropDownList="dropDownList"
+            :checkLastItem="true"
+          />
         </div>
         <BaseTitle type="h2" class="header__task-name">
           Название задачи
@@ -46,13 +36,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import DropDown from "@/components/DropDown/DropDown.vue";
+import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 import { checkTaskStatus } from "@/helpers/check-task-status";
 import { formatDate } from "@/helpers/format-time";
 export default {
   name: "CurrentTask",
   components: {
-    DropDown,
+    DropDownButton,
   },
   data() {
     return {
@@ -86,18 +76,6 @@ export default {
     navigate() {
       this.$router.push({ name: "Tasks" });
     },
-    toggleDropDown() {
-      this.dropDown = !this.dropDown;
-    },
-    hideDropDown() {
-      this.dropDown = false;
-    },
-    hideAll(event) {
-      const isButton = event.target.closest(".button");
-      if (!isButton) {
-        this.hideDropDown();
-      }
-    },
   },
   beforeMount() {
     this.$api.Tasks.getCurrentTaskRequest(this.$route.params.id).then(
@@ -105,12 +83,6 @@ export default {
         this.taskData = data;
       }
     );
-  },
-  mounted() {
-    document.addEventListener("click", this.hideAll);
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideAll);
   },
 };
 </script>
@@ -138,15 +110,6 @@ export default {
 
     &__setting {
       margin-left: auto;
-      position: relative;
-    }
-
-    &__drop-down {
-      width: max-content;
-      position: absolute;
-      top: 44px;
-      right: 0;
-      z-index: 1;
     }
 
     &__task-name {

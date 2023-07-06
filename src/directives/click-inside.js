@@ -1,7 +1,6 @@
 export default {
   bind: function (el, binding, vnode) {
     el.clickInsideEventHandler = function (event) {
-      console.log(el.contains(event.target));
       if (el.contains(event.target)) {
         vnode.context[binding.expression](event);
       }

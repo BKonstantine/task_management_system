@@ -62,25 +62,7 @@ export default {
     watchUserTask() {
       console.log("watchUserTask");
     },
-    toggleDropDown() {
-      this.dropDown = !this.dropDown;
-    },
-    hideDropDown() {
-      this.dropDown = false;
-    },
-    hideAll(event) {
-      const isButton = event.target.closest(".button");
-      if (!isButton) {
-        this.hideDropDown();
-      }
-    },
   },
-  /* mounted() {
-    document.addEventListener("click", this.hideAll);
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideAll);
-  }, */
 };
 </script>
 
