@@ -1,5 +1,5 @@
 <template>
-  <div class="select-button">
+  <div class="select-button" v-click-outside="closeSelect">
     <div class="select-button__select">
       <div :class="labelClass" @click="toggle">
         <span class="select-button__selected" v-if="selectedItem">
@@ -73,6 +73,9 @@ export default {
   methods: {
     toggle() {
       this.isOpen = !this.isOpen;
+    },
+    closeSelect() {
+      this.isOpen = false;
     },
     select(item) {
       this.selectedItem = item.value;

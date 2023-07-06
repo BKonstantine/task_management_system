@@ -26,7 +26,6 @@
               v-model="taskData.projectId"
               :items="getProjectsForOptions"
               placeholder="Не выбран..."
-              :zIndex="2"
             />
           </div>
         </div>
@@ -37,7 +36,6 @@
               v-model="taskData.executor"
               :items="getUsersForOptions"
               placeholder="Не назначен..."
-              :zIndex="1"
             />
           </div>
         </div>

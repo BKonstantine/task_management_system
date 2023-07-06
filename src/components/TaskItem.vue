@@ -1,11 +1,11 @@
 <template>
-  <li v-if="userData" class="task-item pointer">
+  <li v-if="userData" class="task-item">
     <RouterLink
       :to="{
         name: 'CurrentTask',
         params: { id: this.taskData._id },
       }"
-      class="task-item__container"
+      class="task-item__container pointer"
     >
       <div class="task-item__header">
         <p class="task-item__title">

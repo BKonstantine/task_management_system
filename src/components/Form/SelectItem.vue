@@ -1,5 +1,5 @@
 <template>
-  <div class="select-item">
+  <div class="select-item" v-click-outside="closeSelect">
     <div :class="labelClass" @click="toggle">
       <span class="select-item__selected" v-if="selectedItem">
         {{ items.find((item) => item.value === selectedItem)?.label }}
@@ -64,6 +64,9 @@ export default {
   methods: {
     toggle() {
       this.isOpen = !this.isOpen;
+    },
+    closeSelect() {
+      this.isOpen = false;
     },
     select(item) {
       this.selectedItem = item.value;
