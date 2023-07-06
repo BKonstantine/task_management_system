@@ -9,7 +9,7 @@ import { mapActions } from "vuex";
 export default {
   name: "App",
   methods: {
-    ...mapActions(["fetchLogin", "fetchUsers", "fetchCurrentUser"]),
+    ...mapActions(["fetchLogin", "fetchCurrentUser"]),
   },
 
   beforeMount() {
