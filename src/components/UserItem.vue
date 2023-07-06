@@ -4,32 +4,21 @@
       <UserAvatar :userAvatar="userData" />
       <BaseText>{{ userData.name }}</BaseText>
     </div>
-    <div
+    <DropDownButton
       :class="['user-item__setting', { 'user-item__setting_active': setting }]"
-    >
-      <ButtonIcon
-        @click="toggleDropDown"
-        :secondary-style="true"
-        :active="dropDown"
-      >
-        <SvgIcon id="#dots" />
-      </ButtonIcon>
-      <DropDown
-        class="user-item__drop-down"
-        v-show="dropDown"
-        :items="dropDownList"
-        :checkLastItem="true"
-      />
-    </div>
+      :dropDownList="dropDownList"
+      :checkLastItem="true"
+      @drop-down="toggleSetting"
+    />
   </li>
 </template>
 
 <script>
-import DropDown from "@/components/DropDown/DropDown.vue";
+import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 export default {
   name: "UserItem",
   components: {
-    DropDown,
+    DropDownButton,
   },
   props: {
     userData: {
@@ -44,7 +33,6 @@ export default {
         { text: "Удалить", click: this.deleteUser },
       ],
       setting: false,
-      dropDown: false,
     };
   },
   methods: {
@@ -54,27 +42,9 @@ export default {
     deleteUser() {
       console.log("Delete user");
     },
-    toggleDropDown() {
-      this.setting = !this.setting;
-      this.dropDown = !this.dropDown;
+    toggleSetting(data) {
+      this.setting = data;
     },
-    hideDropDown() {
-      this.setting = false;
-      this.dropDown = false;
-    },
-    hideAll(event) {
-      const isButton = event.target.closest(".button");
-      if (!isButton) {
-        this.hideDropDown();
-      }
-    },
-  },
-  mounted() {
-    document.addEventListener("click", this.hideAll);
-  },
-
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideAll);
   },
 };
 </script>
@@ -92,9 +62,7 @@ export default {
   }
 
   &__setting {
-    @include flex-setting(column, _, center, 2px);
     display: none;
-    position: relative;
 
     &_active {
       display: flex;
@@ -103,13 +71,6 @@ export default {
 
   &:hover &__setting {
     display: flex;
-  }
-
-  &__drop-down {
-    position: absolute;
-    top: 44px;
-    right: 0;
-    z-index: 2;
   }
 }
 </style>

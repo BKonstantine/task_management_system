@@ -16,7 +16,7 @@
           />
         </div>
         <BaseTitle type="h2" class="header__task-name">
-          Название задачи
+          {{ taskData?.name }}
         </BaseTitle>
         <div class="header__task-info">
           <StatusText v-if="taskStatus" :color="taskStatus.color">
@@ -50,7 +50,6 @@ export default {
         { text: "Редактировать", click: this.editTask },
         { text: "Удалить", click: this.deleteTask },
       ],
-      dropDown: false,
       taskData: null,
     };
   },

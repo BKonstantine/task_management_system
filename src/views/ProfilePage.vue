@@ -43,7 +43,6 @@ export default {
         { text: "Изменить пароль", click: this.changeProfilePassword },
         { text: "Просмотр задач пользователя ", click: this.watchUserTask },
       ],
-      dropDown: false,
     };
   },
   computed: {

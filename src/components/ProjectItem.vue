@@ -16,26 +16,15 @@
         </span>
       </div>
     </div>
-    <div
+    <DropDownButton
       :class="[
         'project-item__setting',
         { 'project-item__setting_active': setting },
       ]"
-    >
-      <ButtonIcon
-        @click="toggleDropDown"
-        :secondary-style="true"
-        :active="dropDown"
-      >
-        <SvgIcon id="#dots" />
-      </ButtonIcon>
-      <DropDown
-        class="project-item__drop-down"
-        v-show="dropDown"
-        :items="dropDownList"
-        :checkLastItem="true"
-      />
-    </div>
+      :dropDownList="dropDownList"
+      :checkLastItem="true"
+      @drop-down="toggleSetting"
+    />
     <EditProject
       :projectData="projectData"
       v-if="editModal"
@@ -54,11 +43,11 @@ import { mapGetters } from "vuex";
 import { textInfo } from "@/helpers/text-info";
 import EditProject from "@/components/Modal/EditProject.vue";
 import DeleteProject from "@/components/Modal/DeleteProject.vue";
-import DropDown from "@/components/DropDown/DropDown.vue";
+import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 export default {
   name: "ProjectItem",
   components: {
-    DropDown,
+    DropDownButton,
     EditProject,
     DeleteProject,
   },
@@ -73,7 +62,6 @@ export default {
         { text: "Удалить", click: this.toggleDeleteProject },
       ],
       setting: false,
-      dropDown: false,
       editModal: false,
       deleteModal: false,
     };
@@ -99,27 +87,9 @@ export default {
     toggleDeleteProject() {
       this.deleteModal = !this.deleteModal;
     },
-    toggleDropDown() {
-      this.setting = !this.setting;
-      this.dropDown = !this.dropDown;
+    toggleSetting(data) {
+      this.setting = data;
     },
-    hideDropDown() {
-      this.setting = false;
-      this.dropDown = false;
-    },
-    hideAll() {
-      const isButton = event.target.closest(".button");
-      if (!isButton) {
-        this.hideDropDown();
-      }
-    },
-  },
-  mounted() {
-    document.addEventListener("click", this.hideAll);
-  },
-
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideAll);
   },
 };
 </script>
@@ -170,9 +140,7 @@ export default {
 
   &__setting {
     margin-left: 16px;
-    @include flex-setting(column, _, center, 2px);
     display: none;
-    position: relative;
 
     &_active {
       display: flex;
@@ -181,13 +149,6 @@ export default {
 
   &:hover &__setting {
     display: flex;
-  }
-
-  &__drop-down {
-    position: absolute;
-    top: 52px;
-    right: 0;
-    z-index: 2;
   }
 }
 </style>

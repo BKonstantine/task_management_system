@@ -1,6 +1,12 @@
 <template>
-  <li v-if="userData" class="task-item pointer" @click="goToTask">
-    <div class="task-item__container">
+  <li v-if="userData" class="task-item pointer">
+    <RouterLink
+      :to="{
+        name: 'CurrentTask',
+        params: { id: this.taskData._id },
+      }"
+      class="task-item__container"
+    >
       <div class="task-item__header">
         <p class="task-item__title">
           {{ taskData.name }}
@@ -21,36 +27,25 @@
           {{ editUser }}
         </span>
       </div>
-    </div>
-    <div
+    </RouterLink>
+    <DropDownButton
       :class="['task-item__setting', { 'task-item__setting_active': setting }]"
-    >
-      <ButtonIcon
-        @click.stop="toggleDropDown"
-        :secondary-style="true"
-        :active="dropDown"
-      >
-        <SvgIcon id="#dots" />
-      </ButtonIcon>
-      <DropDown
-        class="task-item__drop-down"
-        v-show="dropDown"
-        :items="dropDownList"
-        :checkLastItem="true"
-      />
-    </div>
+      :dropDownList="dropDownList"
+      :checkLastItem="true"
+      @drop-down="toggleSetting"
+    />
   </li>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import DropDown from "@/components/DropDown/DropDown.vue";
+import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 import { checkTaskStatus } from "@/helpers/check-task-status";
 import { textInfo } from "@/helpers/text-info";
 export default {
   name: "TaskItem",
   components: {
-    DropDown,
+    DropDownButton,
   },
   props: {
     taskData: Object,
@@ -64,7 +59,6 @@ export default {
         { text: "Удалить", click: this.deleteTask },
       ],
       setting: false,
-      dropDown: false,
     };
   },
 
@@ -105,27 +99,9 @@ export default {
     deleteTask() {
       console.log("Delete task");
     },
-    toggleDropDown() {
-      this.setting = !this.setting;
-      this.dropDown = !this.dropDown;
+    toggleSetting(data) {
+      this.setting = data;
     },
-    hideDropDown() {
-      this.setting = false;
-      this.dropDown = false;
-    },
-    hideAll(event) {
-      const isButton = event.target.closest(".button");
-      if (!isButton) {
-        this.hideDropDown();
-      }
-    },
-  },
-  mounted() {
-    document.addEventListener("click", this.hideAll);
-  },
-
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideAll);
   },
 };
 </script>
@@ -142,6 +118,7 @@ export default {
 
   &__container {
     width: 100%;
+    text-decoration: none;
     @include flex-setting(column);
   }
 
@@ -181,9 +158,7 @@ export default {
 
   &__setting {
     margin-left: 16px;
-    @include flex-setting(column, _, center, 2px);
     display: none;
-    position: relative;
 
     &_active {
       display: flex;
@@ -192,13 +167,6 @@ export default {
 
   &:hover &__setting {
     display: flex;
-  }
-
-  &__drop-down {
-    position: absolute;
-    top: 52px;
-    right: 0;
-    z-index: 2;
   }
 }
 </style>
