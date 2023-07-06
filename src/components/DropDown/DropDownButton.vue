@@ -35,11 +35,17 @@ export default {
     };
   },
   methods: {
+    dropDownLister() {
+      this.$emit("drop-down", this.dropDown);
+    },
+
     toggleDropDown() {
       this.dropDown = !this.dropDown;
+      this.dropDownLister();
     },
     hideDropDown() {
       this.dropDown = false;
+      this.dropDownLister();
     },
   },
 };
