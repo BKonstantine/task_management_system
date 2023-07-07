@@ -8,6 +8,7 @@ export const mutation = {
 };
 
 export default {
+  namespaced: true,
   state: {
     currentUser: null,
     currentUserRequest: false,
@@ -30,7 +31,7 @@ export default {
   },
   getters: {
     getCurrentUser: (state) => state.currentUser,
-    getCurrentUserRequestStatus: (state) => state.currentUserRequest,
+    getRequestStatus: (state) => state.currentUserRequest,
   },
   actions: {
     fetchCurrentUser: ({ commit }) => {

@@ -9,6 +9,7 @@ export const mutation = {
 };
 
 export default {
+  namespaced: true,
   state: {
     isAuth: false,
     isAuthRequest: false,

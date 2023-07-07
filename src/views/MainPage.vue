@@ -17,9 +17,8 @@ export default {
     NavBar,
   },
   computed: {
-    ...mapGetters(["getCurrentUserRequestStatus"]),
-
     ...mapGetters({
+      currentUserRequest: "currentUserModule/getRequestStatus",
       usersRequest: "usersModule/getRequestStatus",
       tasksRequest: "tasksModule/getRequestStatus",
       projectsRequest: "projectsModule/getRequestStatus",
@@ -27,7 +26,7 @@ export default {
 
     loader() {
       return (
-        this.getCurrentUserRequestStatus ||
+        this.currentUserRequest ||
         this.usersRequest ||
         this.tasksRequest ||
         this.projectsRequest

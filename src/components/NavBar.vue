@@ -70,7 +70,9 @@ export default {
     matchRoute: function () {
       return this.$route.path === "/profile";
     },
-    ...mapGetters(["getCurrentUser"]),
+    ...mapGetters({
+      getCurrentUser: "currentUserModule/getCurrentUser",
+    }),
   },
   mounted() {
     document.addEventListener("click", this.hideAll);
