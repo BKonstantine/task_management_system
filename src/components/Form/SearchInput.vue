@@ -1,6 +1,7 @@
 <template>
   <fieldset class="search-input">
     <BaseInput
+      class="search-input__input"
       v-bind="$attrs"
       v-model="inputValue"
       @input="$emit('input', inputValue)"
@@ -43,6 +44,10 @@ export default {
   border: none;
   width: 100%;
   position: relative;
+
+  &__input {
+    padding: 0 62px 0 12px;
+  }
 
   &__icons {
     @include flex-setting(_, center, _, 8px);

@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .base-input {
   padding: 0 12px;
   width: 100%;

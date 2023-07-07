@@ -9,9 +9,10 @@
         <InputItem
           :isRequired="true"
           label="Логин"
+          placeholder=""
           v-model="loginQuery.login"
         />
-        <InputItem
+        <PasswordInput
           :isRequired="true"
           label="Пароль"
           v-model="loginQuery.password"
@@ -28,10 +29,12 @@
 
 <script>
 import InputItem from "@/components/Form/InputItem.vue";
+import PasswordInput from "@/components/Form/PasswordInput.vue";
 export default {
   name: "AuthPage",
   components: {
     InputItem,
+    PasswordInput,
   },
   data() {
     return {
