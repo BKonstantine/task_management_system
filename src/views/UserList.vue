@@ -10,22 +10,22 @@
       <UserItem
         :userData="user"
         :key="index"
-        v-for="(user, index) in getUsersList"
+        v-for="(user, index) in usersList"
       />
-      <li v-if="getTotalPage > 1 && getUsersLength > 0" class="block"></li>
+      <li v-if="totalPage > 1 && usersLength > 0" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="getTotalPage > 1 && getUsersLength > 0"
-      :totalPage="getTotalPage"
-      :currentPage="getCurrentPage"
+      v-if="totalPage > 1 && usersLength > 0"
+      :totalPage="totalPage"
+      :currentPage="currentPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
       class="user-list__pagination"
     />
-    <StopperContainer v-if="getUsersLength === 0 && !getRequestStatus">
-      <BaseText v-if="!useFilter">Нет ни одного пользователя</BaseText>
-      <BaseText v-if="useFilter">
+    <StopperContainer v-if="usersLength === 0 && !requestStatus">
+      <BaseText v-if="!isFiltered">Нет ни одного пользователя</BaseText>
+      <BaseText v-if="isFiltered">
         Ни один пользователь не соответствует результатам поиска
       </BaseText>
     </StopperContainer>
@@ -44,19 +44,16 @@ export default {
     PaginationItem,
     SearchInput,
   },
-  data() {
-    return {
-      useFilter: false,
-    };
-  },
   computed: {
     ...mapGetters({
-      getUsersList: "usersModule/getUsersList",
-      getUsersLength: "usersModule/getUsersLength",
-      getTotalPage: "usersModule/getTotalPage",
-      getCurrentPage: "usersModule/getCurrentPage",
-      getRequestStatus: "usersModule/getRequestStatus",
+      usersList: "usersModule/getUsersList",
+      usersLength: "usersModule/getUsersLength",
+      totalPage: "usersModule/getTotalPage",
+      currentPage: "usersModule/getCurrentPage",
+      requestStatus: "usersModule/getRequestStatus",
       getFilterValue: "usersModule/getFilterValue",
+      isFiltered: "usersModule/getFiltered",
+      userQuery: "usersModule/getUserQuery",
     }),
 
     filterValue: {
@@ -67,14 +64,6 @@ export default {
         this.setFilterValue(value);
       },
     },
-
-    userQuery() {
-      const query = {};
-      if (this.filterValue) {
-        query.filter = { name: this.filterValue };
-      }
-      return query;
-    },
   },
   methods: {
     ...mapActions({
@@ -84,8 +73,7 @@ export default {
       setClear: "usersModule/setClear",
     }),
     getUsersWithFilter() {
-      if ("filter" in this.userQuery) {
-        this.useFilter = true;
+      if (this.userQuery) {
         this.setCurrentPage(1);
       }
       this.fetchUsers({ ...this.userQuery, page: this.getCurrentPage });
@@ -94,24 +82,15 @@ export default {
       const page = this.getCurrentPage - 1;
       this.setCurrentPage(page);
       this.fetchUsers({ ...this.userQuery, page: page });
-      if ("filter" in this.userQuery) {
-        this.useFilter = true;
-      }
     },
     nextPage() {
       const page = this.getCurrentPage + 1;
       this.setCurrentPage(page);
       this.fetchUsers({ ...this.userQuery, page: page });
-      if ("filter" in this.userQuery) {
-        this.useFilter = true;
-      }
     },
     currPage(data) {
       this.setCurrentPage(data);
       this.fetchUsers({ ...this.userQuery, page: data });
-      if ("filter" in this.userQuery) {
-        this.useFilter = true;
-      }
     },
   },
   beforeMount() {
