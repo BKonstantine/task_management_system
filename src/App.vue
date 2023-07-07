@@ -10,13 +10,13 @@ export default {
   name: "App",
   methods: {
     ...mapActions({
-      fetchLogin: "authModule/fetchLogin",
+      checkAuth: "authModule/checkAuth",
       fetchCurrentUser: "currentUserModule/fetchCurrentUser",
     }),
   },
 
   beforeMount() {
-    this.fetchLogin();
+    this.checkAuth();
     this.fetchCurrentUser();
   },
 };

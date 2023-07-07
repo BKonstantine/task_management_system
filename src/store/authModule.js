@@ -1,5 +1,5 @@
 import api from "@/api";
-import { saveToken } from "@/helpers/access-token";
+import { checkToken } from "@/helpers/access-token";
 
 export const mutation = {
   SET_AUTH: "SET_AUTH",
@@ -35,8 +35,7 @@ export default {
     fetchLogin: ({ commit }) => {
       commit(mutation.SET_AUTH_REQUEST, true);
       api.Auth.loginRequest()
-        .then(({ data }) => {
-          saveToken(data.token);
+        .then(() => {
           commit(mutation.SET_AUTH, true);
           commit(mutation.SET_AUTH_REQUEST, false);
           commit(mutation.SET_AUTH_SUCCESS, true);
@@ -45,6 +44,13 @@ export default {
           commit(mutation.SET_AUTH_REQUEST, false);
           commit(mutation.SET_AUTH_ERROR, true);
         });
+    },
+
+    checkAuth: ({ dispatch, state }) => {
+      const token = checkToken("accessToken");
+      if (token && !state.isAuth) {
+        dispatch("fetchLogin");
+      }
     },
   },
 };
