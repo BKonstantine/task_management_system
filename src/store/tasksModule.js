@@ -8,6 +8,7 @@ export const mutation = {
   SET_TASKS_LIST_SUCCESS: "SET_TASKS_LIST_SUCCESS",
   SET_TASKS_LIST_ERROR: "SET_TASKS_LIST_ERROR",
   SET_FILTER_VALUE: "SET_FILTER_VALUE",
+  SET_FILTERED: "SET_FILTERED",
   SET_SORT_VALUE: "SET_SORT_VALUE",
 };
 
@@ -19,6 +20,7 @@ export default {
     filterValue: null,
     sortValue: "name",
     currentPage: 1,
+    filtered: false,
     totalPage: null,
     tasksDataRequest: false,
     tasksDataSuccess: false,
@@ -50,6 +52,9 @@ export default {
     [mutation.SET_SORT_VALUE]: (state, payload) => {
       state.sortValue = payload;
     },
+    [mutation.SET_FILTERED]: (state, payload) => {
+      state.filtered = payload;
+    },
   },
 
   getters: {
@@ -60,6 +65,19 @@ export default {
     getTasksLength: (state) => state.tasksList.length,
     getSortValue: (state) => state.sortValue,
     getFilterValue: (state) => state.filterValue,
+    getTaskQuery: (state) => {
+      const query = {
+        sort: {
+          field: state.sortValue,
+          type: "desc",
+        },
+      };
+      if (state.filterValue) {
+        query.filter = { name: state.filterValue };
+      }
+      return query;
+    },
+    getFiltered: (state) => state.filtered,
   },
 
   actions: {
@@ -72,6 +90,7 @@ export default {
               ({ data }) => {
                 commit(mutation.SET_TASKS_LIST, data.tasks);
                 commit(mutation.SET_TASKS_TOTAL_PAGE, data.total);
+                commit(mutation.SET_TASKS_CURRENT_PAGE, data.total);
                 commit(mutation.SET_TASKS_LIST_REQUEST, false);
                 commit(mutation.SET_TASKS_LIST_SUCCESS, true);
               }
@@ -86,6 +105,13 @@ export default {
         .catch(() => {
           commit(mutation.SET_TASKS_LIST_REQUEST, false);
           commit(mutation.SET_TASKS_LIST_ERROR, true);
+        })
+        .finally(() => {
+          if (state.filterValue) {
+            commit(mutation.SET_FILTERED, true);
+          } else {
+            commit(mutation.SET_FILTERED, false);
+          }
         });
     },
 
