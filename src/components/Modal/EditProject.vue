@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import InputItem from "@/components/Form/InputItem.vue";
 import TextareaItem from "../Form/TextareaItem.vue";
 export default {
@@ -47,11 +48,21 @@ export default {
     close() {
       this.$emit("close", false);
     },
+    ...mapActions({
+      fetchProjects: "projectsModule/fetchProjects",
+    }),
     editProject() {
       this.$api.Projects.editProjectsRequest(this.query).then(() => {
         this.close();
+        this.fetchProjects({ ...this.projectQuery, page: this.currentPage });
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      currentPage: "projectsModule/getCurrentPage",
+      projectQuery: "projectsModule/getProjectQuery",
+    }),
   },
 };
 </script>

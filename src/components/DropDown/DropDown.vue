@@ -3,8 +3,9 @@
     <DropDownItem
       :key="index"
       v-for="(item, index) in items"
+      :isDisabled="item.disabled"
       :last="lastItem(index)"
-      @click="item.click"
+      @click="onClick(item)"
     >
       {{ item.text }}
     </DropDownItem>
@@ -30,6 +31,11 @@ export default {
   methods: {
     lastItem(index) {
       return this.checkLastItem ? this.items.length === index + 1 : false;
+    },
+    onClick(item) {
+      if (!item.disabled) {
+        item.click();
+      }
     },
   },
 };

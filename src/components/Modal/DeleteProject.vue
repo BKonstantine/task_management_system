@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "DeleteProject",
   props: {
@@ -30,13 +31,23 @@ export default {
     close() {
       this.$emit("close");
     },
+    ...mapActions({
+      fetchProjects: "projectsModule/fetchProjects",
+    }),
     deleteProject() {
       this.$api.Projects.deleteProjectsRequest(this.projectData._id).then(
         () => {
           this.close();
+          this.fetchProjects({ ...this.projectQuery, page: this.currentPage });
         }
       );
     },
+  },
+  computed: {
+    ...mapGetters({
+      currentPage: "projectsModule/getCurrentPage",
+      projectQuery: "projectsModule/getProjectQuery",
+    }),
   },
 };
 </script>

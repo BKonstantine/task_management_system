@@ -1,5 +1,5 @@
 <template>
-  <li v-on="$listeners" :class="['item', { item_position_last: last }]">
+  <li v-on="$listeners" :class="className">
     <slot />
   </li>
 </template>
@@ -13,6 +13,19 @@ export default {
     },
     last: {
       type: Boolean,
+    },
+    isDisabled: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    className() {
+      return {
+        item: true,
+        item_disabled: this.isDisabled,
+        item_position_last: this.last,
+      };
     },
   },
 };
@@ -36,6 +49,18 @@ export default {
 
   &_position_last {
     color: $font-color-error;
+  }
+
+  &_disabled {
+    background-color: $bgc-secondary-default;
+    color: $border-color-disabled;
+
+    &:hover {
+      background-color: $bgc-secondary-default;
+    }
+    &:active {
+      background-color: $bgc-secondary-default;
+    }
   }
 }
 </style>

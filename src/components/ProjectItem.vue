@@ -40,6 +40,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { checkUserAccess } from "@/helpers/check-user-access";
 import { textInfo } from "@/helpers/text-info";
 import EditProject from "@/components/Modal/EditProject.vue";
 import DeleteProject from "@/components/Modal/DeleteProject.vue";
@@ -57,17 +58,16 @@ export default {
   },
   data() {
     return {
-      dropDownList: [
-        { text: "Редактировать", click: this.toggleEditProject },
-        { text: "Удалить", click: this.toggleDeleteProject },
-      ],
       setting: false,
       editModal: false,
       deleteModal: false,
     };
   },
   computed: {
-    ...mapGetters("usersModule", ["findUser"]),
+    ...mapGetters({
+      findUser: "usersModule/findUser",
+      currentUser: "currentUserModule/getCurrentUser",
+    }),
     number: function () {
       return this.index + 1;
     },
@@ -78,6 +78,20 @@ export default {
     editUser: function () {
       const user = this.findUser(this.projectData.authorEdited)?.name;
       return textInfo(user, "изменил(а)", this.projectData.dateEdited);
+    },
+    dropDownList: function () {
+      return [
+        {
+          text: "Редактировать",
+          click: this.toggleEditProject,
+          disabled: checkUserAccess(this.projectData?.author, this.currentUser),
+        },
+        {
+          text: "Удалить",
+          click: this.toggleDeleteProject,
+          disabled: checkUserAccess(this.projectData?.author, this.currentUser),
+        },
+      ];
     },
   },
   methods: {
