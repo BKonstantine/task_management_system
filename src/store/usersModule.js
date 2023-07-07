@@ -9,7 +9,6 @@ export const mutation = {
   SET_USERS_LIST_SUCCESS: "SET_USERS_LIST_SUCCESS",
   SET_USERS_LIST_ERROR: "SET_USERS_LIST_ERROR",
   SET_FILTER_VALUE: "SET_FILTER_VALUE",
-  SET_CLEAR_FILTER_VALUE: "SET_CLEAR_FILTER_VALUE",
 };
 
 export default {
@@ -45,9 +44,6 @@ export default {
     },
     [mutation.SET_FILTER_VALUE]: (state, payload) => {
       state.filterValue = payload;
-    },
-    [mutation.SET_CLEAR_FILTER_VALUE]: (state) => {
-      state.filterValue = null;
     },
   },
   getters: {
@@ -124,7 +120,7 @@ export default {
     },
 
     setClear: ({ commit }) => {
-      commit(mutation.SET_CLEAR_FILTER_VALUE);
+      commit(mutation.SET_FILTER_VALUE, null);
     },
   },
 };

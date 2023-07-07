@@ -8,7 +8,6 @@ export const mutation = {
   SET_PROJECTS_LIST_SUCCESS: "SET_PROJECTS_LIST_SUCCESS",
   SET_PROJECTS_LIST_ERROR: "SET_PROJECTS_LIST_ERROR",
   SET_FILTER_VALUE: "SET_FILTER_VALUE",
-  SET_CLEAR_FILTER_VALUE: "SET_CLEAR_FILTER_VALUE",
   SET_SORT_VALUE: "SET_SORT_VALUE",
 };
 
@@ -47,9 +46,6 @@ export default {
     },
     [mutation.SET_FILTER_VALUE]: (state, payload) => {
       state.filterValue = payload;
-    },
-    [mutation.SET_CLEAR_FILTER_VALUE]: (state) => {
-      state.filterValue = null;
     },
     [mutation.SET_SORT_VALUE]: (state, payload) => {
       state.sortValue = payload;
@@ -132,7 +128,7 @@ export default {
     },
 
     setClear: ({ commit }) => {
-      commit(mutation.SET_CLEAR_FILTER_VALUE);
+      commit(mutation.SET_FILTER_VALUE, null);
     },
 
     setSortValue: ({ commit }, payload) => {
