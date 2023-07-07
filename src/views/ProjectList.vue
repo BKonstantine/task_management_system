@@ -11,28 +11,28 @@
         Добавить
       </ButtonItem>
     </FilterContainer>
-    <ul v-if="getProjectsLength > 0" class="project-list">
+    <ul v-if="projectsLength > 0" class="project-list">
       <ProjectItem
         :projectData="project"
         :key="index"
         :index="index"
-        v-for="(project, index) in getProjectsList"
+        v-for="(project, index) in projectsList"
       />
-      <li v-if="getTotalPage > 1 && getProjectsLength > 0" class="block"></li>
+      <li v-if="totalPage > 1 && projectsLength > 0" class="block"></li>
     </ul>
     <PaginationItem
-      v-if="getTotalPage > 1 && getProjectsLength > 0"
-      :totalPage="getTotalPage"
-      :currentPage="getCurrentPage"
+      v-if="totalPage > 1 && projectsLength > 0"
+      :totalPage="totalPage"
+      :currentPage="currentPage"
       @prev-page="prevPage"
       @next-page="nextPage"
       @curr-page="currPage"
       class="project-list__pagination"
     />
-    <StopperContainer v-if="getProjectsLength === 0 && !getRequestStatus">
-      <BaseText v-if="!useFilter">Не создан ни один проект</BaseText>
-      <ButtonItem v-if="!useFilter">Добавить</ButtonItem>
-      <BaseText v-if="useFilter">
+    <StopperContainer v-if="projectsLength === 0 && !requestStatus">
+      <BaseText v-if="!isFiltered">Не создан ни один проект</BaseText>
+      <ButtonItem v-if="!isFiltered">Добавить</ButtonItem>
+      <BaseText v-if="isFiltered">
         Ни один проект не соответствует результатам поиска
       </BaseText>
     </StopperContainer>
@@ -64,7 +64,6 @@ export default {
         { label: "По дате создания", value: "dateCreated" },
         { label: "По дате обновления", value: "dateEdited" },
       ],
-      useFilter: false,
       modal: false,
     };
   },
@@ -78,8 +77,7 @@ export default {
       setClear: "projectsModule/setClear",
     }),
     getProjectsWithFilter() {
-      if ("filter" in this.projectQuery) {
-        this.useFilter = true;
+      if (this.getFilterValue) {
         this.setCurrentPage(1);
       }
       this.fetchProjects({ ...this.projectQuery, page: this.getCurrentPage });
@@ -88,39 +86,32 @@ export default {
       const page = this.getCurrentPage - 1;
       this.setCurrentPage(page);
       this.fetchProjects({ ...this.projectQuery, page: page });
-      if ("filter" in this.projectQuery) {
-        this.useFilter = true;
-      }
     },
     nextPage() {
       const page = this.getCurrentPage + 1;
       this.setCurrentPage(page);
       this.fetchProjects({ ...this.projectQuery, page: page });
-      if ("filter" in this.projectQuery) {
-        this.useFilter = true;
-      }
     },
     currPage(data) {
       this.setCurrentPage(data);
       this.fetchProjects({ ...this.projectQuery, page: data });
-      if ("filter" in this.projectQuery) {
-        this.useFilter = true;
-      }
     },
     toggleModal() {
       this.modal = !this.modal;
     },
   },
   computed: {
-    ...mapGetters("projectsModule", [
-      "getProjectsLength",
-      "getTotalPage",
-      "getProjectsList",
-      "getRequestStatus",
-      "getCurrentPage",
-      "getSortValue",
-      "getFilterValue",
-    ]),
+    ...mapGetters({
+      projectsLength: "projectsModule/getProjectsLength",
+      totalPage: "projectsModule/getTotalPage",
+      projectsList: "projectsModule/getProjectsList",
+      requestStatus: "projectsModule/getRequestStatus",
+      currentPage: "projectsModule/getCurrentPage",
+      getSortValue: "projectsModule/getSortValue",
+      getFilterValue: "projectsModule/getFilterValue",
+      projectQuery: "projectsModule/getProjectQuery",
+      isFiltered: "projectsModule/getFiltered",
+    }),
 
     filterValue: {
       get() {
@@ -138,19 +129,6 @@ export default {
       set(value) {
         this.setSortValue(value);
       },
-    },
-
-    projectQuery() {
-      const query = {
-        sort: {
-          field: this.sortValue,
-          type: "desc",
-        },
-      };
-      if (this.filterValue) {
-        query.filter = { name: this.filterValue };
-      }
-      return query;
     },
   },
   beforeMount() {
