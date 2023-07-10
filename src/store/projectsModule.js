@@ -17,9 +17,14 @@ export default {
 
   state: {
     projectsList: [],
-    filterValue: null,
-    sortValue: "name",
-    currentPage: 1,
+    query: {
+      page: 1,
+      filter: {},
+      sort: {
+        field: "name",
+        type: "desc",
+      },
+    },
     filtered: false,
     totalPage: null,
     projectsListRequest: false,
@@ -32,7 +37,7 @@ export default {
       state.projectsList = payload;
     },
     [mutation.SET_PROJECTS_CURRENT_PAGE]: (state, payload) => {
-      state.currentPage = payload;
+      state.query = { ...state.query, page: payload };
     },
     [mutation.SET_PROJECTS_TOTAL_PAGE]: (state, payload) => {
       state.totalPage = payload;
@@ -47,10 +52,10 @@ export default {
       state.projectsListError = payload;
     },
     [mutation.SET_FILTER_VALUE]: (state, payload) => {
-      state.filterValue = payload;
+      state.query = { ...state.query, filter: payload };
     },
     [mutation.SET_SORT_VALUE]: (state, payload) => {
-      state.sortValue = payload;
+      state.query = { ...state.query, sort: { field: payload } };
     },
     [mutation.SET_FILTERED]: (state, payload) => {
       state.filtered = payload;
@@ -59,7 +64,7 @@ export default {
 
   getters: {
     getProjectsList: (state) => state.projectsList,
-    getCurrentPage: (state) => state.currentPage,
+    getCurrentPage: (state) => state.query.page,
     getTotalPage: (state) => state.totalPage,
     getRequestStatus: (state) => state.projectsListRequest,
     getProjectsLength: (state) => state.projectsList.length,
@@ -67,20 +72,9 @@ export default {
       state.projectsList.map((project) => {
         return { label: project.name, value: project._id };
       }),
-    getSortValue: (state) => state.sortValue,
-    getFilterValue: (state) => state.filterValue,
-    getProjectQuery: (state) => {
-      const query = {
-        sort: {
-          field: state.sortValue,
-          type: "desc",
-        },
-      };
-      if (state.filterValue) {
-        query.filter = { name: state.filterValue };
-      }
-      return query;
-    },
+    getSortValue: (state) => state.query.sort.field,
+    getFilterValue: (state) => state.query.filter,
+    getProjectQuery: (state) => state.query,
     getFiltered: (state) => state.filtered,
   },
 
@@ -145,8 +139,8 @@ export default {
         });
     },
 
-    setCurrentPage: ({ commit }, page) => {
-      commit(mutation.SET_PROJECTS_CURRENT_PAGE, page);
+    setCurrentPage: ({ commit }, payload) => {
+      commit(mutation.SET_PROJECTS_CURRENT_PAGE, payload);
     },
 
     setFilterValue: ({ commit }, payload) => {

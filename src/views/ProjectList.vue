@@ -80,21 +80,21 @@ export default {
       if (this.getFilterValue) {
         this.setCurrentPage(1);
       }
-      this.fetchProjects({ ...this.projectQuery, page: this.currentPage });
+      this.fetchProjects({ ...this.projectQuery });
     },
     prevPage() {
       const page = this.currentPage - 1;
       this.setCurrentPage(page);
-      this.fetchProjects({ ...this.projectQuery, page: page });
+      this.fetchProjects({ ...this.projectQuery });
     },
     nextPage() {
       const page = this.currentPage + 1;
       this.setCurrentPage(page);
-      this.fetchProjects({ ...this.projectQuery, page: page });
+      this.fetchProjects({ ...this.projectQuery });
     },
     currPage(data) {
       this.setCurrentPage(data);
-      this.fetchProjects({ ...this.projectQuery, page: data });
+      this.fetchProjects({ ...this.projectQuery });
     },
     toggleModal() {
       this.modal = !this.modal;
@@ -115,10 +115,10 @@ export default {
 
     filterValue: {
       get() {
-        return this.getFilterValue;
+        return this.getFilterValue.name;
       },
       set(value) {
-        this.setFilterValue(value);
+        this.setFilterValue({ name: value });
       },
     },
 
@@ -132,13 +132,7 @@ export default {
     },
   },
   beforeMount() {
-    this.fetchProjects({
-      page: this.currentPage,
-      sort: {
-        field: this.sortValue,
-        type: "desc",
-      },
-    });
+    this.fetchProjects({ ...this.projectQuery });
     this.fetchAllUsers();
   },
 };
