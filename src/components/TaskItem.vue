@@ -1,16 +1,18 @@
 <template>
-  <li v-if="userData" class="task-item">
-    <RouterLink
-      :to="{
-        name: 'CurrentTask',
-        params: { id: this.taskData._id },
-      }"
-      class="task-item__container pointer"
-    >
+  <li v-if="userData" class="task-item pointer">
+    <div class="task-item__container">
       <div class="task-item__header">
-        <p class="task-item__title">
-          {{ taskData.name }}
-        </p>
+        <RouterLink
+          :to="{
+            name: 'CurrentTask',
+            params: { id: this.taskData._id },
+          }"
+          class="task-item__title pointer"
+        >
+          <p>
+            {{ taskData.name }}
+          </p>
+        </RouterLink>
         <UserAvatar :userAvatar="userData" />
       </div>
       <div class="task-item__footer">
@@ -27,7 +29,7 @@
           {{ editUser }}
         </span>
       </div>
-    </RouterLink>
+    </div>
     <DropDownButton
       :class="['task-item__setting', { 'task-item__setting_active': setting }]"
       :dropDownList="dropDownList"
@@ -118,7 +120,6 @@ export default {
 
   &__container {
     width: 100%;
-    text-decoration: none;
     @include flex-setting(column);
   }
 
@@ -138,6 +139,7 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
   }
 
   &__footer {

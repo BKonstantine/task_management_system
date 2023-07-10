@@ -1,9 +1,17 @@
 <template>
   <li class="project-item pointer">
     <div class="project-item__container">
-      <p class="project-item__title">
-        {{ projectData.name }}
-      </p>
+      <RouterLink
+        :to="{
+          name: 'Tasks',
+          params: { id: this.projectData._id },
+        }"
+        class="project-item__title pointer"
+      >
+        <p>
+          {{ projectData.name }}
+        </p>
+      </RouterLink>
       <div class="project-item__footer">
         <span class="project-item__info project-item__info_color_primary">
           {{ number }}#{{ projectData.code }}
@@ -134,6 +142,7 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
   }
 
   &__footer {
