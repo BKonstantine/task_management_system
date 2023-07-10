@@ -1,7 +1,7 @@
 <template>
   <PageContainer>
     <FilterContainer>
-      <SearchInput v-model="filterValue" @click="setClear" />
+      <SearchInput v-model="filterValue" @click="handleClear" />
       <ButtonIcon :secondaryStyle="true">
         <SvgIcon id="#filter" />
       </ButtonIcon>
@@ -83,24 +83,39 @@ export default {
       if (this.getFilterValue) {
         this.setCurrentPage(1);
       }
-      this.fetchTasks({
-        ...this.taskQuery,
-        page: this.currentPage,
-      });
+      this.fetchTasks({ ...this.taskQuery });
     },
     prevPage() {
       const page = this.currentPage - 1;
       this.setCurrentPage(page);
-      this.fetchTasks({ ...this.taskQuery, page: page });
+      this.fetchTasks({ ...this.taskQuery });
     },
     nextPage() {
       const page = this.currentPage + 1;
       this.setCurrentPage(page);
-      this.fetchTasks({ ...this.taskQuery, page: page });
+      this.fetchTasks({ ...this.taskQuery });
     },
     currPage(data) {
       this.setCurrentPage(data);
-      this.fetchTasks({ ...this.taskQuery, page: data });
+      this.fetchTasks({ ...this.taskQuery });
+    },
+
+    setHandleFilterValue() {
+      switch (this.$route.query.from) {
+        case "profile":
+          this.setFilterValue({ author: this.$route.query.id });
+          break;
+        case "projects":
+          this.setFilterValue({ projectId: this.$route.query.id });
+          break;
+        default:
+          this.setFilterValue({ author: this.$route.query.id });
+          break;
+      }
+    },
+    handleClear() {
+      this.setClear();
+      this.setHandleFilterValue();
     },
   },
   computed: {
@@ -135,17 +150,7 @@ export default {
     },
   },
   beforeMount() {
-    switch (this.$route.query.from) {
-      case "profile":
-        this.setFilterValue({ author: this.$route.query.id });
-        break;
-      case "projects":
-        this.setFilterValue({ projectId: this.$route.query.id });
-        break;
-      default:
-        this.setFilterValue({ author: this.$route.query.id });
-        break;
-    }
+    this.setHandleFilterValue();
     this.fetchTasks(this.taskQuery);
     this.fetchAllUsers();
   },
