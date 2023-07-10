@@ -135,13 +135,26 @@ export default {
     },
   },
   beforeMount() {
-    this.fetchTasks({
+    const query = {
       page: this.getCurrentPage,
       sort: {
         field: this.sortValue,
         type: "desc",
       },
-    });
+    };
+    switch (this.$route.query.from) {
+      case "profile":
+        query.filter = {
+          author: this.$route.params.author,
+        };
+        break;
+      case "projects":
+        query.filter = {
+          projectId: this.$route.params.projectId,
+        };
+        break;
+    }
+    this.fetchTasks(query);
     this.fetchAllUsers();
   },
   mounted() {

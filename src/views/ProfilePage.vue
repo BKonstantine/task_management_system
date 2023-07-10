@@ -63,7 +63,7 @@ export default {
         {
           text: "Просмотр задач пользователя",
           click: this.watchUserTask,
-          disabled: checkUserAccess(this.checkedUser?._id, this.currentUser),
+          disabled: false,
         },
       ];
     },
