@@ -2,7 +2,15 @@
   <li class="user-item pointer">
     <div class="user-item__container">
       <UserAvatar :userAvatar="userData" />
-      <BaseText>{{ userData.name }}</BaseText>
+      <RouterLink
+        :to="{
+          name: 'Profile',
+          params: { id: this.userData._id },
+        }"
+        class="user-item__name pointer"
+      >
+        <BaseText>{{ userData.name }}</BaseText>
+      </RouterLink>
     </div>
     <DropDownButton
       :class="['user-item__setting', { 'user-item__setting_active': setting }]"
@@ -56,6 +64,10 @@ export default {
   height: 60px;
   @include flex-setting(_, center, space-between);
   border-bottom: 1px solid $border-color-active;
+
+  &__name {
+    text-decoration: none;
+  }
 
   &__container {
     @include flex-setting(_, center, _, 8px);
