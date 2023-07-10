@@ -74,13 +74,7 @@ export default {
     links() {
       return [
         { to: "/projects", text: "Проекты" },
-        {
-          to: {
-            name: "Tasks",
-            query: { from: "/", id: this.getCurrentUser?._id },
-          },
-          text: "Задачи",
-        },
+        { to: "/tasks", text: "Задачи" },
         { to: "/users", text: "Пользователи" },
       ];
     },
