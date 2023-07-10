@@ -30,7 +30,9 @@ export default {
       state.isAuthError = payload;
     },
   },
-  getters: {},
+  getters: {
+    getAuthRequest: (state) => state.isAuthRequest,
+  },
   actions: {
     fetchLogin: ({ commit }) => {
       commit(mutation.SET_AUTH_REQUEST, true);

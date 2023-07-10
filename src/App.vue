@@ -1,22 +1,30 @@
 <template>
   <div id="app" class="app">
-    <RouterView />
+    <PageContainer v-show="authRequest" class="container">
+      <BaseLoader />
+    </PageContainer>
+    <RouterView v-show="!authRequest" />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
   methods: {
     ...mapActions({
-      checkAuth: "authModule/checkAuth",
+      fetchLogin: "authModule/fetchLogin",
       fetchCurrentUser: "currentUserModule/fetchCurrentUser",
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      authRequest: "authModule/getAuthRequest",
     }),
   },
 
   beforeMount() {
-    this.checkAuth();
+    this.fetchLogin();
     this.fetchCurrentUser();
   },
 };
@@ -29,5 +37,9 @@ export default {
   @media screen and (min-width: 1024px) {
     width: 100%;
   }
+}
+.container {
+  align-items: center;
+  justify-content: center;
 }
 </style>
