@@ -36,6 +36,11 @@ export default {
         { text: "Профиль", click: this.goToProfile, disabled: false },
         { text: "Выход", click: this.goToExit, disabled: false },
       ],
+      links: [
+        { to: "/projects", text: "Проекты" },
+        { to: "/tasks", text: "Задачи" },
+        { to: "/users", text: "Пользователи" },
+      ],
       dropDown: false,
     };
   },
@@ -71,13 +76,6 @@ export default {
     ...mapGetters({
       getCurrentUser: "currentUserModule/getCurrentUser",
     }),
-    links() {
-      return [
-        { to: "/projects", text: "Проекты" },
-        { to: "/tasks", text: "Задачи" },
-        { to: "/users", text: "Пользователи" },
-      ];
-    },
   },
   mounted() {
     document.addEventListener("click", this.hideAll);
