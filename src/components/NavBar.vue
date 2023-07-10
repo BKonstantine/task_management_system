@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     matchRoute: function () {
-      return this.$route.path === "/profile";
+      return this.$route.path.includes("/profile");
     },
     ...mapGetters({
       getCurrentUser: "currentUserModule/getCurrentUser",
