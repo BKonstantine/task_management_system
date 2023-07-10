@@ -56,6 +56,11 @@ const routes = [
         component: UserList,
       },
       {
+        path: "users/:id",
+        name: "CurrentUser",
+        component: ProfilePage,
+      },
+      {
         path: "profile",
         name: "Profile",
         component: ProfilePage,

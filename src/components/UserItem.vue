@@ -4,7 +4,7 @@
       <UserAvatar :userAvatar="userData" />
       <RouterLink
         :to="{
-          name: 'Profile',
+          name: 'CurrentUser',
           params: { id: this.userData._id },
         }"
         class="user-item__name pointer"
