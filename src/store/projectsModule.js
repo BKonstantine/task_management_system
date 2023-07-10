@@ -55,7 +55,10 @@ export default {
       state.query = { ...state.query, filter: payload };
     },
     [mutation.SET_SORT_VALUE]: (state, payload) => {
-      state.query = { ...state.query, sort: { field: payload } };
+      state.query = {
+        ...state.query,
+        sort: { ...state.query.sort, field: payload },
+      };
     },
     [mutation.SET_FILTERED]: (state, payload) => {
       state.filtered = payload;

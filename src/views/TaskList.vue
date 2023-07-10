@@ -118,10 +118,10 @@ export default {
 
     filterValue: {
       get() {
-        return this.getFilterValue;
+        return this.getFilterValue.name;
       },
       set(value) {
-        this.setFilterValue(value);
+        this.setFilterValue({ name: value });
       },
     },
 

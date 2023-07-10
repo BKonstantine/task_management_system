@@ -17,6 +17,14 @@ export default {
 
   state: {
     tasksList: [],
+    query: {
+      page: 1,
+      filter: {},
+      sort: {
+        field: "name",
+        type: "desc",
+      },
+    },
     filterValue: null,
     sortValue: "name",
     currentPage: 1,
@@ -32,7 +40,7 @@ export default {
       state.tasksList = payload;
     },
     [mutation.SET_TASKS_CURRENT_PAGE]: (state, payload) => {
-      state.currentPage = payload;
+      state.query = { ...state.query, page: payload };
     },
     [mutation.SET_TASKS_TOTAL_PAGE]: (state, payload) => {
       state.totalPage = payload;
@@ -47,10 +55,13 @@ export default {
       state.tasksDataError = payload;
     },
     [mutation.SET_FILTER_VALUE]: (state, payload) => {
-      state.filterValue = payload;
+      state.query = { ...state.query, filter: payload };
     },
     [mutation.SET_SORT_VALUE]: (state, payload) => {
-      state.sortValue = payload;
+      state.query = {
+        ...state.query,
+        sort: { ...state.query.sort, field: payload },
+      };
     },
     [mutation.SET_FILTERED]: (state, payload) => {
       state.filtered = payload;
@@ -59,24 +70,13 @@ export default {
 
   getters: {
     getTasksList: (state) => state.tasksList,
-    getCurrentPage: (state) => state.currentPage,
+    getCurrentPage: (state) => state.query.page,
     getTotalPage: (state) => state.totalPage,
     getRequestStatus: (state) => state.tasksDataRequest,
     getTasksLength: (state) => state.tasksList.length,
-    getSortValue: (state) => state.sortValue,
-    getFilterValue: (state) => state.filterValue,
-    getTaskQuery: (state) => {
-      const query = {
-        sort: {
-          field: state.sortValue,
-          type: "desc",
-        },
-      };
-      if (state.filterValue) {
-        query.filter = { name: state.filterValue };
-      }
-      return query;
-    },
+    getSortValue: (state) => state.query.sort.field,
+    getFilterValue: (state) => state.query.filter,
+    getTaskQuery: (state) => state.query,
     getFiltered: (state) => state.filtered,
   },
 
