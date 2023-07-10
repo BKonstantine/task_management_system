@@ -135,31 +135,18 @@ export default {
     },
   },
   beforeMount() {
-    const query = {
-      page: this.currentPage,
-      sort: {
-        field: this.sortValue,
-        type: "desc",
-      },
-    };
     switch (this.$route.query.from) {
       case "/":
-        query.filter = {
-          author: this.$route.query.id,
-        };
+        this.setFilterValue({ author: this.$route.query.id });
         break;
       case "profile":
-        query.filter = {
-          author: this.$route.query.id,
-        };
+        this.setFilterValue({ author: this.$route.query.id });
         break;
       case "projects":
-        query.filter = {
-          projectId: this.$route.query.id,
-        };
+        this.setFilterValue({ projectId: this.$route.query.id });
         break;
     }
-    this.fetchTasks(query);
+    this.fetchTasks(this.taskQuery);
     this.fetchAllUsers();
   },
 };
