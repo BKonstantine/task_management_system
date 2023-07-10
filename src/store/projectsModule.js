@@ -86,7 +86,7 @@ export default {
       commit(mutation.SET_PROJECTS_LIST_REQUEST, true);
       api.Projects.getProjectsRequest(projectData)
         .then(({ data }) => {
-          if (state.currentPage > data.total) {
+          if (state.query.page > data.total) {
             api.Projects.getProjectsRequest({
               ...projectData,
               page: data.total,
@@ -109,7 +109,7 @@ export default {
           commit(mutation.SET_PROJECTS_LIST_ERROR, true);
         })
         .finally(() => {
-          if (state.filterValue) {
+          if (state.query.filter?.name) {
             commit(mutation.SET_FILTERED, true);
           } else {
             commit(mutation.SET_FILTERED, false);
@@ -151,7 +151,7 @@ export default {
     },
 
     setClear: ({ commit }) => {
-      commit(mutation.SET_FILTER_VALUE, null);
+      commit(mutation.SET_FILTER_VALUE, {});
     },
 
     setSortValue: ({ commit }, payload) => {

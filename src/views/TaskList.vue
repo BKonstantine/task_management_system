@@ -136,14 +136,14 @@ export default {
   },
   beforeMount() {
     switch (this.$route.query.from) {
-      case "/":
-        this.setFilterValue({ author: this.$route.query.id });
-        break;
       case "profile":
         this.setFilterValue({ author: this.$route.query.id });
         break;
       case "projects":
         this.setFilterValue({ projectId: this.$route.query.id });
+        break;
+      default:
+        this.setFilterValue({ author: this.$route.query.id });
         break;
     }
     this.fetchTasks(this.taskQuery);
