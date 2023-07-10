@@ -145,7 +145,7 @@ export default {
     this.fetchAllUsers();
   },
   mounted() {
-    console.log(this.$route);
+    console.log(this.$route.query);
   },
 };
 </script>

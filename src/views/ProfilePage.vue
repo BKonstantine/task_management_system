@@ -1,25 +1,24 @@
 <template>
   <PageContainer>
-    <div v-if="curentUser" class="profile">
+    <div v-if="checkedUser" class="profile">
       <div class="profile__avatar">
-        <UserAvatar :userAvatar="curentUser" :large="true" />
+        <UserAvatar :userAvatar="checkedUser" :large="true" />
       </div>
       <div class="profile__info">
         <div class="profile__header">
-          <p class="profile__title">{{ curentUser.name }}</p>
+          <p class="profile__title">{{ checkedUser.name }}</p>
           <StatusText :color="userStatus.color">
             {{ userStatus.text }}
           </StatusText>
           <DropDownButton
             class="profile__setting"
             :dropDownList="dropDownList"
-            :checkLastItem="true"
           />
         </div>
         <div class="profile__main">
           <span class="about">О себе:</span>
           <BaseText>
-            {{ curentUser.description }}
+            {{ checkedUser.description }}
           </BaseText>
         </div>
       </div>
@@ -31,30 +30,42 @@
 import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 import { mapGetters, mapActions } from "vuex";
 import { checkUserStatus } from "@/helpers/check-user-status";
+import { checkUserAccess } from "@/helpers/check-user-access";
 export default {
   name: "ProfilePage",
   components: {
     DropDownButton,
   },
-  data() {
-    return {
-      dropDownList: [
-        { text: "Редактировать", click: this.changeProfileData },
-        { text: "Изменить пароль", click: this.changeProfilePassword },
-        { text: "Просмотр задач пользователя ", click: this.watchUserTask },
-      ],
-    };
-  },
   computed: {
     ...mapGetters({
+      currentUser: "currentUserModule/getCurrentUser",
       getUsersList: "usersModule/getUsersList",
       getRequestStatus: "usersModule/getRequestStatus",
     }),
-    curentUser() {
+    checkedUser() {
       return this.getUsersList[0];
     },
     userStatus: function () {
-      return checkUserStatus(this.curentUser.status);
+      return checkUserStatus(this.checkedUser.status);
+    },
+    dropDownList: function () {
+      return [
+        {
+          text: "Редактировать",
+          click: this.changeProfileData,
+          disabled: checkUserAccess(this.checkedUser?._id, this.currentUser),
+        },
+        {
+          text: "Изменить пароль",
+          click: this.changeProfilePassword,
+          disabled: checkUserAccess(this.checkedUser?._id, this.currentUser),
+        },
+        {
+          text: "Просмотр задач пользователя",
+          click: this.watchUserTask,
+          disabled: checkUserAccess(this.checkedUser?._id, this.currentUser),
+        },
+      ];
     },
   },
   methods: {
@@ -68,9 +79,14 @@ export default {
       console.log("changeProfilePassword");
     },
     watchUserTask() {
-      console.log("watchUserTask");
+      this.$router.push({
+        name: "Tasks",
+        params: { author: this.checkedUser._id },
+        query: { from: "profile" },
+      });
     },
   },
+
   beforeMount() {
     this.fetchCurrentUser({
       filter: {

@@ -1,9 +1,5 @@
 <template>
-  <RouterLink
-    exact-active-class="nav-link_active"
-    :to="to"
-    :class="classObject"
-  >
+  <RouterLink active-class="nav-link_active" :to="to" :class="classObject">
     {{ text }}
   </RouterLink>
 </template>
