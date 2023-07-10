@@ -76,15 +76,15 @@ export default {
       if (this.userQuery) {
         this.setCurrentPage(1);
       }
-      this.fetchUsers({ ...this.userQuery, page: this.getCurrentPage });
+      this.fetchUsers({ ...this.userQuery, page: this.currentPage });
     },
     prevPage() {
-      const page = this.getCurrentPage - 1;
+      const page = this.currentPage - 1;
       this.setCurrentPage(page);
       this.fetchUsers({ ...this.userQuery, page: page });
     },
     nextPage() {
-      const page = this.getCurrentPage + 1;
+      const page = this.currentPage + 1;
       this.setCurrentPage(page);
       this.fetchUsers({ ...this.userQuery, page: page });
     },
@@ -94,7 +94,7 @@ export default {
     },
   },
   beforeMount() {
-    this.fetchUsers({ page: this.getCurrentPage });
+    this.fetchUsers({ page: this.currentPage });
   },
 };
 </script>

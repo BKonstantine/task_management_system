@@ -80,15 +80,15 @@ export default {
       if (this.getFilterValue) {
         this.setCurrentPage(1);
       }
-      this.fetchProjects({ ...this.projectQuery, page: this.getCurrentPage });
+      this.fetchProjects({ ...this.projectQuery, page: this.currentPage });
     },
     prevPage() {
-      const page = this.getCurrentPage - 1;
+      const page = this.currentPage - 1;
       this.setCurrentPage(page);
       this.fetchProjects({ ...this.projectQuery, page: page });
     },
     nextPage() {
-      const page = this.getCurrentPage + 1;
+      const page = this.currentPage + 1;
       this.setCurrentPage(page);
       this.fetchProjects({ ...this.projectQuery, page: page });
     },
@@ -133,7 +133,7 @@ export default {
   },
   beforeMount() {
     this.fetchProjects({
-      page: this.getCurrentPage,
+      page: this.currentPage,
       sort: {
         field: this.sortValue,
         type: "desc",

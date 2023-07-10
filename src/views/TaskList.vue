@@ -85,16 +85,16 @@ export default {
       }
       this.fetchTasks({
         ...this.taskQuery,
-        page: this.getCurrentPage,
+        page: this.currentPage,
       });
     },
     prevPage() {
-      const page = this.getCurrentPage - 1;
+      const page = this.currentPage - 1;
       this.setCurrentPage(page);
       this.fetchTasks({ ...this.taskQuery, page: page });
     },
     nextPage() {
-      const page = this.getCurrentPage + 1;
+      const page = this.currentPage + 1;
       this.setCurrentPage(page);
       this.fetchTasks({ ...this.taskQuery, page: page });
     },
@@ -136,7 +136,7 @@ export default {
   },
   beforeMount() {
     const query = {
-      page: this.getCurrentPage,
+      page: this.currentPage,
       sort: {
         field: this.sortValue,
         type: "desc",
