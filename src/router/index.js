@@ -18,7 +18,7 @@ const routes = [
   {
     path: "/",
     component: MainPage,
-    redirect: "/tasks",
+    redirect: "/projects",
     children: [
       {
         path: "projects",
