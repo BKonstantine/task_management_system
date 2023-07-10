@@ -81,8 +81,7 @@ export default {
     watchUserTask() {
       this.$router.push({
         name: "Tasks",
-        params: { author: this.checkedUser._id },
-        query: { from: "profile" },
+        query: { from: "profile", id: this.checkedUser._id },
       });
     },
   },

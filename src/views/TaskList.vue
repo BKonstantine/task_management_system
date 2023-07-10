@@ -145,12 +145,12 @@ export default {
     switch (this.$route.query.from) {
       case "profile":
         query.filter = {
-          author: this.$route.params.author,
+          author: this.$route.query.id,
         };
         break;
       case "projects":
         query.filter = {
-          projectId: this.$route.params.projectId,
+          projectId: this.$route.query.id,
         };
         break;
     }

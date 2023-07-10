@@ -4,8 +4,7 @@
       <RouterLink
         :to="{
           name: 'Tasks',
-          params: { projectId: this.projectData._id },
-          query: { from: 'projects' },
+          query: { from: 'projects', id: this.projectData._id },
         }"
         class="project-item__title pointer"
       >
