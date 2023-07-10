@@ -143,6 +143,11 @@ export default {
       },
     };
     switch (this.$route.query.from) {
+      case "/":
+        query.filter = {
+          author: this.$route.query.id,
+        };
+        break;
       case "profile":
         query.filter = {
           author: this.$route.query.id,
@@ -156,9 +161,6 @@ export default {
     }
     this.fetchTasks(query);
     this.fetchAllUsers();
-  },
-  mounted() {
-    console.log(this.$route.query);
   },
 };
 </script>
