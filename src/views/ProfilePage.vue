@@ -1,12 +1,12 @@
 <template>
   <PageContainer>
-    <div v-if="!getRequestStatus" class="profile">
+    <div v-if="curentUser" class="profile">
       <div class="profile__avatar">
-        <UserAvatar :userAvatar="getCurrentUser" :large="true" />
+        <UserAvatar :userAvatar="curentUser" :large="true" />
       </div>
       <div class="profile__info">
         <div class="profile__header">
-          <p class="profile__title">{{ getCurrentUser.name }}</p>
+          <p class="profile__title">{{ curentUser.name }}</p>
           <StatusText :color="userStatus.color">
             {{ userStatus.text }}
           </StatusText>
@@ -19,7 +19,7 @@
         <div class="profile__main">
           <span class="about">О себе:</span>
           <BaseText>
-            {{ getCurrentUser.description }}
+            {{ curentUser.description }}
           </BaseText>
         </div>
       </div>
@@ -29,7 +29,7 @@
 
 <script>
 import DropDownButton from "@/components/DropDown/DropDownButton.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { checkUserStatus } from "@/helpers/check-user-status";
 export default {
   name: "ProfilePage",
@@ -47,14 +47,20 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getCurrentUser: "currentUserModule/getCurrentUser",
-      getRequestStatus: "currentUserModule/getRequestStatus",
+      getUsersList: "usersModule/getUsersList",
+      getRequestStatus: "usersModule/getRequestStatus",
     }),
+    curentUser() {
+      return this.getUsersList[0];
+    },
     userStatus: function () {
-      return checkUserStatus(this.getCurrentUser.status);
+      return checkUserStatus(this.curentUser.status);
     },
   },
   methods: {
+    ...mapActions({
+      fetchCurrentUser: "usersModule/fetchUsers",
+    }),
     changeProfileData() {
       console.log("changeProfileData");
     },
@@ -64,6 +70,13 @@ export default {
     watchUserTask() {
       console.log("watchUserTask");
     },
+  },
+  beforeMount() {
+    this.fetchCurrentUser({
+      filter: {
+        _id: this.$route.params.id,
+      },
+    });
   },
 };
 </script>

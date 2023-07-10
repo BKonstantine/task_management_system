@@ -38,8 +38,8 @@ export default {
         { to: "/users", text: "Пользователи" },
       ],
       dropDownList: [
-        { text: "Профиль", click: this.goToProfile },
-        { text: "Выход", click: this.goToExit },
+        { text: "Профиль", click: this.goToProfile, disabled: false },
+        { text: "Выход", click: this.goToExit, disabled: false },
       ],
       dropDown: false,
     };
@@ -47,7 +47,10 @@ export default {
   methods: {
     goToProfile() {
       if (this.$route.path !== "/profile") {
-        this.$router.push("/profile");
+        this.$router.push({
+          name: "Profile",
+          params: { id: this.getCurrentUser._id },
+        });
       }
     },
     goToExit() {
