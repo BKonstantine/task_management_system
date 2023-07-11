@@ -19,7 +19,7 @@ export default {
     tasksList: [],
     query: {
       page: 1,
-      filter: {},
+      filter: { name: "", author: "", projectId: "" },
       sort: {
         field: "name",
         type: "desc",
@@ -52,9 +52,20 @@ export default {
       state.tasksDataError = payload;
     },
     [mutation.SET_FILTER_VALUE]: (state, payload) => {
+      if (payload?.["author"]) {
+        state.query = {
+          ...state.query,
+          filter: { ...state.query.filter, projectId: "" },
+        };
+      } else if (payload?.["projectId"]) {
+        state.query = {
+          ...state.query,
+          filter: { ...state.query.filter, author: "" },
+        };
+      }
       state.query = {
         ...state.query,
-        filter: payload,
+        filter: { ...state.query.filter, ...payload },
       };
     },
     [mutation.SET_SORT_VALUE]: (state, payload) => {
@@ -149,7 +160,7 @@ export default {
     },
 
     setClear: ({ commit }) => {
-      commit(mutation.SET_FILTER_VALUE, {});
+      commit(mutation.SET_FILTER_VALUE, { name: "" });
     },
 
     setSortValue: ({ commit }, payload) => {
