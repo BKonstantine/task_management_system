@@ -21,7 +21,7 @@ export default {
       page: 1,
       filter: { name: "", author: "", projectId: "" },
       sort: {
-        field: "name",
+        field: "dateCreated",
         type: "desc",
       },
     },
