@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "NavBar",
@@ -40,11 +40,19 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      fetchCurrentUser: "usersModule/fetchUsers",
+    }),
     goToProfile() {
-      if (this.$route.path !== "/profile") {
+      if (this.$route.path !== `/profile/${this.getCurrentUser._id}`) {
         this.$router.push({
           name: "Profile",
           params: { id: this.getCurrentUser._id },
+        });
+        this.fetchCurrentUser({
+          filter: {
+            _id: this.getCurrentUser._id,
+          },
         });
       }
     },
