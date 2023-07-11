@@ -6,7 +6,16 @@
           {{ items.find((item) => item.value === selectedItem)?.label }}
         </span>
         <span class="select-button__placeholder" v-else>{{ placeholder }}</span>
-        <SvgIcon id="#drop_down_1" class="select-button__icon" />
+        <SvgIcon
+          v-show="!isOpen"
+          id="#drop_down_1"
+          class="select-button__icon"
+        />
+        <SvgIcon
+          v-show="isOpen"
+          id="#drop_down_3"
+          class="select-button__icon"
+        />
       </div>
       <ul
         class="select-button__options"
