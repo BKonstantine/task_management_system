@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 export default {
   name: "UserItem",
@@ -36,19 +37,37 @@ export default {
   },
   data() {
     return {
-      dropDownList: [
-        { text: "Редактировать", click: this.goToUser },
-        { text: "Удалить", click: this.deleteUser },
-      ],
       setting: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      currentUser: "currentUserModule/getCurrentUser",
+    }),
+    dropDownList: function () {
+      return [
+        {
+          text: "Редактировать",
+          click: this.editUser,
+          disabled: this.checkRole(),
+        },
+        {
+          text: "Удалить",
+          click: this.deleteUser,
+          disabled: this.checkRole(),
+        },
+      ];
+    },
+  },
   methods: {
-    goToUser() {
-      console.log("user");
+    editUser() {
+      console.log("editUser");
+    },
+    checkRole() {
+      return !this.currentUser.roles.includes("ADMIN");
     },
     deleteUser() {
-      console.log("Delete user");
+      console.log("deleteUser");
     },
     toggleSetting(data) {
       this.setting = data;

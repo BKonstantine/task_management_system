@@ -43,6 +43,7 @@
 import { mapGetters } from "vuex";
 import DropDownButton from "@/components/DropDown/DropDownButton.vue";
 import { checkTaskStatus } from "@/helpers/check-task-status";
+import { checkUserAccess } from "@/helpers/check-user-access";
 import { textInfo } from "@/helpers/text-info";
 export default {
   name: "TaskItem",
@@ -56,16 +57,15 @@ export default {
 
   data() {
     return {
-      dropDownList: [
-        { text: "Редактировать", click: this.editTask },
-        { text: "Удалить", click: this.deleteTask },
-      ],
       setting: false,
     };
   },
 
   computed: {
-    ...mapGetters("usersModule", ["findUser"]),
+    ...mapGetters({
+      findUser: "usersModule/findUser",
+      currentUser: "currentUserModule/getCurrentUser",
+    }),
     number: function () {
       return this.index + 1;
     },
@@ -82,6 +82,20 @@ export default {
     editUser: function () {
       const user = this.findUser(this.taskData.authorEdited)?.name;
       return textInfo(user, "изменил(а)", this.taskData.dateEdited);
+    },
+    dropDownList: function () {
+      return [
+        {
+          text: "Редактировать",
+          click: this.editTask,
+          disabled: checkUserAccess(this.taskData?.author, this.currentUser),
+        },
+        {
+          text: "Удалить",
+          click: this.deleteTask,
+          disabled: checkUserAccess(this.taskData?.author, this.currentUser),
+        },
+      ];
     },
   },
 
