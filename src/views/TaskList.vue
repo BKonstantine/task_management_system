@@ -133,6 +133,9 @@ export default {
 
     filterValue: {
       get() {
+        if (this.getFilterValue.name === "") {
+          this.setHandleFilterValue();
+        }
         return this.getFilterValue.name;
       },
       set(value) {
