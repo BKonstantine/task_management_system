@@ -73,6 +73,7 @@ const routes = [
   {
     path: "/auth",
     name: "Auth",
+    meta: { auth: false },
     component: AuthPage,
   },
   {
@@ -93,6 +94,12 @@ router.beforeEach((to, from, next) => {
   const requreAuth = to.matched.some((route) => route.meta.auth);
   if (requreAuth && !isAuth) {
     next("/auth");
+  } else {
+    next();
+  }
+
+  if (!requreAuth && isAuth) {
+    next("/project");
   } else {
     next();
   }

@@ -14,7 +14,6 @@ export default {
     }),
   },
   beforeMount() {
-    console.log("create");
     this.checkAuth();
   },
 };

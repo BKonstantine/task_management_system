@@ -24,6 +24,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { deleteToken } from "@/helpers/access-token";
 import DropDown from "@/components/DropDown/DropDown.vue";
 export default {
   name: "NavBar",
@@ -34,7 +35,7 @@ export default {
     return {
       dropDownList: [
         { text: "Профиль", click: this.goToProfile, disabled: false },
-        { text: "Выход", click: this.goToExit, disabled: false },
+        { text: "Выход", click: this.logout, disabled: false },
       ],
       dropDown: false,
     };
@@ -42,6 +43,7 @@ export default {
   methods: {
     ...mapActions({
       fetchCurrentUser: "usersModule/fetchUsers",
+      setAuth: "authModule/setAuth",
     }),
     goToProfile() {
       if (this.$route.path !== `/profile/${this.getCurrentUser._id}`) {
@@ -56,8 +58,10 @@ export default {
         });
       }
     },
-    goToExit() {
-      console.log("Выйти из профиля");
+    logout() {
+      deleteToken();
+      this.setAuth(false);
+      this.$router.replace("/auth");
     },
     toggleDropDown() {
       this.dropDown = !this.dropDown;
