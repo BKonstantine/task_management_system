@@ -5,7 +5,7 @@
         <BaseTitle type="h2">Вход</BaseTitle>
       </div>
       <BaseDivider />
-      <form id="loginForm" class="auth__form">
+      <form id="loginForm" class="auth__form" @submit.prevent="login">
         <InputItem
           :isRequired="true"
           label="Логин"
@@ -21,7 +21,7 @@
 
       <BaseDivider />
       <div class="auth__button">
-        <ButtonItem form="loginForm">Войти</ButtonItem>
+        <ButtonItem type="submit" form="loginForm">Войти</ButtonItem>
       </div>
     </div>
   </div>
@@ -39,12 +39,18 @@ export default {
   data() {
     return {
       loginQuery: {
-        login: null,
-        password: null,
+        login: "buzunov.k",
+        password: "jc63fk",
       },
     };
   },
-  methods: {},
+  methods: {
+    login() {
+      this.$api.Auth.loginRequest(this.loginQuery).then(() => {
+        this.$router.replace("/projects");
+      });
+    },
+  },
 };
 </script>
 

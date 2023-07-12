@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import Vue from "vue";
 import VueRouter from "vue-router";
-//import store from "@/store";
+import store from "@/store";
 import MainPage from "@/views/MainPage.vue";
 import ProjectList from "@/views/ProjectList.vue";
 import TaskList from "@/views/TaskList.vue";
@@ -19,13 +20,12 @@ const routes = [
   {
     path: "/",
     component: MainPage,
-    redirect: "/projects",
+    meta: { auth: true },
     children: [
       {
         path: "projects",
         name: "Projects",
         component: ProjectList,
-        meta: { auth: true },
       },
       {
         path: "tasks",
@@ -35,25 +35,21 @@ const routes = [
             path: "",
             name: "Tasks",
             component: TaskList,
-            meta: { auth: true },
           },
           {
             path: "create",
             name: "CreateTask",
             component: CreateTask,
-            meta: { auth: true },
           },
           {
             path: "edit/:id",
             name: "EditTask",
             component: EditTask,
-            meta: { auth: true },
           },
           {
             path: ":id",
             name: "CurrentTask",
             component: CurrentTask,
-            meta: { auth: true },
           },
         ],
       },
@@ -61,19 +57,16 @@ const routes = [
         path: "users",
         name: "Users",
         component: UserList,
-        meta: { auth: true },
       },
       {
         path: "users/:id",
         name: "CurrentUser",
         component: ProfilePage,
-        meta: { auth: true },
       },
       {
         path: "profile/:id",
         name: "Profile",
         component: ProfilePage,
-        meta: { auth: true },
       },
     ],
   },
@@ -95,6 +88,14 @@ const router = new VueRouter({
   routes,
 });
 
-/* router.beforeEach((to, from, next) => {}); */
+router.beforeEach((to, from, next) => {
+  const isAuth = store.getters["authModule/getAuth"];
+  const requreAuth = to.matched.some((route) => route.meta.auth);
+  if (requreAuth && !isAuth) {
+    next("/auth");
+  } else {
+    next();
+  }
+});
 
 export default router;
