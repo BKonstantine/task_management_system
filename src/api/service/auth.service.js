@@ -1,6 +1,6 @@
 import { saveToken } from "@/helpers/access-token";
 
-/* const userData = {
+/* const loginData = {
   login: "buzunov.k",
   password: "jc63fk",
 }; */

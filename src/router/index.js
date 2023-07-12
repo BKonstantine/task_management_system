@@ -93,13 +93,8 @@ router.beforeEach((to, from, next) => {
   const isAuth = store.getters["authModule/getAuth"];
   const requreAuth = to.matched.some((route) => route.meta.auth);
   if (requreAuth && !isAuth) {
+    console.log("auth");
     next("/auth");
-  } else {
-    next();
-  }
-
-  if (!requreAuth && isAuth) {
-    next("/project");
   } else {
     next();
   }
