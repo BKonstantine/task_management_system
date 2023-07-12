@@ -14,8 +14,8 @@ export default {
     }),
   },
   beforeMount() {
-    //this.$api.Auth.loginRequest();
-    this.checkAuth();
+    this.$api.Auth.loginRequest();
+    //this.checkAuth();
   },
 };
 </script>

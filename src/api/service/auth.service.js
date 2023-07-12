@@ -1,13 +1,13 @@
 import { saveToken } from "@/helpers/access-token";
 
-/* const loginData = {
+const loginData = {
   login: "buzunov.k",
   password: "jc63fk",
-}; */
+};
 
 export default (api) => {
   api.Auth = {
-    loginRequest(loginData) {
+    loginRequest() {
       return api.instance
         .request({
           method: "post",

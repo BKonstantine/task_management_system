@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from "@/store";
+//import store from "@/store";
 import MainPage from "@/views/MainPage.vue";
 import ProjectList from "@/views/ProjectList.vue";
 import TaskList from "@/views/TaskList.vue";
@@ -19,6 +19,7 @@ const routes = [
   {
     path: "/",
     component: MainPage,
+    redirect: "projects",
     meta: { auth: true },
     children: [
       {
@@ -88,14 +89,15 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+/* router.beforeEach((to, from, next) => {
   const isAuth = store.getters["authModule/getAuth"];
   const requreAuth = to.matched.some((route) => route.meta.auth);
+  console.log(isAuth);
   if (requreAuth && !isAuth) {
     next("/auth");
   } else {
     next();
   }
-});
+}); */
 
 export default router;
