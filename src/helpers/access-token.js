@@ -6,6 +6,10 @@ export function getToken() {
   return `Bearer ${localStorage.getItem("accessToken")}`;
 }
 
+export function deleteToken() {
+  localStorage.removeItem("accessToken");
+}
+
 export function checkToken(tokenName) {
   const token = localStorage.getItem(tokenName);
   return token ? true : false;

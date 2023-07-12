@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import InputItem from "@/components/Form/InputItem.vue";
 import PasswordInput from "@/components/Form/PasswordInput.vue";
 export default {
@@ -45,8 +46,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      setAuth: "authModule/setAuth",
+    }),
+
     login() {
       this.$api.Auth.loginRequest(this.loginQuery).then(() => {
+        this.setAuth(true);
         this.$router.replace("/projects");
       });
     },

@@ -3,14 +3,12 @@ import { checkToken } from "@/helpers/access-token";
 export const mutation = {
   SET_AUTH: "SET_AUTH",
   SET_AUTH_REQUEST: "SET_AUTH_REQUEST",
-  SET_AUTH_SUCCESS: "SET_AUTH_SUCCESS",
-  SET_AUTH_ERROR: "SET_AUTH_ERROR",
 };
 
 export default {
   namespaced: true,
   state: {
-    isAuth: checkToken("accessToken"),
+    isAuth: false,
     isAuthRequest: false,
   },
   mutations: {
@@ -25,5 +23,16 @@ export default {
     getAuth: (state) => state.isAuth,
     getAuthRequest: (state) => state.isAuthRequest,
   },
-  actions: {},
+  actions: {
+    setAuth: ({ commit }, payload) => {
+      commit(mutation.SET_AUTH, payload);
+    },
+
+    checkAuth: ({ commit, state }) => {
+      const token = checkToken("accessToken");
+      if (token && !state.isAuth) {
+        commit(mutation.SET_AUTH, true);
+      }
+    },
+  },
 };
