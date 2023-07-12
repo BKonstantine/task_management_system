@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+//import store from "@/store";
 import MainPage from "@/views/MainPage.vue";
 import ProjectList from "@/views/ProjectList.vue";
 import TaskList from "@/views/TaskList.vue";
@@ -93,5 +94,7 @@ const router = new VueRouter({
   base: "/",
   routes,
 });
+
+/* router.beforeEach((to, from, next) => {}); */
 
 export default router;

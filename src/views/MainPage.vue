@@ -9,12 +9,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import NavBar from "@/components/NavBar.vue";
 export default {
   name: "MainPage",
   components: {
     NavBar,
+  },
+  methods: {
+    ...mapActions({
+      fetchCurrentUser: "currentUserModule/fetchCurrentUser",
+    }),
   },
   computed: {
     ...mapGetters({
@@ -32,6 +37,9 @@ export default {
         this.projectsRequest
       );
     },
+  },
+  beforeMount() {
+    this.fetchCurrentUser();
   },
 };
 </script>

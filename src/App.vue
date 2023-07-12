@@ -1,32 +1,12 @@
 <template>
   <div id="app" class="app">
-    <PageContainer v-show="authRequest" class="container">
-      <BaseLoader />
-    </PageContainer>
-    <RouterView v-show="!authRequest" />
+    <RouterView />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
-  methods: {
-    ...mapActions({
-      fetchLogin: "authModule/fetchLogin",
-      fetchCurrentUser: "currentUserModule/fetchCurrentUser",
-    }),
-  },
-  computed: {
-    ...mapGetters({
-      authRequest: "authModule/getAuthRequest",
-    }),
-  },
-
-  beforeMount() {
-    this.fetchLogin();
-    this.fetchCurrentUser();
-  },
 };
 </script>
 
