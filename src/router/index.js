@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store";
@@ -93,7 +92,6 @@ router.beforeEach((to, from, next) => {
   const isAuth = store.getters["authModule/getAuth"];
   const requreAuth = to.matched.some((route) => route.meta.auth);
   if (requreAuth && !isAuth) {
-    console.log("auth");
     next("/auth");
   } else {
     next();
