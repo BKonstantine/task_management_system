@@ -1,7 +1,7 @@
 <template>
   <img
-    v-if="userAvatar.pucture"
-    :src="userAvatar.pucture"
+    v-if="userAvatar.picture"
+    :src="avatarLink"
     :alt="userAvatar.name"
     :class="imageClasses"
   />
@@ -36,6 +36,9 @@ export default {
         avatar__text: true,
         avatar__text_size_large: this.large,
       };
+    },
+    avatarLink: function () {
+      return `http://45.12.239.156:8081/${this.userAvatar.picture}`;
     },
   },
 };
