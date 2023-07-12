@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <ButtonItem text="Вернуться назад" @click="navigate" />
+      <ButtonItem @click="navigate">Вернуться назад</ButtonItem>
       <p class="title">Страница не найдена</p>
     </div>
   </div>
