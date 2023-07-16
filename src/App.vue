@@ -11,11 +11,12 @@ export default {
   methods: {
     ...mapActions({
       checkAuth: "authModule/checkAuth",
+      fetchCurrentUser: "currentUserModule/fetchCurrentUser",
     }),
   },
   beforeMount() {
     this.$api.Auth.loginRequest();
-    //this.checkAuth();
+    this.fetchCurrentUser();
   },
 };
 </script>
