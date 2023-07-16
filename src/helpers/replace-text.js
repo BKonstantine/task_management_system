@@ -12,6 +12,11 @@ export function abbreviateName(fullName) {
   }
   const nameParts = fullName.split(" ");
   const surname = nameParts[0];
+
+  if (nameParts.length === 1) {
+    return surname;
+  }
+
   let abbreviation = nameParts[1].charAt(0).toUpperCase() + ".";
 
   if (nameParts.length > 2) {
