@@ -5,18 +5,31 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
   methods: {
     ...mapActions({
       checkAuth: "authModule/checkAuth",
       fetchCurrentUser: "currentUserModule/fetchCurrentUser",
+      fetchAllUsers: "usersModule/fetchAllUsers",
+      fetchProjects: "projectsModule/fetchProjects",
+    }),
+
+    async getData() {
+      await this.$api.Auth.loginRequest();
+      await this.fetchCurrentUser();
+      await this.fetchProjects({ ...this.projectQuery });
+      await this.fetchAllUsers();
+    },
+  },
+  computed: {
+    ...mapGetters({
+      projectQuery: "projectsModule/getProjectQuery",
     }),
   },
   beforeMount() {
-    this.$api.Auth.loginRequest();
-    this.fetchCurrentUser();
+    this.getData();
   },
 };
 </script>

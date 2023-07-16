@@ -64,7 +64,7 @@ export default {
       console.log("editUser");
     },
     checkRole() {
-      return !this.currentUser.roles.includes("ADMIN");
+      return !this.currentUser?.roles.includes("ADMIN");
     },
     deleteUser() {
       console.log("deleteUser");
